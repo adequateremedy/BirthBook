@@ -230,6 +230,7 @@ const audioExperiences = [
 
     {
         file: "audio-01.mp3",
+        duration: 0.05,
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Committed", alignment: "S" },
@@ -239,6 +240,7 @@ const audioExperiences = [
 
     {
         file: "audio-02.mp3",
+        duration: 0.27,
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Impulsive", alignment: "U" },
@@ -248,6 +250,7 @@ const audioExperiences = [
 
     {
         file: "audio-03.mp3",
+        duration: 0.20,
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Devoted", alignment: "S" },
@@ -257,6 +260,7 @@ const audioExperiences = [
 
     {
         file: "audio-04.mp3",
+        duration: 0.08,
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Defiant", alignment: "U" },
@@ -266,6 +270,7 @@ const audioExperiences = [
 
     {
         file: "audio-05.mp3",
+        duration: 0.07,
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Honorable", alignment: "S" },
@@ -275,6 +280,7 @@ const audioExperiences = [
 
     {
         file: "audio-06.mp3",
+        duration: 0.13,
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Self-Serving", alignment: "U" },
@@ -284,6 +290,7 @@ const audioExperiences = [
 
     {
         file: "audio-07.mp3",
+        duration: 0.31,
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Restrained", alignment: "S" },
@@ -293,6 +300,7 @@ const audioExperiences = [
 
     {
         file: "audio-08.mp3",
+        duration: 0.04,
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Wary", alignment: "U" },
@@ -302,6 +310,7 @@ const audioExperiences = [
 
     {
         file: "audio-09.mp3",
+        duration: 0.11,
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Bound by Promise", alignment: "S" },
@@ -311,6 +320,7 @@ const audioExperiences = [
 
     {
         file: "audio-10.mp3",
+        duration: 0.13,
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Restless", alignment: "U" },
@@ -323,7 +333,6 @@ const audioExperiences = [
 
 /* =========================================================
    EXPERIENCE ORDER
-   VISUAL 1 → AUDIO 1 → VISUAL 2 → AUDIO 2...
    ========================================================= */
 
 const experiences = [];
@@ -344,10 +353,28 @@ for (let i = 0; i < 10; i++) {
 
 
 /* =========================================================
-   SETTINGS
+   VISUAL FADE
    ========================================================= */
 
-const FADE_DURATION = 1500;
+const VISUAL_FADE_DURATION = 1500;
+
+
+/* =========================================================
+   AUDIO FADE PROPORTION
+   =========================================================
+   
+   Each audio file receives fades based on its OWN duration.
+
+   Fade-in  = 20% of total audio duration
+   Fade-out = 20% of total audio duration
+   Remaining 60% = full volume
+
+   Because the files are extremely short, the fade periods
+   are also extremely short.
+   
+   ========================================================= */
+
+const AUDIO_FADE_PERCENT = 0.20;
 
 
 /* =========================================================
@@ -425,7 +452,7 @@ function showScreen(screen) {
 
 
 /* =========================================================
-   MEDIA CLEANUP
+   STOP CURRENT MEDIA
    ========================================================= */
 
 function stopCurrentMedia() {
@@ -435,7 +462,7 @@ function stopCurrentMedia() {
 
     visualPlayer.onended = null;
     audioPlayer.onended = null;
-    audioPlayer.ontimeupdate = null;
+    audioPlayer.oncanplay = null;
 
     visualPlayer.removeAttribute("src");
     audioPlayer.removeAttribute("src");
@@ -450,57 +477,77 @@ function stopCurrentMedia() {
 
 
 /* =========================================================
-   VIDEO FADE IN
+   VISUAL FADE IN
    ========================================================= */
 
 function fadeVideoIn(video) {
 
     video.style.opacity = "0";
 
-    const startTime = performance.now();
+    const startTime =
+        performance.now();
 
     function animate(currentTime) {
 
-        const progress = Math.min(
-            (currentTime - startTime) / FADE_DURATION,
-            1
-        );
+        const elapsed =
+            currentTime - startTime;
 
-        video.style.opacity = progress;
+        const progress =
+            Math.min(
+                elapsed / VISUAL_FADE_DURATION,
+                1
+            );
+
+        video.style.opacity =
+            progress;
 
         if (progress < 1) {
-            requestAnimationFrame(animate);
+
+            requestAnimationFrame(
+                animate
+            );
+
         }
 
     }
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(
+        animate
+    );
 
 }
 
 
 /* =========================================================
-   VIDEO FADE OUT
+   VISUAL FADE OUT
    ========================================================= */
 
 function fadeVideoOut(video) {
 
     return new Promise(resolve => {
 
-        const startTime = performance.now();
+        const startTime =
+            performance.now();
 
         function animate(currentTime) {
 
-            const progress = Math.min(
-                (currentTime - startTime) / FADE_DURATION,
-                1
-            );
+            const elapsed =
+                currentTime - startTime;
 
-            video.style.opacity = 1 - progress;
+            const progress =
+                Math.min(
+                    elapsed / VISUAL_FADE_DURATION,
+                    1
+                );
+
+            video.style.opacity =
+                1 - progress;
 
             if (progress < 1) {
 
-                requestAnimationFrame(animate);
+                requestAnimationFrame(
+                    animate
+                );
 
             } else {
 
@@ -512,105 +559,35 @@ function fadeVideoOut(video) {
 
         }
 
-        requestAnimationFrame(animate);
-
-    });
-
-}
-
-
-/* =========================================================
-   AUDIO FADE IN
-   ========================================================= */
-
-function fadeAudioIn(audio) {
-
-    audio.volume = 0;
-
-    const startTime = performance.now();
-
-    function animate(currentTime) {
-
-        const progress = Math.min(
-            (currentTime - startTime) / FADE_DURATION,
-            1
+        requestAnimationFrame(
+            animate
         );
 
-        audio.volume = progress;
-
-        if (progress < 1) {
-            requestAnimationFrame(animate);
-        }
-
-    }
-
-    requestAnimationFrame(animate);
-
-}
-
-
-/* =========================================================
-   AUDIO FADE OUT
-   ========================================================= */
-
-function fadeAudioOut(audio) {
-
-    return new Promise(resolve => {
-
-        const startingVolume = audio.volume;
-
-        const startTime =
-            performance.now();
-
-        function animate(currentTime) {
-
-            const progress = Math.min(
-                (currentTime - startTime) / FADE_DURATION,
-                1
-            );
-
-            audio.volume =
-                startingVolume *
-                (1 - progress);
-
-            if (progress < 1) {
-
-                requestAnimationFrame(animate);
-
-            } else {
-
-                audio.volume = 0;
-
-                resolve();
-
-            }
-
-        }
-
-        requestAnimationFrame(animate);
-
     });
 
 }
 
 
 /* =========================================================
-   BEGIN
+   BEGIN EXPERIENCE
    ========================================================= */
 
-beginButton.addEventListener("click", () => {
+beginButton.addEventListener(
+    "click",
+    () => {
 
-    currentExperience = 0;
+        currentExperience = 0;
+        seelieScore = 0;
+        unseelieScore = 0;
 
-    seelieScore = 0;
+        showScreen(
+            experienceScreen
+        );
 
-    unseelieScore = 0;
+        loadExperience();
 
-    showScreen(experienceScreen);
-
-    loadExperience();
-
-});
+    }
+);
 
 
 /* =========================================================
@@ -636,9 +613,11 @@ function loadExperience() {
         experience.type.toUpperCase();
 
     experienceNumber.textContent =
-        `${currentExperience + 1} / ${experiences.length}`;
+        `${currentExperience + 1} / 20`;
 
-    questionContainer.classList.add("hidden");
+    questionContainer.classList.add(
+        "hidden"
+    );
 
     choiceContainer.innerHTML = "";
 
@@ -647,50 +626,66 @@ function loadExperience() {
        VISUAL
        ===================================================== */
 
-    if (experience.type === "Visual") {
+    if (
+        experience.type === "Visual"
+    ) {
 
-        videoContainer.classList.remove("hidden");
+        videoContainer.classList.remove(
+            "hidden"
+        );
 
-        audioContainer.classList.add("hidden");
+        audioContainer.classList.add(
+            "hidden"
+        );
 
         visualPlayer.src =
             `assets/visuals/${experience.file}`;
 
         visualPlayer.load();
 
-        visualPlayer.onloadedmetadata = () => {
+        visualPlayer.onloadedmetadata =
+            () => {
 
-            fadeVideoIn(visualPlayer);
+                fadeVideoIn(
+                    visualPlayer
+                );
 
-        };
+            };
 
-        visualPlayer.onended = async () => {
 
-            visualPlayer.onended = null;
+        visualPlayer.onended =
+            async () => {
 
-            await fadeVideoOut(
-                visualPlayer
-            );
+                visualPlayer.onended = null;
 
-            showQuestion(
-                experience
-            );
+                await fadeVideoOut(
+                    visualPlayer
+                );
 
-        };
+                showQuestion(
+                    experience
+                );
+
+            };
+
 
         const playPromise =
             visualPlayer.play();
 
-        if (playPromise !== undefined) {
+        if (
+            playPromise !== undefined
+        ) {
 
-            playPromise.catch(error => {
+            playPromise.catch(
+                error => {
 
-                console.error(
-                    "Visual playback failed:",
-                    error
-                );
+                    console.error(
+                        "Visual playback failed:",
+                        error
+                    );
 
-            });
+                }
+            );
 
         }
 
@@ -703,9 +698,13 @@ function loadExperience() {
        AUDIO
        ===================================================== */
 
-    videoContainer.classList.add("hidden");
+    videoContainer.classList.add(
+        "hidden"
+    );
 
-    audioContainer.classList.remove("hidden");
+    audioContainer.classList.remove(
+        "hidden"
+    );
 
     playAudioExperience(
         experience
@@ -715,27 +714,131 @@ function loadExperience() {
 
 
 /* =========================================================
-   PLAY AUDIO EXPERIENCE
+   AUDIO PLAYBACK
    ========================================================= */
 
-function playAudioExperience(experience) {
+function playAudioExperience(
+    experience
+) {
 
     const audio =
         audioPlayer;
 
+    const totalDuration =
+        experience.duration * 1000;
+
+    /*
+     * Each fade is 20% of the supplied duration.
+     */
+
+    const fadeDuration =
+        totalDuration *
+        AUDIO_FADE_PERCENT;
+
     let finished = false;
+
+    let playbackStartTime = 0;
+
+    let animationFrame = null;
 
     let completionTimer = null;
 
 
-    /*
-     * This function is deliberately protected against
-     * multiple completion signals. The audio can finish
-     * through the native "ended" event, the timeupdate
-     * check, or the duration safeguard below.
-     */
+    /* =====================================================
+       AUDIO FADE / COMPLETION ANIMATION
+       ===================================================== */
 
-    const finishAudio = async () => {
+    function animateAudio(
+        timestamp
+    ) {
+
+        if (finished) {
+            return;
+        }
+
+        const elapsed =
+            timestamp -
+            playbackStartTime;
+
+
+        /*
+         * Fade IN
+         */
+
+        if (
+            elapsed <= fadeDuration
+        ) {
+
+            const progress =
+                elapsed /
+                fadeDuration;
+
+            audio.volume =
+                Math.max(
+                    0,
+                    Math.min(
+                        progress,
+                        1
+                    )
+                );
+
+        }
+
+
+        /*
+         * FULL VOLUME
+         */
+
+        else if (
+            elapsed <
+            totalDuration -
+            fadeDuration
+        ) {
+
+            audio.volume = 1;
+
+        }
+
+
+        /*
+         * FADE OUT
+         */
+
+        else {
+
+            const fadeElapsed =
+                elapsed -
+                (
+                    totalDuration -
+                    fadeDuration
+                );
+
+            const progress =
+                fadeElapsed /
+                fadeDuration;
+
+            audio.volume =
+                Math.max(
+                    0,
+                    1 - progress
+                );
+
+        }
+
+
+        animationFrame =
+            requestAnimationFrame(
+                animateAudio
+            );
+
+    }
+
+
+    /* =====================================================
+       FINISH AUDIO
+       ===================================================== */
+
+    function finishAudio() {
 
         if (finished) {
             return;
@@ -744,7 +847,9 @@ function playAudioExperience(experience) {
         finished = true;
 
 
-        if (completionTimer !== null) {
+        if (
+            completionTimer !== null
+        ) {
 
             clearTimeout(
                 completionTimer
@@ -755,25 +860,44 @@ function playAudioExperience(experience) {
         }
 
 
+        if (
+            animationFrame !== null
+        ) {
+
+            cancelAnimationFrame(
+                animationFrame
+            );
+
+            animationFrame = null;
+
+        }
+
+
         audio.onended = null;
-        audio.ontimeupdate = null;
-
-
-        await fadeAudioOut(audio);
+        audio.oncanplay = null;
 
 
         audio.pause();
 
-        audio.currentTime =
-            audio.duration || 0;
+        audio.volume = 0;
 
+
+        /*
+         * The question is displayed only AFTER
+         * the supplied audio duration has elapsed
+         * and the proportional fade-out has completed.
+         */
 
         showQuestion(
             experience
         );
 
-    };
+    }
 
+
+    /* =====================================================
+       PREPARE AUDIO
+       ===================================================== */
 
     audio.pause();
 
@@ -788,100 +912,88 @@ function playAudioExperience(experience) {
 
 
     /* =====================================================
-       NATIVE END EVENT
+       START AUDIO
        ===================================================== */
 
-    audio.onended = () => {
+    function startAudio() {
 
-        finishAudio();
-
-    };
-
-
-    /* =====================================================
-       CURRENT-TIME END CHECK
-       ===================================================== */
-
-    audio.ontimeupdate = () => {
-
-        if (
-            Number.isFinite(audio.duration) &&
-            audio.duration > 0 &&
-            audio.currentTime >=
-                audio.duration - 0.15
-        ) {
-
-            finishAudio();
-
+        if (finished) {
+            return;
         }
 
-    };
+        playbackStartTime =
+            performance.now();
 
 
-    /* =====================================================
-       METADATA / DURATION SAFEGUARD
-       ===================================================== */
+        /*
+         * Start the proportional fade animation.
+         */
 
-    audio.onloadedmetadata = () => {
-
-        const duration =
-            audio.duration;
-
-        if (
-            Number.isFinite(duration) &&
-            duration > 0
-        ) {
-
-            /*
-             * This is only a final safeguard.
-             * It waits slightly beyond the actual duration,
-             * so the MP3 is allowed to reach its natural end.
-             */
-
-            completionTimer =
-                setTimeout(
-                    () => {
-
-                        if (
-                            audio.currentTime >=
-                            duration - 0.25
-                        ) {
-
-                            finishAudio();
-
-                        }
-
-                    },
-                    (duration * 1000) + 250
-                );
-
-        }
-
-    };
+        animationFrame =
+            requestAnimationFrame(
+                animateAudio
+            );
 
 
-    /* =====================================================
-       START PLAYBACK WHEN READY
-       ===================================================== */
+        /*
+         * Use the exact duration supplied
+         * for this specific MP3.
+         */
 
-    const startPlayback = () => {
+        completionTimer =
+            setTimeout(
+                () => {
+
+                    finishAudio();
+
+                },
+                totalDuration
+            );
+
 
         const playPromise =
             audio.play();
+
 
         if (
             playPromise !== undefined
         ) {
 
-            playPromise
-                .then(() => {
+            playPromise.catch(
+                error => {
 
-                    fadeAudioIn(
-                        audio
-                    );
+                    /*
+                     * If playback is rejected before
+                     * it actually starts, cancel the
+                     * completion timer so the question
+                     * cannot appear without playback.
+                     */
 
-                })
-                .catch(error => {
+                    if (
+                        completionTimer !== null
+                    ) {
+
+                        clearTimeout(
+                            completionTimer
+                        );
+
+                        completionTimer = null;
+
+                    }
+
+
+                    if (
+                        animationFrame !== null
+                    ) {
+
+                        cancelAnimationFrame(
+                            animationFrame
+                        );
+
+                        animationFrame = null;
+
+                    }
+
 
                     console.error(
                         "Audio playback failed:",
@@ -889,18 +1001,23 @@ function playAudioExperience(experience) {
                         error
                     );
 
-                });
+                }
+            );
 
         }
 
-    };
+    }
 
+
+    /* =====================================================
+       WAIT UNTIL THE FILE CAN PLAY
+       ===================================================== */
 
     if (
         audio.readyState >= 3
     ) {
 
-        startPlayback();
+        startAudio();
 
     }
 
@@ -910,7 +1027,7 @@ function playAudioExperience(experience) {
 
             audio.oncanplay = null;
 
-            startPlayback();
+            startAudio();
 
         };
 
@@ -923,7 +1040,9 @@ function playAudioExperience(experience) {
    SHOW QUESTION
    ========================================================= */
 
-function showQuestion(experience) {
+function showQuestion(
+    experience
+) {
 
     questionContainer.classList.remove(
         "hidden"
@@ -943,7 +1062,8 @@ function showQuestion(experience) {
                     "button"
                 );
 
-            button.type = "button";
+            button.type =
+                "button";
 
             button.className =
                 "choice-button";
@@ -975,10 +1095,12 @@ function showQuestion(experience) {
 
 
 /* =========================================================
-   RECORD CHOICE
+   RECORD PLAYER RESPONSE
    ========================================================= */
 
-function recordChoice(choice) {
+function recordChoice(
+    choice
+) {
 
     if (
         choice.alignment === "S"
@@ -1060,10 +1182,12 @@ function determineCourt() {
 
 
 /* =========================================================
-   DISPLAY RESULT
+   DISPLAY COURT RESULT
    ========================================================= */
 
-function displayResult(court) {
+function displayResult(
+    court
+) {
 
     showScreen(
         resultScreen
