@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Birth Book</title>
+
+    <link rel="stylesheet" href="css/birth-book.css">
+</head>
+
+<body>
+
+    <main id="birthBook">
+
+        <!-- INTRODUCTION -->
+        <section id="introScreen" class="screen active">
+
+            <div class="content-panel">
+
+                <h1>Birth Book</h1>
+
+                <div class="intro-text">
+
+                    <p>
+                        Before birth, there is no history.
+                    </p>
+
+                    <p>
+                        No name. No memory. No understanding of the world beyond the confines of the womb.
+                    </p>
+
+                    <p>
+                        There is only experience.
+                    </p>
+
+                    <p>
+                        What surrounds you is not yet a world you can see or understand. It is sensation—movement, pressure, rhythm, stillness, warmth, vibration, and sound. These experiences become the earliest impressions through which you begin to form a sense of existence.
+                    </p>
+
+                    <p>
+                        The impressions that follow are presented in two forms: <strong>Visual</strong> and <strong>Audio</strong>.
+                    </p>
+
+                    <p>
+                        The Visual impressions use abstract imagery to represent experiences that cannot be seen in any literal sense. The Audio impressions use sound to create another form of sensory experience. Neither is intended to represent a specific person, place, object, or event.
+                    </p>
+
+                    <p>
+                        Experience each impression as <strong>your character</strong>, from within their existence before birth.
+                    </p>
+
+                    <p>
+                        After each impression, you will be presented with two opposing feelings.
+                    </p>
+
+                    <p>
+                        Consider what the experience makes <strong>your character</strong> feel.
+                    </p>
+
+                    <p>
+                        Choose the feeling that best reflects that experience.
+                    </p>
+
+                    <p>
+                        There is no correct answer.
+                    </p>
+
+                    <p>
+                        Your response should come from the experience itself—not from what you believe you are expected to choose.
+                    </p>
+
+                    <p class="final-instruction">
+                        <strong>Experience it. Feel it. Then choose.</strong>
+                    </p>
+
+                </div>
+
+                <button id="beginButton" class="primary-button">
+                    Begin
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- EXPERIENCE SCREEN -->
+        <section id="experienceScreen" class="screen">
+
+            <div class="experience-container">
+
+                <div class="progress-area">
+
+                    <div id="experienceType">
+                        VISUAL
+                    </div>
+
+                    <div id="experienceNumber">
+                        1 / 20
+                    </div>
+
+                </div>
+
+
+                <!-- VISUAL PLAYER -->
+                <div id="videoContainer" class="media-container">
+
+                    <video
+                        id="visualPlayer"
+                        playsinline
+                        preload="auto">
+                    </video>
+
+                </div>
+
+
+                <!-- AUDIO PLAYER -->
+                <div id="audioContainer" class="media-container hidden">
+
+                    <div class="audio-display">
+
+                        <div class="audio-symbol">
+                            ◇
+                        </div>
+
+                        <div class="audio-label">
+                            Listen
+                        </div>
+
+                    </div>
+
+                    <audio
+                        id="audioPlayer"
+                        preload="auto">
+                    </audio>
+
+                </div>
+
+
+                <!-- QUESTION -->
+                <div id="questionContainer" class="question-container hidden">
+
+                    <p class="question-label">
+                        Does this experience make you feel:
+                    </p>
+
+                    <div id="choiceContainer" class="choice-container">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RESULT SCREEN -->
+        <section id="resultScreen" class="screen">
+
+            <div class="result-panel">
+
+                <div class="result-heading">
+                    You have aligned with
+                </div>
+
+                <h1 id="courtName"></h1>
+
+                <div id="courtDescription" class="court-description"></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="js/birth-book.js"></script>
+
+</body>
+</html>
