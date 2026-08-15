@@ -353,28 +353,10 @@ for (let i = 0; i < 10; i++) {
 
 
 /* =========================================================
-   VISUAL FADE
+   VISUAL FADE SETTINGS
    ========================================================= */
 
 const VISUAL_FADE_DURATION = 1500;
-
-
-/* =========================================================
-   AUDIO FADE PROPORTION
-   =========================================================
-   
-   Each audio file receives fades based on its OWN duration.
-
-   Fade-in  = 20% of total audio duration
-   Fade-out = 20% of total audio duration
-   Remaining 60% = full volume
-
-   Because the files are extremely short, the fade periods
-   are also extremely short.
-   
-   ========================================================= */
-
-const AUDIO_FADE_PERCENT = 0.20;
 
 
 /* =========================================================
@@ -461,6 +443,8 @@ function stopCurrentMedia() {
     audioPlayer.pause();
 
     visualPlayer.onended = null;
+    visualPlayer.onloadedmetadata = null;
+
     audioPlayer.onended = null;
     audioPlayer.oncanplay = null;
 
@@ -471,7 +455,13 @@ function stopCurrentMedia() {
     audioPlayer.load();
 
     visualPlayer.style.opacity = "0";
-    audioPlayer.volume = 0;
+
+    /*
+     * NO AUDIO FADING.
+     * Audio always starts and ends at full volume.
+     */
+
+    audioPlayer.volume = 1;
 
 }
 
@@ -569,7 +559,7 @@ function fadeVideoOut(video) {
 
 
 /* =========================================================
-   BEGIN EXPERIENCE
+   BEGIN
    ========================================================= */
 
 beginButton.addEventListener(
@@ -577,7 +567,9 @@ beginButton.addEventListener(
     () => {
 
         currentExperience = 0;
+
         seelieScore = 0;
+
         unseelieScore = 0;
 
         showScreen(
@@ -642,6 +634,7 @@ function loadExperience() {
             `assets/visuals/${experience.file}`;
 
         visualPlayer.load();
+
 
         visualPlayer.onloadedmetadata =
             () => {
@@ -715,6 +708,13 @@ function loadExperience() {
 
 /* =========================================================
    AUDIO PLAYBACK
+   =========================================================
+   
+   IMPORTANT:
+   - NO fade-in
+   - NO fade-out
+   - Audio plays at full volume
+   - Supplied duration controls completion
    ========================================================= */
 
 function playAudioExperience(
@@ -724,114 +724,12 @@ function playAudioExperience(
     const audio =
         audioPlayer;
 
-    const totalDuration =
+    const durationMilliseconds =
         experience.duration * 1000;
-
-    /*
-     * Each fade is 20% of the supplied duration.
-     */
-
-    const fadeDuration =
-        totalDuration *
-        AUDIO_FADE_PERCENT;
 
     let finished = false;
 
-    let playbackStartTime = 0;
-
-    let animationFrame = null;
-
     let completionTimer = null;
-
-
-    /* =====================================================
-       AUDIO FADE / COMPLETION ANIMATION
-       ===================================================== */
-
-    function animateAudio(
-        timestamp
-    ) {
-
-        if (finished) {
-            return;
-        }
-
-        const elapsed =
-            timestamp -
-            playbackStartTime;
-
-
-        /*
-         * Fade IN
-         */
-
-        if (
-            elapsed <= fadeDuration
-        ) {
-
-            const progress =
-                elapsed /
-                fadeDuration;
-
-            audio.volume =
-                Math.max(
-                    0,
-                    Math.min(
-                        progress,
-                        1
-                    )
-                );
-
-        }
-
-
-        /*
-         * FULL VOLUME
-         */
-
-        else if (
-            elapsed <
-            totalDuration -
-            fadeDuration
-        ) {
-
-            audio.volume = 1;
-
-        }
-
-
-        /*
-         * FADE OUT
-         */
-
-        else {
-
-            const fadeElapsed =
-                elapsed -
-                (
-                    totalDuration -
-                    fadeDuration
-                );
-
-            const progress =
-                fadeElapsed /
-                fadeDuration;
-
-            audio.volume =
-                Math.max(
-                    0,
-                    1 - progress
-                );
-
-        }
-
-
-        animationFrame =
-            requestAnimationFrame(
-                animateAudio
-            );
-
-    }
 
 
     /* =====================================================
@@ -860,32 +758,17 @@ function playAudioExperience(
         }
 
 
-        if (
-            animationFrame !== null
-        ) {
-
-            cancelAnimationFrame(
-                animationFrame
-            );
-
-            animationFrame = null;
-
-        }
-
-
         audio.onended = null;
         audio.oncanplay = null;
 
 
         audio.pause();
 
-        audio.volume = 0;
+        audio.volume = 1;
 
 
         /*
-         * The question is displayed only AFTER
-         * the supplied audio duration has elapsed
-         * and the proportional fade-out has completed.
+         * ONLY NOW does the question appear.
          */
 
         showQuestion(
@@ -903,12 +786,28 @@ function playAudioExperience(
 
     audio.currentTime = 0;
 
-    audio.volume = 0;
+    /*
+     * Audio is always full volume.
+     */
+
+    audio.volume = 1;
 
     audio.src =
         `assets/audio/${experience.file}`;
 
     audio.load();
+
+
+    /* =====================================================
+       NATIVE ENDED EVENT
+       ===================================================== */
+
+    audio.onended =
+        () => {
+
+            finishAudio();
+
+        };
 
 
     /* =====================================================
@@ -921,23 +820,11 @@ function playAudioExperience(
             return;
         }
 
-        playbackStartTime =
-            performance.now();
-
 
         /*
-         * Start the proportional fade animation.
-         */
-
-        animationFrame =
-            requestAnimationFrame(
-                animateAudio
-            );
-
-
-        /*
-         * Use the exact duration supplied
-         * for this specific MP3.
+         * The exact duration supplied for this
+         * particular MP3 controls when the question
+         * appears.
          */
 
         completionTimer =
@@ -947,7 +834,7 @@ function playAudioExperience(
                     finishAudio();
 
                 },
-                totalDuration
+                durationMilliseconds
             );
 
 
@@ -962,13 +849,6 @@ function playAudioExperience(
             playPromise.catch(
                 error => {
 
-                    /*
-                     * If playback is rejected before
-                     * it actually starts, cancel the
-                     * completion timer so the question
-                     * cannot appear without playback.
-                     */
-
                     if (
                         completionTimer !== null
                     ) {
@@ -978,19 +858,6 @@ function playAudioExperience(
                         );
 
                         completionTimer = null;
-
-                    }
-
-
-                    if (
-                        animationFrame !== null
-                    ) {
-
-                        cancelAnimationFrame(
-                            animationFrame
-                        );
-
-                        animationFrame = null;
 
                     }
 
@@ -1010,7 +877,7 @@ function playAudioExperience(
 
 
     /* =====================================================
-       WAIT UNTIL THE FILE CAN PLAY
+       WAIT UNTIL AUDIO IS READY
        ===================================================== */
 
     if (
@@ -1023,13 +890,14 @@ function playAudioExperience(
 
     else {
 
-        audio.oncanplay = () => {
+        audio.oncanplay =
+            () => {
 
-            audio.oncanplay = null;
+                audio.oncanplay = null;
 
-            startAudio();
+                startAudio();
 
-        };
+            };
 
     }
 
@@ -1095,7 +963,7 @@ function showQuestion(
 
 
 /* =========================================================
-   RECORD PLAYER RESPONSE
+   RECORD CHOICE
    ========================================================= */
 
 function recordChoice(
@@ -1182,7 +1050,7 @@ function determineCourt() {
 
 
 /* =========================================================
-   DISPLAY COURT RESULT
+   DISPLAY RESULT
    ========================================================= */
 
 function displayResult(
