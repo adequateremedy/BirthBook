@@ -1,0 +1,427 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background: #050505;
+    color: #f1f1f1;
+    font-family: Georgia, "Times New Roman", serif;
+    overflow: hidden;
+}
+
+button {
+    font-family: inherit;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+#birthBook {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+
+/* =========================================================
+   SCREENS
+   ========================================================= */
+
+.screen {
+    position: absolute;
+    inset: 0;
+
+    display: none;
+
+    width: 100%;
+    height: 100%;
+
+    overflow-y: auto;
+}
+
+.screen.active {
+    display: flex;
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+#introScreen {
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #171717 0%,
+            #0b0b0b 45%,
+            #030303 100%
+        );
+}
+
+.content-panel {
+    width: min(900px, 100%);
+    max-height: 92vh;
+    overflow-y: auto;
+
+    padding: 50px;
+
+    background: rgba(10, 10, 10, 0.92);
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+
+    box-shadow:
+        0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+.content-panel h1 {
+    margin: 0 0 35px;
+
+    text-align: center;
+
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: normal;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.intro-text {
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.intro-text p {
+    margin: 0 0 22px;
+}
+
+.final-instruction {
+    text-align: center;
+    margin-top: 35px !important;
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.primary-button {
+    display: block;
+
+    margin: 40px auto 0;
+
+    padding: 14px 42px;
+
+    background: transparent;
+    color: #ffffff;
+
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.primary-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #ffffff;
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   EXPERIENCE
+   ========================================================= */
+
+#experienceScreen {
+    justify-content: center;
+    align-items: center;
+
+    background: #000000;
+
+    padding: 30px;
+}
+
+.experience-container {
+    width: min(1000px, 100%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.progress-area {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    opacity: 0.7;
+}
+
+#experienceType {
+    font-weight: bold;
+}
+
+#experienceNumber {
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* =========================================================
+   MEDIA
+   ========================================================= */
+
+.media-container {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#visualPlayer {
+    display: block;
+
+    width: 100%;
+    max-height: 65vh;
+
+    object-fit: contain;
+
+    background: #000000;
+}
+
+.audio-display {
+    width: min(600px, 90vw);
+    height: 300px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    background:
+        radial-gradient(
+            circle,
+            #171717 0%,
+            #050505 70%
+        );
+}
+
+.audio-symbol {
+    font-size: 4rem;
+
+    margin-bottom: 20px;
+
+    opacity: 0.8;
+}
+
+.audio-label {
+    font-size: 0.9rem;
+
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+
+    opacity: 0.6;
+}
+
+
+/* =========================================================
+   QUESTION
+   ========================================================= */
+
+.question-container {
+    width: 100%;
+
+    margin-top: 30px;
+
+    text-align: center;
+}
+
+.question-label {
+    margin: 0 0 25px;
+
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+}
+
+.choice-container {
+    display: flex;
+
+    justify-content: center;
+    align-items: stretch;
+
+    gap: 20px;
+
+    width: 100%;
+}
+
+.choice-button {
+    flex: 1;
+
+    min-height: 80px;
+
+    padding: 20px;
+
+    background: rgba(255, 255, 255, 0.03);
+
+    color: #ffffff;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.1rem;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.choice-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+
+    border-color: rgba(255, 255, 255, 0.7);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   RESULT
+   ========================================================= */
+
+#resultScreen {
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #181818 0%,
+            #080808 50%,
+            #020202 100%
+        );
+}
+
+.result-panel {
+    width: min(900px, 100%);
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 60px;
+
+    text-align: center;
+
+    background: rgba(8, 8, 8, 0.9);
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+
+    box-shadow:
+        0 0 60px rgba(0, 0, 0, 0.8);
+}
+
+.result-heading {
+    margin-bottom: 15px;
+
+    font-size: 1rem;
+
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+
+    opacity: 0.65;
+}
+
+#courtName {
+    margin: 0 0 35px;
+
+    font-size: clamp(2.5rem, 7vw, 5rem);
+
+    font-weight: normal;
+
+    letter-spacing: 0.08em;
+}
+
+.court-description {
+    text-align: left;
+
+    line-height: 1.85;
+
+    font-size: 1.05rem;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .content-panel {
+        padding: 30px 22px;
+    }
+
+    .intro-text {
+        font-size: 0.98rem;
+    }
+
+    #experienceScreen {
+        padding: 20px;
+    }
+
+    .choice-container {
+        flex-direction: column;
+    }
+
+    .choice-button {
+        width: 100%;
+    }
+
+    .result-panel {
+        padding: 35px 25px;
+    }
+
+    .court-description {
+        font-size: 0.98rem;
+    }
+}
