@@ -44,7 +44,6 @@ const courtDescriptions = {
         </p>
     `,
 
-
     UnSeelie: `
         <p>
             While the Unseelie Court is traditionally considered the
@@ -81,7 +80,6 @@ const courtDescriptions = {
             world around them.
         </p>
     `,
-
 
     Shadow: `
         <p>
@@ -221,6 +219,7 @@ const visualExperiences = [
             { text: "Suspicious", alignment: "S" }
         ]
     }
+
 ];
 
 
@@ -319,6 +318,7 @@ const audioExperiences = [
             { text: "Uncertain", alignment: "S" }
         ]
     }
+
 ];
 
 
@@ -339,6 +339,13 @@ const experiences = [
     }))
 
 ];
+
+
+/* =========================================================
+   FADE SETTINGS
+   ========================================================= */
+
+const FADE_DURATION = 1500;
 
 
 /* =========================================================
@@ -393,6 +400,175 @@ function showScreen(screen) {
 
 
 /* =========================================================
+   STOP CURRENT MEDIA
+   ========================================================= */
+
+function stopCurrentMedia() {
+
+    visualPlayer.pause();
+    audioPlayer.pause();
+
+    visualPlayer.onended = null;
+    audioPlayer.onended = null;
+
+    visualPlayer.removeAttribute("src");
+    audioPlayer.removeAttribute("src");
+
+    visualPlayer.load();
+    audioPlayer.load();
+
+    visualPlayer.style.opacity = "0";
+    audioPlayer.volume = 0;
+}
+
+
+/* =========================================================
+   VISUAL FADE IN
+   ========================================================= */
+
+function fadeVideoIn(video) {
+
+    video.style.opacity = "0";
+
+    const startTime = performance.now();
+
+    function animateFadeIn(currentTime) {
+
+        const elapsed = currentTime - startTime;
+
+        const progress =
+            Math.min(elapsed / FADE_DURATION, 1);
+
+        video.style.opacity = progress;
+
+        if (progress < 1) {
+
+            requestAnimationFrame(animateFadeIn);
+
+        }
+
+    }
+
+    requestAnimationFrame(animateFadeIn);
+}
+
+
+/* =========================================================
+   VISUAL FADE OUT
+   ========================================================= */
+
+function fadeVideoOut(video) {
+
+    return new Promise(resolve => {
+
+        const startTime = performance.now();
+
+        function animateFadeOut(currentTime) {
+
+            const elapsed = currentTime - startTime;
+
+            const progress =
+                Math.min(elapsed / FADE_DURATION, 1);
+
+            video.style.opacity = 1 - progress;
+
+            if (progress < 1) {
+
+                requestAnimationFrame(animateFadeOut);
+
+            } else {
+
+                video.style.opacity = "0";
+
+                resolve();
+
+            }
+
+        }
+
+        requestAnimationFrame(animateFadeOut);
+
+    });
+
+}
+
+
+/* =========================================================
+   AUDIO FADE IN
+   ========================================================= */
+
+function fadeAudioIn(audio) {
+
+    audio.volume = 0;
+
+    const startTime = performance.now();
+
+    function animateFadeIn(currentTime) {
+
+        const elapsed = currentTime - startTime;
+
+        const progress =
+            Math.min(elapsed / FADE_DURATION, 1);
+
+        audio.volume = progress;
+
+        if (progress < 1) {
+
+            requestAnimationFrame(animateFadeIn);
+
+        }
+
+    }
+
+    requestAnimationFrame(animateFadeIn);
+
+}
+
+
+/* =========================================================
+   AUDIO FADE OUT
+   ========================================================= */
+
+function fadeAudioOut(audio) {
+
+    return new Promise(resolve => {
+
+        const startVolume = audio.volume;
+
+        const startTime = performance.now();
+
+        function animateFadeOut(currentTime) {
+
+            const elapsed = currentTime - startTime;
+
+            const progress =
+                Math.min(elapsed / FADE_DURATION, 1);
+
+            audio.volume =
+                startVolume * (1 - progress);
+
+            if (progress < 1) {
+
+                requestAnimationFrame(animateFadeOut);
+
+            } else {
+
+                audio.volume = 0;
+
+                resolve();
+
+            }
+
+        }
+
+        requestAnimationFrame(animateFadeOut);
+
+    });
+
+}
+
+
+/* =========================================================
    BEGIN
    ========================================================= */
 
@@ -419,91 +595,115 @@ function loadExperience() {
     const experience = experiences[currentExperience];
 
     if (!experience) {
+
         determineCourt();
+
         return;
+
     }
 
 
-    /* -----------------------------------------
-       Progress
-       ----------------------------------------- */
+    stopCurrentMedia();
 
-    experienceType.textContent = experience.type.toUpperCase();
+
+    experienceType.textContent =
+        experience.type.toUpperCase();
 
     experienceNumber.textContent =
         `${currentExperience + 1} / ${experiences.length}`;
 
-
-    /* -----------------------------------------
-       Reset Question
-       ----------------------------------------- */
 
     questionContainer.classList.add("hidden");
 
     choiceContainer.innerHTML = "";
 
 
-    /* -----------------------------------------
+    /* =====================================================
        VISUAL
-       ----------------------------------------- */
+       ===================================================== */
 
     if (experience.type === "Visual") {
 
         videoContainer.classList.remove("hidden");
+
         audioContainer.classList.add("hidden");
-
-        audioPlayer.pause();
-        audioPlayer.currentTime = 0;
-        audioPlayer.removeAttribute("src");
-        audioPlayer.load();
-
-
-        visualPlayer.pause();
 
         visualPlayer.src =
             `assets/visuals/${experience.file}`;
 
         visualPlayer.load();
 
-        visualPlayer.onended = () => {
-            showQuestion(experience);
+        visualPlayer.onloadedmetadata = () => {
+
+            fadeVideoIn(visualPlayer);
+
         };
 
-        visualPlayer.play().catch(() => {
+
+        visualPlayer.onended = async () => {
+
+            await fadeVideoOut(visualPlayer);
+
             showQuestion(experience);
+
+        };
+
+
+        visualPlayer.play().catch(error => {
+
+            console.error(
+                "Unable to play visual:",
+                experience.file,
+                error
+            );
+
         });
 
     }
 
 
-    /* -----------------------------------------
+    /* =====================================================
        AUDIO
-       ----------------------------------------- */
+       ===================================================== */
 
     else {
 
         videoContainer.classList.add("hidden");
+
         audioContainer.classList.remove("hidden");
-
-        visualPlayer.pause();
-
-        visualPlayer.removeAttribute("src");
-        visualPlayer.load();
-
-
-        audioPlayer.pause();
 
         audioPlayer.src =
             `assets/audio/${experience.file}`;
 
+        audioPlayer.volume = 0;
+
         audioPlayer.load();
 
-        audioPlayer.onended = () => {
-            showQuestion(experience);
+
+        audioPlayer.onloadedmetadata = () => {
+
+            fadeAudioIn(audioPlayer);
+
         };
 
-        audioPlayer.play().catch(() => {
+
+        audioPlayer.onended = async () => {
+
+            await fadeAudioOut(audioPlayer);
+
             showQuestion(experience);
+
+        };
+
+
+        audioPlayer.play().catch(error => {
+
+            console.error(
+                "Unable to play audio:",
+                experience.file,
+                error
+            );
+
         });
 
     }
@@ -527,16 +727,20 @@ function showQuestion(experience) {
 
     experience.choices.forEach(choice => {
 
-        const button = document.createElement("button");
+        const button =
+            document.createElement("button");
 
         button.type = "button";
 
         button.className = "choice-button";
 
-        button.textContent = choice.text;
+        button.textContent =
+            choice.text;
 
         button.addEventListener("click", () => {
+
             recordChoice(choice);
+
         });
 
         choiceContainer.appendChild(button);
@@ -624,7 +828,8 @@ function displayResult(court) {
 
     showScreen(resultScreen);
 
-    courtName.textContent = court;
+    courtName.textContent =
+        court;
 
     courtDescription.innerHTML =
         courtDescriptions[court];
