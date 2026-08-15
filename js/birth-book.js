@@ -131,7 +131,6 @@ const visualExperiences = [
 
     {
         file: "visual-01.webm",
-        question: "What feeling does this evoke?",
         choices: [
             { text: "Bound", alignment: "S" },
             { text: "Unbound", alignment: "U" }
@@ -140,7 +139,6 @@ const visualExperiences = [
 
     {
         file: "visual-02.webm",
-        question: "What feeling does this evoke?",
         choices: [
             { text: "Untamed", alignment: "U" },
             { text: "Ordered", alignment: "S" }
@@ -149,7 +147,6 @@ const visualExperiences = [
 
     {
         file: "visual-03.webm",
-        question: "What feeling does this evoke?",
         choices: [
             { text: "Protected", alignment: "S" },
             { text: "Defiant", alignment: "U" }
@@ -158,7 +155,6 @@ const visualExperiences = [
 
     {
         file: "visual-04.webm",
-        question: "What feeling does this evoke?",
         choices: [
             { text: "Independent", alignment: "U" },
             { text: "Obligated", alignment: "S" }
@@ -167,7 +163,6 @@ const visualExperiences = [
 
     {
         file: "visual-05.webm",
-        question: "What feeling does this evoke?",
         choices: [
             { text: "Empowered", alignment: "U" },
             { text: "Honored", alignment: "S" }
@@ -176,7 +171,6 @@ const visualExperiences = [
 
     {
         file: "visual-06.webm",
-        question: "What feeling does this evoke?",
         choices: [
             { text: "Respected", alignment: "S" },
             { text: "Unrestrained", alignment: "U" }
@@ -185,7 +179,6 @@ const visualExperiences = [
 
     {
         file: "visual-07.webm",
-        question: "What feeling does this evoke?",
         choices: [
             { text: "Driven", alignment: "U" },
             { text: "Fulfilled", alignment: "S" }
@@ -194,7 +187,6 @@ const visualExperiences = [
 
     {
         file: "visual-08.webm",
-        question: "What feeling does this evoke?",
         choices: [
             { text: "Loyal", alignment: "S" },
             { text: "Instinctive", alignment: "U" }
@@ -203,7 +195,6 @@ const visualExperiences = [
 
     {
         file: "visual-09.webm",
-        question: "What feeling does this evoke?",
         choices: [
             { text: "Unaccountable", alignment: "U" },
             { text: "Responsible", alignment: "S" }
@@ -212,7 +203,6 @@ const visualExperiences = [
 
     {
         file: "visual-10.webm",
-        question: "What feeling does this evoke?",
         choices: [
             { text: "Liberated", alignment: "U" },
             { text: "Secure", alignment: "S" }
@@ -231,7 +221,6 @@ const audioExperiences = [
     {
         file: "audio-01.mp3",
         duration: "0:05",
-        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Committed", alignment: "S" },
             { text: "Passionate", alignment: "U" }
@@ -241,7 +230,6 @@ const audioExperiences = [
     {
         file: "audio-02.mp3",
         duration: "0:27",
-        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Impulsive", alignment: "U" },
             { text: "Disciplined", alignment: "S" }
@@ -251,7 +239,6 @@ const audioExperiences = [
     {
         file: "audio-03.mp3",
         duration: "0:20",
-        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Devoted", alignment: "S" },
             { text: "Self-Possessed", alignment: "U" }
@@ -261,7 +248,6 @@ const audioExperiences = [
     {
         file: "audio-04.mp3",
         duration: "0:08",
-        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Defiant", alignment: "U" },
             { text: "Dutiful", alignment: "S" }
@@ -271,7 +257,6 @@ const audioExperiences = [
     {
         file: "audio-05.mp3",
         duration: "0:07",
-        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Honorable", alignment: "S" },
             { text: "Ruthless", alignment: "U" }
@@ -281,7 +266,6 @@ const audioExperiences = [
     {
         file: "audio-06.mp3",
         duration: "0:13",
-        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Self-Serving", alignment: "U" },
             { text: "Reciprocal", alignment: "S" }
@@ -291,7 +275,6 @@ const audioExperiences = [
     {
         file: "audio-07.mp3",
         duration: "0:31",
-        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Restrained", alignment: "S" },
             { text: "Uninhibited", alignment: "U" }
@@ -301,7 +284,6 @@ const audioExperiences = [
     {
         file: "audio-08.mp3",
         duration: "0:04",
-        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Wary", alignment: "U" },
             { text: "Trusting", alignment: "S" }
@@ -311,7 +293,6 @@ const audioExperiences = [
     {
         file: "audio-09.mp3",
         duration: "0:11",
-        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Bound by Promise", alignment: "S" },
             { text: "Free of Obligation", alignment: "U" }
@@ -321,7 +302,6 @@ const audioExperiences = [
     {
         file: "audio-10.mp3",
         duration: "0:13",
-        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Restless", alignment: "U" },
             { text: "Content", alignment: "S" }
@@ -332,7 +312,7 @@ const audioExperiences = [
 
 
 /* =========================================================
-   VISUAL → AUDIO → VISUAL → AUDIO ORDER
+   VISUAL → AUDIO → VISUAL → AUDIO
    ========================================================= */
 
 const experiences = [];
@@ -353,7 +333,7 @@ for (let i = 0; i < 10; i++) {
 
 
 /* =========================================================
-   VISUAL FADE SETTINGS
+   SETTINGS
    ========================================================= */
 
 const VISUAL_FADE_DURATION = 1500;
@@ -457,6 +437,7 @@ function stopCurrentMedia() {
     visualPlayer.style.opacity = "0";
 
     audioPlayer.volume = 1;
+
 }
 
 
@@ -675,6 +656,7 @@ function loadExperience() {
         }
 
         return;
+
     }
 
 
@@ -699,14 +681,6 @@ function loadExperience() {
 
 /* =========================================================
    AUDIO PLAYBACK
-
-   NO AUDIO FADING.
-   
-   NO ARTIFICIAL TIMER.
-
-   The MP3 itself determines when playback is complete.
-   The question appears only after the native "ended"
-   event fires.
    ========================================================= */
 
 function playAudioExperience(
@@ -733,7 +707,7 @@ function playAudioExperience(
 
 
     /* =====================================================
-       AUDIO FINISHED
+       AUDIO ENDED
        ===================================================== */
 
     audio.onended =
@@ -748,8 +722,6 @@ function playAudioExperience(
             audio.onended = null;
             audio.oncanplay = null;
 
-            audio.volume = 1;
-
             showQuestion(
                 experience
             );
@@ -758,7 +730,7 @@ function playAudioExperience(
 
 
     /* =====================================================
-       START AUDIO ONLY WHEN READY
+       START AUDIO
        ===================================================== */
 
     function startAudio() {
@@ -791,11 +763,6 @@ function playAudioExperience(
                         experience.file,
                         error
                     );
-
-                    /*
-                     * Do NOT advance to the question
-                     * if the browser refused playback.
-                     */
 
                     started = false;
 
@@ -843,44 +810,117 @@ function showQuestion(
         "hidden"
     );
 
-    questionLabel.textContent =
-        experience.question;
-
     choiceContainer.innerHTML = "";
 
 
-    experience.choices.forEach(
-        choice => {
+    const firstChoice =
+        experience.choices[0];
 
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-            button.type =
-                "button";
-
-            button.className =
-                "choice-button";
-
-            button.textContent =
-                choice.text;
+    const secondChoice =
+        experience.choices[1];
 
 
-            button.addEventListener(
-                "click",
-                () => {
+    /*
+     * The question itself is built around the
+     * two clickable choices.
+     *
+     * Does this make you feel...
+     * [Choice 1] or [Choice 2]?
+     */
 
-                    recordChoice(
-                        choice
-                    );
+    questionLabel.innerHTML =
+        `Does this make you feel... `;
 
-                }
+
+    const firstButton =
+        document.createElement(
+            "button"
+        );
+
+    firstButton.type =
+        "button";
+
+    firstButton.className =
+        "choice-button inline-choice";
+
+    firstButton.textContent =
+        firstChoice.text;
+
+
+    const orText =
+        document.createElement(
+            "span"
+        );
+
+    orText.className =
+        "choice-or";
+
+    orText.textContent =
+        " or ";
+
+
+    const secondButton =
+        document.createElement(
+            "button"
+        );
+
+    secondButton.type =
+        "button";
+
+    secondButton.className =
+        "choice-button inline-choice";
+
+    secondButton.textContent =
+        secondChoice.text;
+
+
+    const questionMark =
+        document.createElement(
+            "span"
+        );
+
+    questionMark.className =
+        "choice-question-mark";
+
+    questionMark.textContent =
+        "?";
+
+
+    choiceContainer.appendChild(
+        firstButton
+    );
+
+    choiceContainer.appendChild(
+        orText
+    );
+
+    choiceContainer.appendChild(
+        secondButton
+    );
+
+    choiceContainer.appendChild(
+        questionMark
+    );
+
+
+    firstButton.addEventListener(
+        "click",
+        () => {
+
+            recordChoice(
+                firstChoice
             );
 
+        }
+    );
 
-            choiceContainer.appendChild(
-                button
+
+    secondButton.addEventListener(
+        "click",
+        () => {
+
+            recordChoice(
+                secondChoice
             );
 
         }
@@ -942,6 +982,7 @@ function recordChoice(
 function determineCourt() {
 
     let court;
+
 
     if (
         seelieScore >
