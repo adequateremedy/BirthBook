@@ -108,8 +108,8 @@ const courtDescriptions = {
             machinations or threatening their sanctuaries can instantly
             turn them into inescapable executioners. They might quietly
             dismantle an enemy to honor a silent bargain, but ruthlessly
-            erase a person from existence simply because they asked the
-            wrong question.
+            erase a person from existence simply because they asked
+            the wrong question.
         </p>
 
         <p>
@@ -132,7 +132,7 @@ const visualExperiences = [
 
     {
         file: "visual-01.webm",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this evoke?",
         choices: [
             { text: "Bound", alignment: "S" },
             { text: "Unbound", alignment: "U" }
@@ -141,7 +141,7 @@ const visualExperiences = [
 
     {
         file: "visual-02.webm",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this evoke?",
         choices: [
             { text: "Untamed", alignment: "U" },
             { text: "Ordered", alignment: "S" }
@@ -150,7 +150,7 @@ const visualExperiences = [
 
     {
         file: "visual-03.webm",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this evoke?",
         choices: [
             { text: "Protected", alignment: "S" },
             { text: "Defiant", alignment: "U" }
@@ -159,7 +159,7 @@ const visualExperiences = [
 
     {
         file: "visual-04.webm",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this evoke?",
         choices: [
             { text: "Independent", alignment: "U" },
             { text: "Obligated", alignment: "S" }
@@ -168,7 +168,7 @@ const visualExperiences = [
 
     {
         file: "visual-05.webm",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this evoke?",
         choices: [
             { text: "Empowered", alignment: "U" },
             { text: "Honored", alignment: "S" }
@@ -177,7 +177,7 @@ const visualExperiences = [
 
     {
         file: "visual-06.webm",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this evoke?",
         choices: [
             { text: "Respected", alignment: "S" },
             { text: "Unrestrained", alignment: "U" }
@@ -186,7 +186,7 @@ const visualExperiences = [
 
     {
         file: "visual-07.webm",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this evoke?",
         choices: [
             { text: "Driven", alignment: "U" },
             { text: "Fulfilled", alignment: "S" }
@@ -195,7 +195,7 @@ const visualExperiences = [
 
     {
         file: "visual-08.webm",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this evoke?",
         choices: [
             { text: "Loyal", alignment: "S" },
             { text: "Instinctive", alignment: "U" }
@@ -204,7 +204,7 @@ const visualExperiences = [
 
     {
         file: "visual-09.webm",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this evoke?",
         choices: [
             { text: "Unaccountable", alignment: "U" },
             { text: "Responsible", alignment: "S" }
@@ -213,7 +213,7 @@ const visualExperiences = [
 
     {
         file: "visual-10.webm",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this evoke?",
         choices: [
             { text: "Liberated", alignment: "U" },
             { text: "Secure", alignment: "S" }
@@ -231,7 +231,7 @@ const audioExperiences = [
 
     {
         file: "audio-01.mp3",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Committed", alignment: "S" },
             { text: "Passionate", alignment: "U" }
@@ -240,7 +240,7 @@ const audioExperiences = [
 
     {
         file: "audio-02.mp3",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Impulsive", alignment: "U" },
             { text: "Disciplined", alignment: "S" }
@@ -249,7 +249,7 @@ const audioExperiences = [
 
     {
         file: "audio-03.mp3",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Devoted", alignment: "S" },
             { text: "Self-Possessed", alignment: "U" }
@@ -258,7 +258,7 @@ const audioExperiences = [
 
     {
         file: "audio-04.mp3",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Defiant", alignment: "U" },
             { text: "Dutiful", alignment: "S" }
@@ -267,7 +267,7 @@ const audioExperiences = [
 
     {
         file: "audio-05.mp3",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Honorable", alignment: "S" },
             { text: "Ruthless", alignment: "U" }
@@ -276,7 +276,7 @@ const audioExperiences = [
 
     {
         file: "audio-06.mp3",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Self-Serving", alignment: "U" },
             { text: "Reciprocal", alignment: "S" }
@@ -285,7 +285,7 @@ const audioExperiences = [
 
     {
         file: "audio-07.mp3",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Restrained", alignment: "S" },
             { text: "Uninhibited", alignment: "U" }
@@ -294,7 +294,7 @@ const audioExperiences = [
 
     {
         file: "audio-08.mp3",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Wary", alignment: "U" },
             { text: "Trusting", alignment: "S" }
@@ -303,7 +303,7 @@ const audioExperiences = [
 
     {
         file: "audio-09.mp3",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Bound by Promise", alignment: "S" },
             { text: "Free of Obligation", alignment: "U" }
@@ -312,7 +312,7 @@ const audioExperiences = [
 
     {
         file: "audio-10.mp3",
-        question: "Does this experience make you feel:",
+        question: "What feeling does this awaken in you?",
         choices: [
             { text: "Restless", alignment: "U" },
             { text: "Content", alignment: "S" }
@@ -358,6 +358,7 @@ const FADE_DURATION = 1500;
 let currentExperience = 0;
 
 let seelieScore = 0;
+
 let unseelieScore = 0;
 
 
@@ -712,7 +713,7 @@ function loadExperience() {
 
 
     /* =====================================================
-       VISUAL
+       VISUAL EXPERIENCE
        ===================================================== */
 
     if (experience.type === "Visual") {
@@ -772,7 +773,7 @@ function loadExperience() {
 
 
     /* =====================================================
-       AUDIO
+       AUDIO EXPERIENCE
        ===================================================== */
 
     else {
