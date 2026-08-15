@@ -1,56 +1,40 @@
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
 * {
     box-sizing: border-box;
 }
 
 html,
 body {
-    margin: 0;
-    padding: 0;
     width: 100%;
     height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    background: #050505;
-    color: #f1f1f1;
-    font-family: Georgia, "Times New Roman", serif;
     overflow: hidden;
-}
-
-button {
-    font-family: inherit;
-}
-
-.hidden {
-    display: none !important;
+    background: #000;
+    font-family: Georgia, "Times New Roman", serif;
 }
 
 
 /* =========================================================
-   MAIN
-   ========================================================= */
-
-#birthBook {
-    width: 100%;
-    height: 100vh;
-    position: relative;
-}
-
-
-/* =========================================================
-   SCREENS
+   SCREEN SYSTEM
    ========================================================= */
 
 .screen {
-    position: absolute;
+    position: fixed;
     inset: 0;
+
+    width: 100vw;
+    height: 100vh;
 
     display: none;
 
-    width: 100%;
-    height: 100%;
-
-    overflow-y: auto;
+    overflow: hidden;
 }
 
 .screen.active {
@@ -59,253 +43,341 @@ button {
 
 
 /* =========================================================
-   INTRO
+   INTRO SCREEN
    ========================================================= */
 
 #introScreen {
-    justify-content: center;
     align-items: center;
-
-    padding: 40px 20px;
+    justify-content: center;
 
     background:
         radial-gradient(
             circle at center,
-            #171717 0%,
-            #0b0b0b 45%,
-            #030303 100%
+            #202020 0%,
+            #090909 55%,
+            #000000 100%
         );
+
+    color: #eee;
+
+    padding: 6vh 8vw;
 }
 
-.content-panel {
-    width: min(900px, 100%);
-    max-height: 92vh;
+.intro-content {
+    width: min(900px, 90vw);
+    max-height: 88vh;
+
     overflow-y: auto;
 
-    padding: 50px;
-
-    background: rgba(10, 10, 10, 0.92);
-
-    border: 1px solid rgba(255, 255, 255, 0.16);
-
-    box-shadow:
-        0 0 50px rgba(0, 0, 0, 0.8);
+    text-align: center;
 }
 
-.content-panel h1 {
-    margin: 0 0 35px;
+.intro-content h1 {
+    margin: 0 0 2rem;
 
-    text-align: center;
+    font-size: clamp(2rem, 5vw, 4rem);
 
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: normal;
     letter-spacing: 0.12em;
+
     text-transform: uppercase;
 }
 
-.intro-text {
+.intro-content p {
+    margin: 0 auto 1.25rem;
+
+    max-width: 800px;
+
+    font-size: clamp(1rem, 1.6vw, 1.25rem);
+
     line-height: 1.8;
-    font-size: 1.05rem;
 }
 
-.intro-text p {
-    margin: 0 0 22px;
-}
+#beginButton {
+    margin-top: 2rem;
 
-.final-instruction {
-    text-align: center;
-    margin-top: 35px !important;
-    font-size: 1.15rem;
-    letter-spacing: 0.04em;
-}
+    padding: 1rem 2.5rem;
 
+    border: 1px solid rgba(255, 255, 255, 0.6);
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
+    background: rgba(255, 255, 255, 0.08);
 
-.primary-button {
-    display: block;
+    color: #fff;
 
-    margin: 40px auto 0;
-
-    padding: 14px 42px;
-
-    background: transparent;
-    color: #ffffff;
-
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-family: inherit;
 
     font-size: 1rem;
+
     letter-spacing: 0.12em;
+
     text-transform: uppercase;
 
     cursor: pointer;
 
     transition:
-        background 0.25s ease,
-        border-color 0.25s ease,
-        transform 0.25s ease;
+        background 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
 }
 
-.primary-button:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #ffffff;
+#beginButton:hover {
+    background: rgba(255, 255, 255, 0.18);
+
+    border-color: #fff;
+
     transform: translateY(-2px);
 }
 
 
 /* =========================================================
-   EXPERIENCE
+   EXPERIENCE SCREEN
    ========================================================= */
 
 #experienceScreen {
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background: #000;
+
+    display: none;
+
+    align-items: center;
     justify-content: center;
-    align-items: center;
-
-    background: #000000;
-
-    padding: 30px;
 }
 
-.experience-container {
-    width: min(1000px, 100%);
-
+#experienceScreen.active {
     display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-.progress-area {
+
+/* =========================================================
+   EXPERIENCE HEADER
+   ========================================================= */
+
+.experience-header {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    z-index: 20;
+
     width: 100%;
 
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
 
-    margin-bottom: 20px;
+    padding: 1rem 1.5rem;
 
-    font-size: 0.85rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    pointer-events: none;
 
-    opacity: 0.7;
+    color: #fff;
+
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 #experienceType {
-    font-weight: bold;
+    font-size: 0.85rem;
+
+    letter-spacing: 0.2em;
+
+    text-transform: uppercase;
 }
 
 #experienceNumber {
-    font-variant-numeric: tabular-nums;
+    font-size: 0.85rem;
+
+    letter-spacing: 0.15em;
 }
 
 
 /* =========================================================
-   MEDIA
+   FULL-SCREEN VISUAL CONTAINER
    ========================================================= */
 
-.media-container {
-    width: 100%;
+#videoContainer {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 1;
 
     display: flex;
-    justify-content: center;
+
     align-items: center;
+    justify-content: center;
+
+    background: #000;
+
+    overflow: hidden;
 }
+
+#videoContainer.hidden {
+    display: none;
+}
+
+
+/* =========================================================
+   FULL-SCREEN WEBM
+   ========================================================= */
 
 #visualPlayer {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    /*
+       Fills the entire viewport.
+       The video is stretched to the full screen dimensions.
+    */
+
+    object-fit: fill;
+
     display: block;
 
-    width: 100%;
-    max-height: 65vh;
+    opacity: 0;
 
-    object-fit: contain;
-
-    background: #000000;
+    background: #000;
 }
 
-.audio-display {
-    width: min(600px, 90vw);
-    height: 300px;
+
+/* =========================================================
+   AUDIO CONTAINER
+   ========================================================= */
+
+#audioContainer {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 1;
 
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    align-items: center;
+    justify-content: center;
 
     background:
         radial-gradient(
-            circle,
+            circle at center,
             #171717 0%,
-            #050505 70%
+            #050505 60%,
+            #000 100%
         );
 }
 
-.audio-symbol {
-    font-size: 4rem;
-
-    margin-bottom: 20px;
-
-    opacity: 0.8;
+#audioContainer.hidden {
+    display: none;
 }
 
-.audio-label {
-    font-size: 0.9rem;
 
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
+/*
+   The audio element itself does not need to be visible.
+   The audio experience occupies the full experience screen.
+*/
 
-    opacity: 0.6;
+#audioPlayer {
+    display: none;
 }
 
 
 /* =========================================================
-   QUESTION
+   QUESTION AREA
    ========================================================= */
 
-.question-container {
-    width: 100%;
+#questionContainer {
+    position: absolute;
 
-    margin-top: 30px;
+    left: 50%;
+
+    bottom: 6vh;
+
+    transform: translateX(-50%);
+
+    z-index: 30;
+
+    width: min(700px, 90vw);
+
+    padding: 1.5rem;
 
     text-align: center;
+
+    color: #fff;
+
+    background:
+        rgba(0, 0, 0, 0.78);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.25);
+
+    backdrop-filter: blur(8px);
+
+    -webkit-backdrop-filter: blur(8px);
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+}
+
+#questionContainer.hidden {
+    display: none;
 }
 
 .question-label {
-    margin: 0 0 25px;
+    margin: 0 0 1.25rem;
 
-    font-size: 1.15rem;
-    letter-spacing: 0.04em;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+
+    line-height: 1.5;
 }
 
-.choice-container {
+
+/* =========================================================
+   CHOICES
+   ========================================================= */
+
+#choiceContainer {
     display: flex;
 
     justify-content: center;
-    align-items: stretch;
 
-    gap: 20px;
+    gap: 1rem;
 
-    width: 100%;
+    flex-wrap: wrap;
 }
 
 .choice-button {
-    flex: 1;
+    min-width: 180px;
 
-    min-height: 80px;
+    padding: 0.9rem 1.5rem;
 
-    padding: 20px;
+    border:
+        1px solid rgba(255, 255, 255, 0.55);
 
-    background: rgba(255, 255, 255, 0.03);
+    background:
+        rgba(255, 255, 255, 0.06);
 
-    color: #ffffff;
+    color: #fff;
 
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    font-family: inherit;
 
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
 
     cursor: pointer;
 
@@ -316,112 +388,146 @@ button {
 }
 
 .choice-button:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background:
+        rgba(255, 255, 255, 0.18);
 
-    border-color: rgba(255, 255, 255, 0.7);
+    border-color: #fff;
 
     transform: translateY(-2px);
 }
 
+.choice-button:active {
+    transform: translateY(0);
+}
+
 
 /* =========================================================
-   RESULT
+   RESULT SCREEN
    ========================================================= */
 
 #resultScreen {
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    padding: 40px 20px;
+    overflow-y: auto;
+
+    padding: 8vh 8vw;
 
     background:
         radial-gradient(
             circle at center,
-            #181818 0%,
-            #080808 50%,
-            #020202 100%
+            #202020 0%,
+            #090909 60%,
+            #000 100%
         );
+
+    color: #eee;
 }
 
-.result-panel {
-    width: min(900px, 100%);
-    max-height: 90vh;
+.result-content {
+    width: min(900px, 90vw);
+
+    max-height: 88vh;
 
     overflow-y: auto;
 
-    padding: 60px;
-
     text-align: center;
-
-    background: rgba(8, 8, 8, 0.9);
-
-    border: 1px solid rgba(255, 255, 255, 0.18);
-
-    box-shadow:
-        0 0 60px rgba(0, 0, 0, 0.8);
 }
 
-.result-heading {
-    margin-bottom: 15px;
+.result-content h1 {
+    margin: 0 0 1rem;
 
-    font-size: 1rem;
-
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-
-    opacity: 0.65;
-}
-
-#courtName {
-    margin: 0 0 35px;
-
-    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-size: clamp(1.2rem, 3vw, 2rem);
 
     font-weight: normal;
 
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
+
+    text-transform: uppercase;
 }
 
-.court-description {
+#courtName {
+    margin: 0 0 2rem;
+
+    font-size: clamp(2.5rem, 7vw, 5rem);
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+#courtDescription {
     text-align: left;
 
-    line-height: 1.85;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
 
-    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+#courtDescription p {
+    margin: 0 0 1.5rem;
 }
 
 
 /* =========================================================
-   RESPONSIVE
+   HIDDEN UTILITY
+   ========================================================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   SCROLLBARS
+   ========================================================= */
+
+.intro-content::-webkit-scrollbar,
+.result-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.intro-content::-webkit-scrollbar-track,
+.result-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.intro-content::-webkit-scrollbar-thumb,
+.result-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+/* =========================================================
+   MOBILE
    ========================================================= */
 
 @media (max-width: 700px) {
 
-    .content-panel {
-        padding: 30px 22px;
+    .experience-header {
+        padding: 0.75rem 1rem;
     }
 
-    .intro-text {
-        font-size: 0.98rem;
+    #questionContainer {
+        bottom: 3vh;
+
+        width: 94vw;
+
+        padding: 1rem;
     }
 
-    #experienceScreen {
-        padding: 20px;
-    }
-
-    .choice-container {
+    #choiceContainer {
         flex-direction: column;
+
+        align-items: stretch;
     }
 
     .choice-button {
         width: 100%;
     }
 
-    .result-panel {
-        padding: 35px 25px;
+    .intro-content {
+        width: 94vw;
     }
 
-    .court-description {
-        font-size: 0.98rem;
-    }
 }
