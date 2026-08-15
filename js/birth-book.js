@@ -230,7 +230,7 @@ const audioExperiences = [
 
     {
         file: "audio-01.mp3",
-        duration: 0.05,
+        duration: "0:05",
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Committed", alignment: "S" },
@@ -240,7 +240,7 @@ const audioExperiences = [
 
     {
         file: "audio-02.mp3",
-        duration: 0.27,
+        duration: "0:27",
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Impulsive", alignment: "U" },
@@ -250,7 +250,7 @@ const audioExperiences = [
 
     {
         file: "audio-03.mp3",
-        duration: 0.20,
+        duration: "0:20",
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Devoted", alignment: "S" },
@@ -260,7 +260,7 @@ const audioExperiences = [
 
     {
         file: "audio-04.mp3",
-        duration: 0.08,
+        duration: "0:08",
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Defiant", alignment: "U" },
@@ -270,7 +270,7 @@ const audioExperiences = [
 
     {
         file: "audio-05.mp3",
-        duration: 0.07,
+        duration: "0:07",
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Honorable", alignment: "S" },
@@ -280,7 +280,7 @@ const audioExperiences = [
 
     {
         file: "audio-06.mp3",
-        duration: 0.13,
+        duration: "0:13",
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Self-Serving", alignment: "U" },
@@ -290,7 +290,7 @@ const audioExperiences = [
 
     {
         file: "audio-07.mp3",
-        duration: 0.31,
+        duration: "0:31",
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Restrained", alignment: "S" },
@@ -300,7 +300,7 @@ const audioExperiences = [
 
     {
         file: "audio-08.mp3",
-        duration: 0.04,
+        duration: "0:04",
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Wary", alignment: "U" },
@@ -310,7 +310,7 @@ const audioExperiences = [
 
     {
         file: "audio-09.mp3",
-        duration: 0.11,
+        duration: "0:11",
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Bound by Promise", alignment: "S" },
@@ -320,7 +320,7 @@ const audioExperiences = [
 
     {
         file: "audio-10.mp3",
-        duration: 0.13,
+        duration: "0:13",
         question: "What feeling does this awaken in you?",
         choices: [
             { text: "Restless", alignment: "U" },
@@ -332,7 +332,7 @@ const audioExperiences = [
 
 
 /* =========================================================
-   EXPERIENCE ORDER
+   VISUAL → AUDIO → VISUAL → AUDIO ORDER
    ========================================================= */
 
 const experiences = [];
@@ -456,13 +456,7 @@ function stopCurrentMedia() {
 
     visualPlayer.style.opacity = "0";
 
-    /*
-     * NO AUDIO FADING.
-     * Audio always starts and ends at full volume.
-     */
-
     audioPlayer.volume = 1;
-
 }
 
 
@@ -528,7 +522,7 @@ function fadeVideoOut(video) {
                 Math.min(
                     elapsed / VISUAL_FADE_DURATION,
                     1
-                );
+            );
 
             video.style.opacity =
                 1 - progress;
@@ -567,9 +561,7 @@ beginButton.addEventListener(
     () => {
 
         currentExperience = 0;
-
         seelieScore = 0;
-
         unseelieScore = 0;
 
         showScreen(
@@ -683,7 +675,6 @@ function loadExperience() {
         }
 
         return;
-
     }
 
 
@@ -708,13 +699,14 @@ function loadExperience() {
 
 /* =========================================================
    AUDIO PLAYBACK
-   =========================================================
+
+   NO AUDIO FADING.
    
-   IMPORTANT:
-   - NO fade-in
-   - NO fade-out
-   - Audio plays at full volume
-   - Supplied duration controls completion
+   NO ARTIFICIAL TIMER.
+
+   The MP3 itself determines when playback is complete.
+   The question appears only after the native "ended"
+   event fires.
    ========================================================= */
 
 function playAudioExperience(
@@ -724,71 +716,13 @@ function playAudioExperience(
     const audio =
         audioPlayer;
 
-    const durationMilliseconds =
-        experience.duration * 1000;
-
+    let started = false;
     let finished = false;
 
-    let completionTimer = null;
-
-
-    /* =====================================================
-       FINISH AUDIO
-       ===================================================== */
-
-    function finishAudio() {
-
-        if (finished) {
-            return;
-        }
-
-        finished = true;
-
-
-        if (
-            completionTimer !== null
-        ) {
-
-            clearTimeout(
-                completionTimer
-            );
-
-            completionTimer = null;
-
-        }
-
-
-        audio.onended = null;
-        audio.oncanplay = null;
-
-
-        audio.pause();
-
-        audio.volume = 1;
-
-
-        /*
-         * ONLY NOW does the question appear.
-         */
-
-        showQuestion(
-            experience
-        );
-
-    }
-
-
-    /* =====================================================
-       PREPARE AUDIO
-       ===================================================== */
 
     audio.pause();
 
     audio.currentTime = 0;
-
-    /*
-     * Audio is always full volume.
-     */
 
     audio.volume = 1;
 
@@ -799,48 +733,51 @@ function playAudioExperience(
 
 
     /* =====================================================
-       NATIVE ENDED EVENT
+       AUDIO FINISHED
        ===================================================== */
 
     audio.onended =
         () => {
 
-            finishAudio();
+            if (finished) {
+                return;
+            }
+
+            finished = true;
+
+            audio.onended = null;
+            audio.oncanplay = null;
+
+            audio.volume = 1;
+
+            showQuestion(
+                experience
+            );
 
         };
 
 
     /* =====================================================
-       START AUDIO
+       START AUDIO ONLY WHEN READY
        ===================================================== */
 
     function startAudio() {
 
-        if (finished) {
+        if (
+            started ||
+            finished
+        ) {
+
             return;
+
         }
 
+        started = true;
 
-        /*
-         * The exact duration supplied for this
-         * particular MP3 controls when the question
-         * appears.
-         */
-
-        completionTimer =
-            setTimeout(
-                () => {
-
-                    finishAudio();
-
-                },
-                durationMilliseconds
-            );
-
+        audio.volume = 1;
 
         const playPromise =
             audio.play();
-
 
         if (
             playPromise !== undefined
@@ -849,24 +786,18 @@ function playAudioExperience(
             playPromise.catch(
                 error => {
 
-                    if (
-                        completionTimer !== null
-                    ) {
-
-                        clearTimeout(
-                            completionTimer
-                        );
-
-                        completionTimer = null;
-
-                    }
-
-
                     console.error(
                         "Audio playback failed:",
                         experience.file,
                         error
                     );
+
+                    /*
+                     * Do NOT advance to the question
+                     * if the browser refused playback.
+                     */
+
+                    started = false;
 
                 }
             );
@@ -875,10 +806,6 @@ function playAudioExperience(
 
     }
 
-
-    /* =====================================================
-       WAIT UNTIL AUDIO IS READY
-       ===================================================== */
 
     if (
         audio.readyState >= 3
@@ -1015,7 +942,6 @@ function recordChoice(
 function determineCourt() {
 
     let court;
-
 
     if (
         seelieScore >
