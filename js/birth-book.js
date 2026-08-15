@@ -322,7 +322,7 @@ const audioExperiences = [
 
 
 /* =========================================================
-   EXACT EXPERIENCE ORDER
+   EXPERIENCE ORDER
    VISUAL 1 → AUDIO 1 → VISUAL 2 → AUDIO 2...
    ========================================================= */
 
@@ -435,6 +435,7 @@ function stopCurrentMedia() {
 
     visualPlayer.onended = null;
     audioPlayer.onended = null;
+    audioPlayer.ontimeupdate = null;
 
     visualPlayer.removeAttribute("src");
     audioPlayer.removeAttribute("src");
@@ -470,6 +471,7 @@ function fadeVideoIn(video) {
         if (progress < 1) {
             requestAnimationFrame(animate);
         }
+
     }
 
     requestAnimationFrame(animate);
@@ -503,9 +505,11 @@ function fadeVideoOut(video) {
             } else {
 
                 video.style.opacity = "0";
+
                 resolve();
 
             }
+
         }
 
         requestAnimationFrame(animate);
@@ -537,6 +541,7 @@ function fadeAudioIn(audio) {
         if (progress < 1) {
             requestAnimationFrame(animate);
         }
+
     }
 
     requestAnimationFrame(animate);
@@ -553,7 +558,9 @@ function fadeAudioOut(audio) {
     return new Promise(resolve => {
 
         const startingVolume = audio.volume;
-        const startTime = performance.now();
+
+        const startTime =
+            performance.now();
 
         function animate(currentTime) {
 
@@ -563,7 +570,8 @@ function fadeAudioOut(audio) {
             );
 
             audio.volume =
-                startingVolume * (1 - progress);
+                startingVolume *
+                (1 - progress);
 
             if (progress < 1) {
 
@@ -572,9 +580,11 @@ function fadeAudioOut(audio) {
             } else {
 
                 audio.volume = 0;
+
                 resolve();
 
             }
+
         }
 
         requestAnimationFrame(animate);
@@ -591,14 +601,10 @@ function fadeAudioOut(audio) {
 beginButton.addEventListener("click", () => {
 
     currentExperience = 0;
-    seelieScore = 0;
-    unseelieScore = 0;
 
-    /*
-     * The first media playback is initiated directly from
-     * this user click. This preserves the browser's user-
-     * interaction permission for the experience.
-     */
+    seelieScore = 0;
+
+    unseelieScore = 0;
 
     showScreen(experienceScreen);
 
@@ -619,6 +625,7 @@ function loadExperience() {
     if (!experience) {
 
         determineCourt();
+
         return;
 
     }
@@ -643,6 +650,7 @@ function loadExperience() {
     if (experience.type === "Visual") {
 
         videoContainer.classList.remove("hidden");
+
         audioContainer.classList.add("hidden");
 
         visualPlayer.src =
@@ -660,9 +668,13 @@ function loadExperience() {
 
             visualPlayer.onended = null;
 
-            await fadeVideoOut(visualPlayer);
+            await fadeVideoOut(
+                visualPlayer
+            );
 
-            showQuestion(experience);
+            showQuestion(
+                experience
+            );
 
         };
 
@@ -675,7 +687,6 @@ function loadExperience() {
 
                 console.error(
                     "Visual playback failed:",
-                    experience.file,
                     error
                 );
 
@@ -684,6 +695,7 @@ function loadExperience() {
         }
 
         return;
+
     }
 
 
@@ -692,36 +704,181 @@ function loadExperience() {
        ===================================================== */
 
     videoContainer.classList.add("hidden");
+
     audioContainer.classList.remove("hidden");
 
-    audioPlayer.src =
-        `assets/audio/${experience.file}`;
+    playAudioExperience(
+        experience
+    );
 
-    audioPlayer.volume = 0;
+}
 
-    audioPlayer.load();
+
+/* =========================================================
+   PLAY AUDIO EXPERIENCE
+   ========================================================= */
+
+function playAudioExperience(experience) {
+
+    const audio =
+        audioPlayer;
+
+    let finished = false;
+
+    let completionTimer = null;
 
 
     /*
-     * The audio element is already part of the page and the
-     * player has already interacted with the page by pressing
-     * Begin. We do not create or replace the element during
-     * the sequence.
+     * This function is deliberately protected against
+     * multiple completion signals. The audio can finish
+     * through the native "ended" event, the timeupdate
+     * check, or the duration safeguard below.
      */
 
-    audioPlayer.oncanplay = () => {
+    const finishAudio = async () => {
 
-        audioPlayer.oncanplay = null;
+        if (finished) {
+            return;
+        }
+
+        finished = true;
+
+
+        if (completionTimer !== null) {
+
+            clearTimeout(
+                completionTimer
+            );
+
+            completionTimer = null;
+
+        }
+
+
+        audio.onended = null;
+        audio.ontimeupdate = null;
+
+
+        await fadeAudioOut(audio);
+
+
+        audio.pause();
+
+        audio.currentTime =
+            audio.duration || 0;
+
+
+        showQuestion(
+            experience
+        );
+
+    };
+
+
+    audio.pause();
+
+    audio.currentTime = 0;
+
+    audio.volume = 0;
+
+    audio.src =
+        `assets/audio/${experience.file}`;
+
+    audio.load();
+
+
+    /* =====================================================
+       NATIVE END EVENT
+       ===================================================== */
+
+    audio.onended = () => {
+
+        finishAudio();
+
+    };
+
+
+    /* =====================================================
+       CURRENT-TIME END CHECK
+       ===================================================== */
+
+    audio.ontimeupdate = () => {
+
+        if (
+            Number.isFinite(audio.duration) &&
+            audio.duration > 0 &&
+            audio.currentTime >=
+                audio.duration - 0.15
+        ) {
+
+            finishAudio();
+
+        }
+
+    };
+
+
+    /* =====================================================
+       METADATA / DURATION SAFEGUARD
+       ===================================================== */
+
+    audio.onloadedmetadata = () => {
+
+        const duration =
+            audio.duration;
+
+        if (
+            Number.isFinite(duration) &&
+            duration > 0
+        ) {
+
+            /*
+             * This is only a final safeguard.
+             * It waits slightly beyond the actual duration,
+             * so the MP3 is allowed to reach its natural end.
+             */
+
+            completionTimer =
+                setTimeout(
+                    () => {
+
+                        if (
+                            audio.currentTime >=
+                            duration - 0.25
+                        ) {
+
+                            finishAudio();
+
+                        }
+
+                    },
+                    (duration * 1000) + 250
+                );
+
+        }
+
+    };
+
+
+    /* =====================================================
+       START PLAYBACK WHEN READY
+       ===================================================== */
+
+    const startPlayback = () => {
 
         const playPromise =
-            audioPlayer.play();
+            audio.play();
 
-        if (playPromise !== undefined) {
+        if (
+            playPromise !== undefined
+        ) {
 
             playPromise
                 .then(() => {
 
-                    fadeAudioIn(audioPlayer);
+                    fadeAudioIn(
+                        audio
+                    );
 
                 })
                 .catch(error => {
@@ -732,17 +889,6 @@ function loadExperience() {
                         error
                     );
 
-                    /*
-                     * If the browser refuses automatic audio
-                     * playback, give the player a direct
-                     * playback control instead of leaving the
-                     * experience permanently stuck.
-                     */
-
-                    showAudioPlaybackFallback(
-                        experience
-                    );
-
                 });
 
         }
@@ -750,79 +896,25 @@ function loadExperience() {
     };
 
 
-    audioPlayer.onended = async () => {
+    if (
+        audio.readyState >= 3
+    ) {
 
-        audioPlayer.onended = null;
+        startPlayback();
 
-        await fadeAudioOut(audioPlayer);
+    }
 
-        showQuestion(experience);
+    else {
 
-    };
+        audio.oncanplay = () => {
 
-}
+            audio.oncanplay = null;
 
+            startPlayback();
 
-/* =========================================================
-   AUDIO PLAYBACK FALLBACK
-   ========================================================= */
+        };
 
-function showAudioPlaybackFallback(experience) {
-
-    questionContainer.classList.add("hidden");
-
-    choiceContainer.innerHTML = "";
-
-    const playbackButton =
-        document.createElement("button");
-
-    playbackButton.type = "button";
-
-    playbackButton.className =
-        "choice-button";
-
-    playbackButton.textContent =
-        "Play Audio";
-
-    playbackButton.addEventListener(
-        "click",
-        () => {
-
-            playbackButton.remove();
-
-            audioPlayer.volume = 0;
-
-            const playPromise =
-                audioPlayer.play();
-
-            if (playPromise !== undefined) {
-
-                playPromise
-                    .then(() => {
-
-                        fadeAudioIn(
-                            audioPlayer
-                        );
-
-                    })
-                    .catch(error => {
-
-                        console.error(
-                            "Audio playback failed after user interaction:",
-                            experience.file,
-                            error
-                        );
-
-                    });
-
-            }
-
-        }
-    );
-
-    choiceContainer.appendChild(
-        playbackButton
-    );
+    }
 
 }
 
@@ -833,40 +925,51 @@ function showAudioPlaybackFallback(experience) {
 
 function showQuestion(experience) {
 
-    questionContainer.classList.remove("hidden");
+    questionContainer.classList.remove(
+        "hidden"
+    );
 
     questionLabel.textContent =
         experience.question;
 
     choiceContainer.innerHTML = "";
 
-    experience.choices.forEach(choice => {
 
-        const button =
-            document.createElement("button");
+    experience.choices.forEach(
+        choice => {
 
-        button.type = "button";
+            const button =
+                document.createElement(
+                    "button"
+                );
 
-        button.className =
-            "choice-button";
+            button.type = "button";
 
-        button.textContent =
-            choice.text;
+            button.className =
+                "choice-button";
 
-        button.addEventListener(
-            "click",
-            () => {
+            button.textContent =
+                choice.text;
 
-                recordChoice(choice);
 
-            }
-        );
+            button.addEventListener(
+                "click",
+                () => {
 
-        choiceContainer.appendChild(
-            button
-        );
+                    recordChoice(
+                        choice
+                    );
 
-    });
+                }
+            );
+
+
+            choiceContainer.appendChild(
+                button
+            );
+
+        }
+    );
 
 }
 
@@ -877,19 +980,25 @@ function showQuestion(experience) {
 
 function recordChoice(choice) {
 
-    if (choice.alignment === "S") {
+    if (
+        choice.alignment === "S"
+    ) {
 
         seelieScore++;
 
     }
 
-    if (choice.alignment === "U") {
+    else if (
+        choice.alignment === "U"
+    ) {
 
         unseelieScore++;
 
     }
 
+
     currentExperience++;
+
 
     if (
         currentExperience >=
@@ -898,7 +1007,9 @@ function recordChoice(choice) {
 
         determineCourt();
 
-    } else {
+    }
+
+    else {
 
         loadExperience();
 
@@ -915,13 +1026,20 @@ function determineCourt() {
 
     let court;
 
-    if (seelieScore > unseelieScore) {
+
+    if (
+        seelieScore >
+        unseelieScore
+    ) {
 
         court = "Seelie";
 
     }
 
-    else if (unseelieScore > seelieScore) {
+    else if (
+        unseelieScore >
+        seelieScore
+    ) {
 
         court = "UnSeelie";
 
@@ -933,7 +1051,10 @@ function determineCourt() {
 
     }
 
-    displayResult(court);
+
+    displayResult(
+        court
+    );
 
 }
 
@@ -944,9 +1065,12 @@ function determineCourt() {
 
 function displayResult(court) {
 
-    showScreen(resultScreen);
+    showScreen(
+        resultScreen
+    );
 
-    courtName.textContent = court;
+    courtName.textContent =
+        court;
 
     courtDescription.innerHTML =
         courtDescriptions[court];
