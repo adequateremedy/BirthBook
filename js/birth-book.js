@@ -323,7 +323,7 @@ const audioExperiences = [
 
 
 /* =========================================================
-   ALTERNATING EXPERIENCE ORDER
+   BUILD THE EXACT PLAY ORDER
    VISUAL 1 → AUDIO 1 → VISUAL 2 → AUDIO 2...
    ========================================================= */
 
@@ -345,7 +345,7 @@ for (let i = 0; i < 10; i++) {
 
 
 /* =========================================================
-   FADE SETTINGS
+   SETTINGS
    ========================================================= */
 
 const FADE_DURATION = 1500;
@@ -360,6 +360,13 @@ let currentExperience = 0;
 let seelieScore = 0;
 
 let unseelieScore = 0;
+
+
+/* =========================================================
+   AUDIO UNLOCK STATE
+   ========================================================= */
+
+let audioUnlocked = false;
 
 
 /* =========================================================
@@ -425,6 +432,65 @@ function showScreen(screen) {
     resultScreen.classList.remove("active");
 
     screen.classList.add("active");
+
+}
+
+
+/* =========================================================
+   UNLOCK AUDIO DURING THE BEGIN BUTTON CLICK
+   ========================================================= */
+
+async function unlockAudio() {
+
+    if (audioUnlocked) {
+        return;
+    }
+
+    try {
+
+        audioPlayer.src =
+            "assets/audio/audio-01.mp3";
+
+        audioPlayer.volume = 0;
+
+        audioPlayer.load();
+
+        const unlockPromise =
+            audioPlayer.play();
+
+        if (unlockPromise !== undefined) {
+
+            await unlockPromise;
+
+        }
+
+        audioPlayer.pause();
+
+        audioPlayer.currentTime = 0;
+
+        audioPlayer.volume = 0;
+
+        audioUnlocked = true;
+
+    }
+
+    catch (error) {
+
+        console.warn(
+            "Audio unlock attempt:",
+            error
+        );
+
+        /*
+         * The game will still attempt normal playback.
+         * Some browsers permit playback after the initial
+         * user interaction even if the priming attempt does
+         * not resolve normally.
+         */
+
+        audioUnlocked = true;
+
+    }
 
 }
 
@@ -656,7 +722,17 @@ function fadeAudioOut(audio) {
 
 beginButton.addEventListener(
     "click",
-    () => {
+    async () => {
+
+        /*
+         * This happens directly inside the user's click.
+         * It gives the browser an explicit user interaction
+         * associated with audio playback before the game
+         * begins moving through the experiences.
+         */
+
+        await unlockAudio();
+
 
         currentExperience = 0;
 
@@ -664,9 +740,11 @@ beginButton.addEventListener(
 
         unseelieScore = 0;
 
+
         showScreen(
             experienceScreen
         );
+
 
         loadExperience();
 
@@ -713,7 +791,7 @@ function loadExperience() {
 
 
     /* =====================================================
-       VISUAL EXPERIENCE
+       VISUAL
        ===================================================== */
 
     if (experience.type === "Visual") {
@@ -773,7 +851,7 @@ function loadExperience() {
 
 
     /* =====================================================
-       AUDIO EXPERIENCE
+       AUDIO
        ===================================================== */
 
     else {
@@ -821,8 +899,13 @@ function loadExperience() {
             };
 
 
-        audioPlayer.play()
-            .catch(error => {
+        const playback =
+            audioPlayer.play();
+
+
+        if (playback !== undefined) {
+
+            playback.catch(error => {
 
                 console.error(
                     "Unable to play audio:",
@@ -831,6 +914,8 @@ function loadExperience() {
                 );
 
             });
+
+        }
 
     }
 
