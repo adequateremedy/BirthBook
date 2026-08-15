@@ -323,22 +323,25 @@ const audioExperiences = [
 
 
 /* =========================================================
-   COMBINE EXPERIENCES
+   ALTERNATING EXPERIENCE ORDER
+   Visual 1 → Audio 1 → Visual 2 → Audio 2...
    ========================================================= */
 
-const experiences = [
+const experiences = [];
 
-    ...visualExperiences.map(item => ({
-        ...item,
+for (let i = 0; i < 10; i++) {
+
+    experiences.push({
+        ...visualExperiences[i],
         type: "Visual"
-    })),
+    });
 
-    ...audioExperiences.map(item => ({
-        ...item,
+    experiences.push({
+        ...audioExperiences[i],
         type: "Audio"
-    }))
+    });
 
-];
+}
 
 
 /* =========================================================
@@ -396,6 +399,7 @@ function showScreen(screen) {
     resultScreen.classList.remove("active");
 
     screen.classList.add("active");
+
 }
 
 
@@ -419,6 +423,7 @@ function stopCurrentMedia() {
 
     visualPlayer.style.opacity = "0";
     audioPlayer.volume = 0;
+
 }
 
 
@@ -434,22 +439,31 @@ function fadeVideoIn(video) {
 
     function animateFadeIn(currentTime) {
 
-        const elapsed = currentTime - startTime;
+        const elapsed =
+            currentTime - startTime;
 
         const progress =
-            Math.min(elapsed / FADE_DURATION, 1);
+            Math.min(
+                elapsed / FADE_DURATION,
+                1
+            );
 
         video.style.opacity = progress;
 
         if (progress < 1) {
 
-            requestAnimationFrame(animateFadeIn);
+            requestAnimationFrame(
+                animateFadeIn
+            );
 
         }
 
     }
 
-    requestAnimationFrame(animateFadeIn);
+    requestAnimationFrame(
+        animateFadeIn
+    );
+
 }
 
 
@@ -461,22 +475,32 @@ function fadeVideoOut(video) {
 
     return new Promise(resolve => {
 
-        const startTime = performance.now();
+        const startTime =
+            performance.now();
 
         function animateFadeOut(currentTime) {
 
-            const elapsed = currentTime - startTime;
+            const elapsed =
+                currentTime - startTime;
 
             const progress =
-                Math.min(elapsed / FADE_DURATION, 1);
+                Math.min(
+                    elapsed / FADE_DURATION,
+                    1
+                );
 
-            video.style.opacity = 1 - progress;
+            video.style.opacity =
+                1 - progress;
 
             if (progress < 1) {
 
-                requestAnimationFrame(animateFadeOut);
+                requestAnimationFrame(
+                    animateFadeOut
+                );
 
-            } else {
+            }
+
+            else {
 
                 video.style.opacity = "0";
 
@@ -486,7 +510,9 @@ function fadeVideoOut(video) {
 
         }
 
-        requestAnimationFrame(animateFadeOut);
+        requestAnimationFrame(
+            animateFadeOut
+        );
 
     });
 
@@ -501,26 +527,35 @@ function fadeAudioIn(audio) {
 
     audio.volume = 0;
 
-    const startTime = performance.now();
+    const startTime =
+        performance.now();
 
     function animateFadeIn(currentTime) {
 
-        const elapsed = currentTime - startTime;
+        const elapsed =
+            currentTime - startTime;
 
         const progress =
-            Math.min(elapsed / FADE_DURATION, 1);
+            Math.min(
+                elapsed / FADE_DURATION,
+                1
+            );
 
         audio.volume = progress;
 
         if (progress < 1) {
 
-            requestAnimationFrame(animateFadeIn);
+            requestAnimationFrame(
+                animateFadeIn
+            );
 
         }
 
     }
 
-    requestAnimationFrame(animateFadeIn);
+    requestAnimationFrame(
+        animateFadeIn
+    );
 
 }
 
@@ -533,25 +568,36 @@ function fadeAudioOut(audio) {
 
     return new Promise(resolve => {
 
-        const startVolume = audio.volume;
+        const startVolume =
+            audio.volume;
 
-        const startTime = performance.now();
+        const startTime =
+            performance.now();
 
         function animateFadeOut(currentTime) {
 
-            const elapsed = currentTime - startTime;
+            const elapsed =
+                currentTime - startTime;
 
             const progress =
-                Math.min(elapsed / FADE_DURATION, 1);
+                Math.min(
+                    elapsed / FADE_DURATION,
+                    1
+                );
 
             audio.volume =
-                startVolume * (1 - progress);
+                startVolume *
+                (1 - progress);
 
             if (progress < 1) {
 
-                requestAnimationFrame(animateFadeOut);
+                requestAnimationFrame(
+                    animateFadeOut
+                );
 
-            } else {
+            }
+
+            else {
 
                 audio.volume = 0;
 
@@ -561,7 +607,9 @@ function fadeAudioOut(audio) {
 
         }
 
-        requestAnimationFrame(animateFadeOut);
+        requestAnimationFrame(
+            animateFadeOut
+        );
 
     });
 
@@ -569,21 +617,26 @@ function fadeAudioOut(audio) {
 
 
 /* =========================================================
-   BEGIN
+   BEGIN GAME
    ========================================================= */
 
-beginButton.addEventListener("click", () => {
+beginButton.addEventListener(
+    "click",
+    () => {
 
-    currentExperience = 0;
+        currentExperience = 0;
 
-    seelieScore = 0;
-    unseelieScore = 0;
+        seelieScore = 0;
+        unseelieScore = 0;
 
-    showScreen(experienceScreen);
+        showScreen(
+            experienceScreen
+        );
 
-    loadExperience();
+        loadExperience();
 
-});
+    }
+);
 
 
 /* =========================================================
@@ -592,7 +645,9 @@ beginButton.addEventListener("click", () => {
 
 function loadExperience() {
 
-    const experience = experiences[currentExperience];
+    const experience =
+        experiences[currentExperience];
+
 
     if (!experience) {
 
@@ -609,102 +664,138 @@ function loadExperience() {
     experienceType.textContent =
         experience.type.toUpperCase();
 
+
     experienceNumber.textContent =
         `${currentExperience + 1} / ${experiences.length}`;
 
 
-    questionContainer.classList.add("hidden");
+    questionContainer.classList.add(
+        "hidden"
+    );
+
 
     choiceContainer.innerHTML = "";
 
 
     /* =====================================================
-       VISUAL
+       VISUAL EXPERIENCE
        ===================================================== */
 
     if (experience.type === "Visual") {
 
-        videoContainer.classList.remove("hidden");
+        videoContainer.classList.remove(
+            "hidden"
+        );
 
-        audioContainer.classList.add("hidden");
+        audioContainer.classList.add(
+            "hidden"
+        );
+
 
         visualPlayer.src =
             `assets/visuals/${experience.file}`;
 
+
         visualPlayer.load();
 
-        visualPlayer.onloadedmetadata = () => {
 
-            fadeVideoIn(visualPlayer);
+        visualPlayer.onloadedmetadata =
+            () => {
 
-        };
+                fadeVideoIn(
+                    visualPlayer
+                );
 
-
-        visualPlayer.onended = async () => {
-
-            await fadeVideoOut(visualPlayer);
-
-            showQuestion(experience);
-
-        };
+            };
 
 
-        visualPlayer.play().catch(error => {
+        visualPlayer.onended =
+            async () => {
 
-            console.error(
-                "Unable to play visual:",
-                experience.file,
-                error
-            );
+                await fadeVideoOut(
+                    visualPlayer
+                );
 
-        });
+                showQuestion(
+                    experience
+                );
+
+            };
+
+
+        visualPlayer.play()
+            .catch(error => {
+
+                console.error(
+                    "Unable to play visual:",
+                    experience.file,
+                    error
+                );
+
+            });
 
     }
 
 
     /* =====================================================
-       AUDIO
+       AUDIO EXPERIENCE
        ===================================================== */
 
     else {
 
-        videoContainer.classList.add("hidden");
+        videoContainer.classList.add(
+            "hidden"
+        );
 
-        audioContainer.classList.remove("hidden");
+        audioContainer.classList.remove(
+            "hidden"
+        );
+
 
         audioPlayer.src =
             `assets/audio/${experience.file}`;
 
+
         audioPlayer.volume = 0;
+
 
         audioPlayer.load();
 
 
-        audioPlayer.onloadedmetadata = () => {
+        audioPlayer.onloadedmetadata =
+            () => {
 
-            fadeAudioIn(audioPlayer);
+                fadeAudioIn(
+                    audioPlayer
+                );
 
-        };
-
-
-        audioPlayer.onended = async () => {
-
-            await fadeAudioOut(audioPlayer);
-
-            showQuestion(experience);
-
-        };
+            };
 
 
-        audioPlayer.play().catch(error => {
+        audioPlayer.onended =
+            async () => {
 
-            console.error(
-                "Unable to play audio:",
-                experience.file,
-                error
-            );
+                await fadeAudioOut(
+                    audioPlayer
+                );
 
-        });
+                showQuestion(
+                    experience
+                );
+
+            };
+
+
+        audioPlayer.play()
+            .catch(error => {
+
+                console.error(
+                    "Unable to play audio:",
+                    experience.file,
+                    error
+                );
+
+            });
 
     }
 
@@ -717,35 +808,56 @@ function loadExperience() {
 
 function showQuestion(experience) {
 
-    questionContainer.classList.remove("hidden");
+    questionContainer.classList.remove(
+        "hidden"
+    );
+
 
     questionLabel.textContent =
         experience.question;
 
+
     choiceContainer.innerHTML = "";
 
 
-    experience.choices.forEach(choice => {
+    experience.choices.forEach(
+        choice => {
 
-        const button =
-            document.createElement("button");
+            const button =
+                document.createElement(
+                    "button"
+                );
 
-        button.type = "button";
 
-        button.className = "choice-button";
+            button.type = "button";
 
-        button.textContent =
-            choice.text;
 
-        button.addEventListener("click", () => {
+            button.className =
+                "choice-button";
 
-            recordChoice(choice);
 
-        });
+            button.textContent =
+                choice.text;
 
-        choiceContainer.appendChild(button);
 
-    });
+            button.addEventListener(
+                "click",
+                () => {
+
+                    recordChoice(
+                        choice
+                    );
+
+                }
+            );
+
+
+            choiceContainer.appendChild(
+                button
+            );
+
+        }
+    );
 
 }
 
@@ -772,7 +884,10 @@ function recordChoice(choice) {
     currentExperience++;
 
 
-    if (currentExperience >= experiences.length) {
+    if (
+        currentExperience >=
+        experiences.length
+    ) {
 
         determineCourt();
 
@@ -796,13 +911,19 @@ function determineCourt() {
     let court;
 
 
-    if (seelieScore > unseelieScore) {
+    if (
+        seelieScore >
+        unseelieScore
+    ) {
 
         court = "Seelie";
 
     }
 
-    else if (unseelieScore > seelieScore) {
+    else if (
+        unseelieScore >
+        seelieScore
+    ) {
 
         court = "UnSeelie";
 
@@ -815,7 +936,9 @@ function determineCourt() {
     }
 
 
-    displayResult(court);
+    displayResult(
+        court
+    );
 
 }
 
@@ -826,10 +949,14 @@ function determineCourt() {
 
 function displayResult(court) {
 
-    showScreen(resultScreen);
+    showScreen(
+        resultScreen
+    );
+
 
     courtName.textContent =
         court;
+
 
     courtDescription.innerHTML =
         courtDescriptions[court];
