@@ -92,10 +92,10 @@ const courtDescriptions = {
         <p>
             Shadow aligned actions are driven by a chilling patience,
             the hoarding of leverage, and a commitment to the unseen
-            consequence; they reject the radiant pageantry of the
-            Seelie and the reckless chaos of the Unseelie, placing
-            immense value on manipulation, subtlety, and the absolute
-            power of knowing what others do not.
+            consequence; they reject the radiant pageantry of the Seelie
+            and the reckless chaos of the Unseelie, placing immense
+            value on manipulation, subtlety, and the absolute power of
+            knowing what others do not.
         </p>
 
         <p>
@@ -134,8 +134,8 @@ const visualExperiences = [
         file: "visual-01.webm",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Confined", alignment: "U" },
-            { text: "Free", alignment: "S" }
+            { text: "Bound", alignment: "S" },
+            { text: "Unbound", alignment: "U" }
         ]
     },
 
@@ -143,8 +143,8 @@ const visualExperiences = [
         file: "visual-02.webm",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Calm", alignment: "U" },
-            { text: "Hyper", alignment: "S" }
+            { text: "Untamed", alignment: "U" },
+            { text: "Ordered", alignment: "S" }
         ]
     },
 
@@ -152,8 +152,8 @@ const visualExperiences = [
         file: "visual-03.webm",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Safe", alignment: "S" },
-            { text: "Threatened", alignment: "U" }
+            { text: "Protected", alignment: "S" },
+            { text: "Defiant", alignment: "U" }
         ]
     },
 
@@ -161,8 +161,8 @@ const visualExperiences = [
         file: "visual-04.webm",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Connected", alignment: "S" },
-            { text: "Isolated", alignment: "U" }
+            { text: "Independent", alignment: "U" },
+            { text: "Obligated", alignment: "S" }
         ]
     },
 
@@ -170,8 +170,8 @@ const visualExperiences = [
         file: "visual-05.webm",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Peaceful", alignment: "S" },
-            { text: "Disturbed", alignment: "U" }
+            { text: "Empowered", alignment: "U" },
+            { text: "Honored", alignment: "S" }
         ]
     },
 
@@ -179,8 +179,8 @@ const visualExperiences = [
         file: "visual-06.webm",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Open", alignment: "S" },
-            { text: "Closed", alignment: "U" }
+            { text: "Respected", alignment: "S" },
+            { text: "Unrestrained", alignment: "U" }
         ]
     },
 
@@ -188,8 +188,8 @@ const visualExperiences = [
         file: "visual-07.webm",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Comforted", alignment: "S" },
-            { text: "Uncomfortable", alignment: "U" }
+            { text: "Driven", alignment: "U" },
+            { text: "Fulfilled", alignment: "S" }
         ]
     },
 
@@ -197,8 +197,8 @@ const visualExperiences = [
         file: "visual-08.webm",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Hopeful", alignment: "U" },
-            { text: "Hopeless", alignment: "S" }
+            { text: "Loyal", alignment: "S" },
+            { text: "Instinctive", alignment: "U" }
         ]
     },
 
@@ -206,8 +206,8 @@ const visualExperiences = [
         file: "visual-09.webm",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Loved", alignment: "S" },
-            { text: "Rejected", alignment: "U" }
+            { text: "Unaccountable", alignment: "U" },
+            { text: "Responsible", alignment: "S" }
         ]
     },
 
@@ -215,8 +215,8 @@ const visualExperiences = [
         file: "visual-10.webm",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Trusting", alignment: "U" },
-            { text: "Suspicious", alignment: "S" }
+            { text: "Liberated", alignment: "U" },
+            { text: "Secure", alignment: "S" }
         ]
     }
 
@@ -233,8 +233,8 @@ const audioExperiences = [
         file: "audio-01.mp3",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Energized", alignment: "U" },
-            { text: "Drained", alignment: "S" }
+            { text: "Committed", alignment: "S" },
+            { text: "Passionate", alignment: "U" }
         ]
     },
 
@@ -242,8 +242,8 @@ const audioExperiences = [
         file: "audio-02.mp3",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Relaxed", alignment: "S" },
-            { text: "Tense", alignment: "U" }
+            { text: "Impulsive", alignment: "U" },
+            { text: "Disciplined", alignment: "S" }
         ]
     },
 
@@ -251,8 +251,8 @@ const audioExperiences = [
         file: "audio-03.mp3",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Drawn In", alignment: "U" },
-            { text: "Pushed Away", alignment: "S" }
+            { text: "Devoted", alignment: "S" },
+            { text: "Self-Possessed", alignment: "U" }
         ]
     },
 
@@ -260,8 +260,8 @@ const audioExperiences = [
         file: "audio-04.mp3",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Curious", alignment: "S" },
-            { text: "Uneasy", alignment: "U" }
+            { text: "Defiant", alignment: "U" },
+            { text: "Dutiful", alignment: "S" }
         ]
     },
 
@@ -269,8 +269,8 @@ const audioExperiences = [
         file: "audio-05.mp3",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Reassured", alignment: "S" },
-            { text: "Alarmed", alignment: "U" }
+            { text: "Honorable", alignment: "S" },
+            { text: "Ruthless", alignment: "U" }
         ]
     },
 
@@ -278,8 +278,8 @@ const audioExperiences = [
         file: "audio-06.mp3",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Grounded", alignment: "S" },
-            { text: "Unstable", alignment: "U" }
+            { text: "Self-Serving", alignment: "U" },
+            { text: "Reciprocal", alignment: "S" }
         ]
     },
 
@@ -287,8 +287,8 @@ const audioExperiences = [
         file: "audio-07.mp3",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Joyful", alignment: "S" },
-            { text: "Sorrowful", alignment: "U" }
+            { text: "Restrained", alignment: "S" },
+            { text: "Uninhibited", alignment: "U" }
         ]
     },
 
@@ -296,8 +296,8 @@ const audioExperiences = [
         file: "audio-08.mp3",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Powerful", alignment: "U" },
-            { text: "Powerless", alignment: "S" }
+            { text: "Wary", alignment: "U" },
+            { text: "Trusting", alignment: "S" }
         ]
     },
 
@@ -305,8 +305,8 @@ const audioExperiences = [
         file: "audio-09.mp3",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Welcomed", alignment: "S" },
-            { text: "Unwelcome", alignment: "U" }
+            { text: "Bound by Promise", alignment: "S" },
+            { text: "Free of Obligation", alignment: "U" }
         ]
     },
 
@@ -314,8 +314,8 @@ const audioExperiences = [
         file: "audio-10.mp3",
         question: "Does this experience make you feel:",
         choices: [
-            { text: "Certain", alignment: "U" },
-            { text: "Uncertain", alignment: "S" }
+            { text: "Restless", alignment: "U" },
+            { text: "Content", alignment: "S" }
         ]
     }
 
@@ -324,7 +324,7 @@ const audioExperiences = [
 
 /* =========================================================
    ALTERNATING EXPERIENCE ORDER
-   Visual 1 → Audio 1 → Visual 2 → Audio 2...
+   VISUAL 1 → AUDIO 1 → VISUAL 2 → AUDIO 2...
    ========================================================= */
 
 const experiences = [];
@@ -365,27 +365,50 @@ let unseelieScore = 0;
    DOM ELEMENTS
    ========================================================= */
 
-const introScreen = document.getElementById("introScreen");
-const experienceScreen = document.getElementById("experienceScreen");
-const resultScreen = document.getElementById("resultScreen");
+const introScreen =
+    document.getElementById("introScreen");
 
-const beginButton = document.getElementById("beginButton");
+const experienceScreen =
+    document.getElementById("experienceScreen");
 
-const experienceType = document.getElementById("experienceType");
-const experienceNumber = document.getElementById("experienceNumber");
+const resultScreen =
+    document.getElementById("resultScreen");
 
-const videoContainer = document.getElementById("videoContainer");
-const visualPlayer = document.getElementById("visualPlayer");
+const beginButton =
+    document.getElementById("beginButton");
 
-const audioContainer = document.getElementById("audioContainer");
-const audioPlayer = document.getElementById("audioPlayer");
+const experienceType =
+    document.getElementById("experienceType");
 
-const questionContainer = document.getElementById("questionContainer");
-const questionLabel = document.querySelector(".question-label");
-const choiceContainer = document.getElementById("choiceContainer");
+const experienceNumber =
+    document.getElementById("experienceNumber");
 
-const courtName = document.getElementById("courtName");
-const courtDescription = document.getElementById("courtDescription");
+const videoContainer =
+    document.getElementById("videoContainer");
+
+const visualPlayer =
+    document.getElementById("visualPlayer");
+
+const audioContainer =
+    document.getElementById("audioContainer");
+
+const audioPlayer =
+    document.getElementById("audioPlayer");
+
+const questionContainer =
+    document.getElementById("questionContainer");
+
+const questionLabel =
+    document.querySelector(".question-label");
+
+const choiceContainer =
+    document.getElementById("choiceContainer");
+
+const courtName =
+    document.getElementById("courtName");
+
+const courtDescription =
+    document.getElementById("courtDescription");
 
 
 /* =========================================================
@@ -395,7 +418,9 @@ const courtDescription = document.getElementById("courtDescription");
 function showScreen(screen) {
 
     introScreen.classList.remove("active");
+
     experienceScreen.classList.remove("active");
+
     resultScreen.classList.remove("active");
 
     screen.classList.add("active");
@@ -410,32 +435,38 @@ function showScreen(screen) {
 function stopCurrentMedia() {
 
     visualPlayer.pause();
+
     audioPlayer.pause();
 
     visualPlayer.onended = null;
+
     audioPlayer.onended = null;
 
     visualPlayer.removeAttribute("src");
+
     audioPlayer.removeAttribute("src");
 
     visualPlayer.load();
+
     audioPlayer.load();
 
     visualPlayer.style.opacity = "0";
+
     audioPlayer.volume = 0;
 
 }
 
 
 /* =========================================================
-   VISUAL FADE IN
+   VIDEO FADE IN
    ========================================================= */
 
 function fadeVideoIn(video) {
 
     video.style.opacity = "0";
 
-    const startTime = performance.now();
+    const startTime =
+        performance.now();
 
     function animateFadeIn(currentTime) {
 
@@ -448,7 +479,8 @@ function fadeVideoIn(video) {
                 1
             );
 
-        video.style.opacity = progress;
+        video.style.opacity =
+            progress;
 
         if (progress < 1) {
 
@@ -468,7 +500,7 @@ function fadeVideoIn(video) {
 
 
 /* =========================================================
-   VISUAL FADE OUT
+   VIDEO FADE OUT
    ========================================================= */
 
 function fadeVideoOut(video) {
@@ -541,7 +573,8 @@ function fadeAudioIn(audio) {
                 1
             );
 
-        audio.volume = progress;
+        audio.volume =
+            progress;
 
         if (progress < 1) {
 
@@ -617,7 +650,7 @@ function fadeAudioOut(audio) {
 
 
 /* =========================================================
-   BEGIN GAME
+   BEGIN
    ========================================================= */
 
 beginButton.addEventListener(
@@ -627,6 +660,7 @@ beginButton.addEventListener(
         currentExperience = 0;
 
         seelieScore = 0;
+
         unseelieScore = 0;
 
         showScreen(
@@ -678,7 +712,7 @@ function loadExperience() {
 
 
     /* =====================================================
-       VISUAL EXPERIENCE
+       VISUAL
        ===================================================== */
 
     if (experience.type === "Visual") {
@@ -738,7 +772,7 @@ function loadExperience() {
 
 
     /* =====================================================
-       AUDIO EXPERIENCE
+       AUDIO
        ===================================================== */
 
     else {
@@ -831,10 +865,8 @@ function showQuestion(experience) {
 
             button.type = "button";
 
-
             button.className =
                 "choice-button";
-
 
             button.textContent =
                 choice.text;
@@ -868,13 +900,17 @@ function showQuestion(experience) {
 
 function recordChoice(choice) {
 
-    if (choice.alignment === "S") {
+    if (
+        choice.alignment === "S"
+    ) {
 
         seelieScore++;
 
     }
 
-    else if (choice.alignment === "U") {
+    else if (
+        choice.alignment === "U"
+    ) {
 
         unseelieScore++;
 
