@@ -1,6 +1,5 @@
 "use strict";
 
-
 /* =========================================================
    COURT DESCRIPTIONS
    ========================================================= */
@@ -323,7 +322,7 @@ const audioExperiences = [
 
 
 /* =========================================================
-   BUILD THE EXACT PLAY ORDER
+   EXACT EXPERIENCE ORDER
    VISUAL 1 → AUDIO 1 → VISUAL 2 → AUDIO 2...
    ========================================================= */
 
@@ -356,17 +355,8 @@ const FADE_DURATION = 1500;
    ========================================================= */
 
 let currentExperience = 0;
-
 let seelieScore = 0;
-
 let unseelieScore = 0;
-
-
-/* =========================================================
-   AUDIO UNLOCK STATE
-   ========================================================= */
-
-let audioUnlocked = false;
 
 
 /* =========================================================
@@ -426,9 +416,7 @@ const courtDescription =
 function showScreen(screen) {
 
     introScreen.classList.remove("active");
-
     experienceScreen.classList.remove("active");
-
     resultScreen.classList.remove("active");
 
     screen.classList.add("active");
@@ -437,88 +425,24 @@ function showScreen(screen) {
 
 
 /* =========================================================
-   UNLOCK AUDIO DURING THE BEGIN BUTTON CLICK
-   ========================================================= */
-
-async function unlockAudio() {
-
-    if (audioUnlocked) {
-        return;
-    }
-
-    try {
-
-        audioPlayer.src =
-            "assets/audio/audio-01.mp3";
-
-        audioPlayer.volume = 0;
-
-        audioPlayer.load();
-
-        const unlockPromise =
-            audioPlayer.play();
-
-        if (unlockPromise !== undefined) {
-
-            await unlockPromise;
-
-        }
-
-        audioPlayer.pause();
-
-        audioPlayer.currentTime = 0;
-
-        audioPlayer.volume = 0;
-
-        audioUnlocked = true;
-
-    }
-
-    catch (error) {
-
-        console.warn(
-            "Audio unlock attempt:",
-            error
-        );
-
-        /*
-         * The game will still attempt normal playback.
-         * Some browsers permit playback after the initial
-         * user interaction even if the priming attempt does
-         * not resolve normally.
-         */
-
-        audioUnlocked = true;
-
-    }
-
-}
-
-
-/* =========================================================
-   STOP CURRENT MEDIA
+   MEDIA CLEANUP
    ========================================================= */
 
 function stopCurrentMedia() {
 
     visualPlayer.pause();
-
     audioPlayer.pause();
 
     visualPlayer.onended = null;
-
     audioPlayer.onended = null;
 
     visualPlayer.removeAttribute("src");
-
     audioPlayer.removeAttribute("src");
 
     visualPlayer.load();
-
     audioPlayer.load();
 
     visualPlayer.style.opacity = "0";
-
     audioPlayer.volume = 0;
 
 }
@@ -532,36 +456,23 @@ function fadeVideoIn(video) {
 
     video.style.opacity = "0";
 
-    const startTime =
-        performance.now();
+    const startTime = performance.now();
 
-    function animateFadeIn(currentTime) {
+    function animate(currentTime) {
 
-        const elapsed =
-            currentTime - startTime;
+        const progress = Math.min(
+            (currentTime - startTime) / FADE_DURATION,
+            1
+        );
 
-        const progress =
-            Math.min(
-                elapsed / FADE_DURATION,
-                1
-            );
-
-        video.style.opacity =
-            progress;
+        video.style.opacity = progress;
 
         if (progress < 1) {
-
-            requestAnimationFrame(
-                animateFadeIn
-            );
-
+            requestAnimationFrame(animate);
         }
-
     }
 
-    requestAnimationFrame(
-        animateFadeIn
-    );
+    requestAnimationFrame(animate);
 
 }
 
@@ -574,44 +485,30 @@ function fadeVideoOut(video) {
 
     return new Promise(resolve => {
 
-        const startTime =
-            performance.now();
+        const startTime = performance.now();
 
-        function animateFadeOut(currentTime) {
+        function animate(currentTime) {
 
-            const elapsed =
-                currentTime - startTime;
+            const progress = Math.min(
+                (currentTime - startTime) / FADE_DURATION,
+                1
+            );
 
-            const progress =
-                Math.min(
-                    elapsed / FADE_DURATION,
-                    1
-                );
-
-            video.style.opacity =
-                1 - progress;
+            video.style.opacity = 1 - progress;
 
             if (progress < 1) {
 
-                requestAnimationFrame(
-                    animateFadeOut
-                );
+                requestAnimationFrame(animate);
 
-            }
-
-            else {
+            } else {
 
                 video.style.opacity = "0";
-
                 resolve();
 
             }
-
         }
 
-        requestAnimationFrame(
-            animateFadeOut
-        );
+        requestAnimationFrame(animate);
 
     });
 
@@ -626,36 +523,23 @@ function fadeAudioIn(audio) {
 
     audio.volume = 0;
 
-    const startTime =
-        performance.now();
+    const startTime = performance.now();
 
-    function animateFadeIn(currentTime) {
+    function animate(currentTime) {
 
-        const elapsed =
-            currentTime - startTime;
+        const progress = Math.min(
+            (currentTime - startTime) / FADE_DURATION,
+            1
+        );
 
-        const progress =
-            Math.min(
-                elapsed / FADE_DURATION,
-                1
-            );
-
-        audio.volume =
-            progress;
+        audio.volume = progress;
 
         if (progress < 1) {
-
-            requestAnimationFrame(
-                animateFadeIn
-            );
-
+            requestAnimationFrame(animate);
         }
-
     }
 
-    requestAnimationFrame(
-        animateFadeIn
-    );
+    requestAnimationFrame(animate);
 
 }
 
@@ -668,48 +552,32 @@ function fadeAudioOut(audio) {
 
     return new Promise(resolve => {
 
-        const startVolume =
-            audio.volume;
+        const startingVolume = audio.volume;
+        const startTime = performance.now();
 
-        const startTime =
-            performance.now();
+        function animate(currentTime) {
 
-        function animateFadeOut(currentTime) {
-
-            const elapsed =
-                currentTime - startTime;
-
-            const progress =
-                Math.min(
-                    elapsed / FADE_DURATION,
-                    1
-                );
+            const progress = Math.min(
+                (currentTime - startTime) / FADE_DURATION,
+                1
+            );
 
             audio.volume =
-                startVolume *
-                (1 - progress);
+                startingVolume * (1 - progress);
 
             if (progress < 1) {
 
-                requestAnimationFrame(
-                    animateFadeOut
-                );
+                requestAnimationFrame(animate);
 
-            }
-
-            else {
+            } else {
 
                 audio.volume = 0;
-
                 resolve();
 
             }
-
         }
 
-        requestAnimationFrame(
-            animateFadeOut
-        );
+        requestAnimationFrame(animate);
 
     });
 
@@ -720,36 +588,23 @@ function fadeAudioOut(audio) {
    BEGIN
    ========================================================= */
 
-beginButton.addEventListener(
-    "click",
-    async () => {
+beginButton.addEventListener("click", () => {
 
-        /*
-         * This happens directly inside the user's click.
-         * It gives the browser an explicit user interaction
-         * associated with audio playback before the game
-         * begins moving through the experiences.
-         */
+    currentExperience = 0;
+    seelieScore = 0;
+    unseelieScore = 0;
 
-        await unlockAudio();
+    /*
+     * The first media playback is initiated directly from
+     * this user click. This preserves the browser's user-
+     * interaction permission for the experience.
+     */
 
+    showScreen(experienceScreen);
 
-        currentExperience = 0;
+    loadExperience();
 
-        seelieScore = 0;
-
-        unseelieScore = 0;
-
-
-        showScreen(
-            experienceScreen
-        );
-
-
-        loadExperience();
-
-    }
-);
+});
 
 
 /* =========================================================
@@ -761,31 +616,22 @@ function loadExperience() {
     const experience =
         experiences[currentExperience];
 
-
     if (!experience) {
 
         determineCourt();
-
         return;
 
     }
 
-
     stopCurrentMedia();
-
 
     experienceType.textContent =
         experience.type.toUpperCase();
 
-
     experienceNumber.textContent =
         `${currentExperience + 1} / ${experiences.length}`;
 
-
-    questionContainer.classList.add(
-        "hidden"
-    );
-
+    questionContainer.classList.add("hidden");
 
     choiceContainer.innerHTML = "";
 
@@ -796,119 +642,39 @@ function loadExperience() {
 
     if (experience.type === "Visual") {
 
-        videoContainer.classList.remove(
-            "hidden"
-        );
-
-        audioContainer.classList.add(
-            "hidden"
-        );
-
+        videoContainer.classList.remove("hidden");
+        audioContainer.classList.add("hidden");
 
         visualPlayer.src =
             `assets/visuals/${experience.file}`;
 
-
         visualPlayer.load();
 
+        visualPlayer.onloadedmetadata = () => {
 
-        visualPlayer.onloadedmetadata =
-            () => {
+            fadeVideoIn(visualPlayer);
 
-                fadeVideoIn(
-                    visualPlayer
-                );
+        };
 
-            };
+        visualPlayer.onended = async () => {
 
+            visualPlayer.onended = null;
 
-        visualPlayer.onended =
-            async () => {
+            await fadeVideoOut(visualPlayer);
 
-                await fadeVideoOut(
-                    visualPlayer
-                );
+            showQuestion(experience);
 
-                showQuestion(
-                    experience
-                );
+        };
 
-            };
+        const playPromise =
+            visualPlayer.play();
 
+        if (playPromise !== undefined) {
 
-        visualPlayer.play()
-            .catch(error => {
+            playPromise.catch(error => {
 
                 console.error(
-                    "Unable to play visual:",
-                    experience.file,
-                    error
-                );
-
-            });
-
-    }
-
-
-    /* =====================================================
-       AUDIO
-       ===================================================== */
-
-    else {
-
-        videoContainer.classList.add(
-            "hidden"
-        );
-
-        audioContainer.classList.remove(
-            "hidden"
-        );
-
-
-        audioPlayer.src =
-            `assets/audio/${experience.file}`;
-
-
-        audioPlayer.volume = 0;
-
-
-        audioPlayer.load();
-
-
-        audioPlayer.onloadedmetadata =
-            () => {
-
-                fadeAudioIn(
-                    audioPlayer
-                );
-
-            };
-
-
-        audioPlayer.onended =
-            async () => {
-
-                await fadeAudioOut(
-                    audioPlayer
-                );
-
-                showQuestion(
-                    experience
-                );
-
-            };
-
-
-        const playback =
-            audioPlayer.play();
-
-
-        if (playback !== undefined) {
-
-            playback.catch(error => {
-
-                console.error(
-                    "Unable to play audio:",
+                    "Visual playback failed:",
                     experience.file,
                     error
                 );
@@ -917,7 +683,146 @@ function loadExperience() {
 
         }
 
+        return;
     }
+
+
+    /* =====================================================
+       AUDIO
+       ===================================================== */
+
+    videoContainer.classList.add("hidden");
+    audioContainer.classList.remove("hidden");
+
+    audioPlayer.src =
+        `assets/audio/${experience.file}`;
+
+    audioPlayer.volume = 0;
+
+    audioPlayer.load();
+
+
+    /*
+     * The audio element is already part of the page and the
+     * player has already interacted with the page by pressing
+     * Begin. We do not create or replace the element during
+     * the sequence.
+     */
+
+    audioPlayer.oncanplay = () => {
+
+        audioPlayer.oncanplay = null;
+
+        const playPromise =
+            audioPlayer.play();
+
+        if (playPromise !== undefined) {
+
+            playPromise
+                .then(() => {
+
+                    fadeAudioIn(audioPlayer);
+
+                })
+                .catch(error => {
+
+                    console.error(
+                        "Audio playback failed:",
+                        experience.file,
+                        error
+                    );
+
+                    /*
+                     * If the browser refuses automatic audio
+                     * playback, give the player a direct
+                     * playback control instead of leaving the
+                     * experience permanently stuck.
+                     */
+
+                    showAudioPlaybackFallback(
+                        experience
+                    );
+
+                });
+
+        }
+
+    };
+
+
+    audioPlayer.onended = async () => {
+
+        audioPlayer.onended = null;
+
+        await fadeAudioOut(audioPlayer);
+
+        showQuestion(experience);
+
+    };
+
+}
+
+
+/* =========================================================
+   AUDIO PLAYBACK FALLBACK
+   ========================================================= */
+
+function showAudioPlaybackFallback(experience) {
+
+    questionContainer.classList.add("hidden");
+
+    choiceContainer.innerHTML = "";
+
+    const playbackButton =
+        document.createElement("button");
+
+    playbackButton.type = "button";
+
+    playbackButton.className =
+        "choice-button";
+
+    playbackButton.textContent =
+        "Play Audio";
+
+    playbackButton.addEventListener(
+        "click",
+        () => {
+
+            playbackButton.remove();
+
+            audioPlayer.volume = 0;
+
+            const playPromise =
+                audioPlayer.play();
+
+            if (playPromise !== undefined) {
+
+                playPromise
+                    .then(() => {
+
+                        fadeAudioIn(
+                            audioPlayer
+                        );
+
+                    })
+                    .catch(error => {
+
+                        console.error(
+                            "Audio playback failed after user interaction:",
+                            experience.file,
+                            error
+                        );
+
+                    });
+
+            }
+
+        }
+    );
+
+    choiceContainer.appendChild(
+        playbackButton
+    );
 
 }
 
@@ -928,54 +833,40 @@ function loadExperience() {
 
 function showQuestion(experience) {
 
-    questionContainer.classList.remove(
-        "hidden"
-    );
-
+    questionContainer.classList.remove("hidden");
 
     questionLabel.textContent =
         experience.question;
 
-
     choiceContainer.innerHTML = "";
 
+    experience.choices.forEach(choice => {
 
-    experience.choices.forEach(
-        choice => {
+        const button =
+            document.createElement("button");
 
-            const button =
-                document.createElement(
-                    "button"
-                );
+        button.type = "button";
 
+        button.className =
+            "choice-button";
 
-            button.type = "button";
+        button.textContent =
+            choice.text;
 
-            button.className =
-                "choice-button";
+        button.addEventListener(
+            "click",
+            () => {
 
-            button.textContent =
-                choice.text;
+                recordChoice(choice);
 
+            }
+        );
 
-            button.addEventListener(
-                "click",
-                () => {
+        choiceContainer.appendChild(
+            button
+        );
 
-                    recordChoice(
-                        choice
-                    );
-
-                }
-            );
-
-
-            choiceContainer.appendChild(
-                button
-            );
-
-        }
-    );
+    });
 
 }
 
@@ -986,25 +877,19 @@ function showQuestion(experience) {
 
 function recordChoice(choice) {
 
-    if (
-        choice.alignment === "S"
-    ) {
+    if (choice.alignment === "S") {
 
         seelieScore++;
 
     }
 
-    else if (
-        choice.alignment === "U"
-    ) {
+    if (choice.alignment === "U") {
 
         unseelieScore++;
 
     }
 
-
     currentExperience++;
-
 
     if (
         currentExperience >=
@@ -1013,9 +898,7 @@ function recordChoice(choice) {
 
         determineCourt();
 
-    }
-
-    else {
+    } else {
 
         loadExperience();
 
@@ -1032,20 +915,13 @@ function determineCourt() {
 
     let court;
 
-
-    if (
-        seelieScore >
-        unseelieScore
-    ) {
+    if (seelieScore > unseelieScore) {
 
         court = "Seelie";
 
     }
 
-    else if (
-        unseelieScore >
-        seelieScore
-    ) {
+    else if (unseelieScore > seelieScore) {
 
         court = "UnSeelie";
 
@@ -1057,10 +933,7 @@ function determineCourt() {
 
     }
 
-
-    displayResult(
-        court
-    );
+    displayResult(court);
 
 }
 
@@ -1071,14 +944,9 @@ function determineCourt() {
 
 function displayResult(court) {
 
-    showScreen(
-        resultScreen
-    );
+    showScreen(resultScreen);
 
-
-    courtName.textContent =
-        court;
-
+    courtName.textContent = court;
 
     courtDescription.innerHTML =
         courtDescriptions[court];
