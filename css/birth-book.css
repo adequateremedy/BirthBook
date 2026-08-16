@@ -1,7 +1,3 @@
-/* =========================================================
-   GLOBAL
-   ========================================================= */
-
 * {
     box-sizing: border-box;
 }
@@ -15,30 +11,52 @@ body {
 }
 
 body {
-    overflow: hidden;
     background: #000;
+    color: #fff;
     font-family: Georgia, "Times New Roman", serif;
+    overflow: hidden;
 }
 
 
 /* =========================================================
-   SCREEN SYSTEM
+   MAIN CONTAINER
    ========================================================= */
 
-.screen {
-    position: fixed;
-    inset: 0;
-
+#birthBook {
+    position: relative;
     width: 100vw;
     height: 100vh;
-
-    display: none;
-
     overflow: hidden;
 }
 
-.screen.active {
+
+/* =========================================================
+   SCREENS
+   ========================================================= */
+
+.screen {
+    position: absolute;
+    inset: 0;
+
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
 }
 
 
@@ -47,84 +65,49 @@ body {
    ========================================================= */
 
 #introScreen {
-    align-items: center;
-    justify-content: center;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #202020 0%,
-            #090909 55%,
-            #000000 100%
-        );
-
-    color: #eee;
-
-    padding: 6vh 8vw;
-}
-
-.intro-content {
-    width: min(900px, 90vw);
-    max-height: 88vh;
-
-    overflow-y: auto;
-
+    padding: 40px;
     text-align: center;
 }
 
-.intro-content h1 {
-    margin: 0 0 2rem;
-
+#introScreen h1 {
+    margin: 0 0 30px;
     font-size: clamp(2rem, 5vw, 4rem);
-
-    letter-spacing: 0.12em;
-
-    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
-.intro-content p {
-    margin: 0 auto 1.25rem;
+#introScreen p {
+    width: min(900px, 90vw);
+    margin: 0 auto 20px;
 
-    max-width: 800px;
+    text-align: center;
 
-    font-size: clamp(1rem, 1.6vw, 1.25rem);
-
+    font-size: clamp(1rem, 1.7vw, 1.35rem);
     line-height: 1.8;
 }
 
 #beginButton {
-    margin-top: 2rem;
+    margin-top: 30px;
+    padding: 14px 34px;
 
-    padding: 1rem 2.5rem;
+    border: 1px solid #fff;
+    border-radius: 4px;
 
-    border: 1px solid rgba(255, 255, 255, 0.6);
-
-    background: rgba(255, 255, 255, 0.08);
-
+    background: transparent;
     color: #fff;
 
     font-family: inherit;
-
-    font-size: 1rem;
-
-    letter-spacing: 0.12em;
-
-    text-transform: uppercase;
+    font-size: 1.1rem;
 
     cursor: pointer;
 
     transition:
         background 0.3s ease,
-        border-color 0.3s ease,
-        transform 0.3s ease;
+        color 0.3s ease;
 }
 
 #beginButton:hover {
-    background: rgba(255, 255, 255, 0.18);
-
-    border-color: #fff;
-
-    transform: translateY(-2px);
+    background: #fff;
+    color: #000;
 }
 
 
@@ -133,22 +116,8 @@ body {
    ========================================================= */
 
 #experienceScreen {
-    position: fixed;
-    inset: 0;
-
-    width: 100vw;
-    height: 100vh;
-
+    position: relative;
     background: #000;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-}
-
-#experienceScreen.active {
-    display: flex;
 }
 
 
@@ -156,141 +125,74 @@ body {
    EXPERIENCE HEADER
    ========================================================= */
 
-.experience-header {
+#experienceType,
+#experienceNumber {
     position: absolute;
-
-    top: 0;
-    left: 0;
-
     z-index: 20;
 
-    width: 100%;
+    top: 20px;
 
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
 
     pointer-events: none;
-
-    color: #fff;
-
-    text-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
 #experienceType {
-    font-size: 0.85rem;
-
-    letter-spacing: 0.2em;
-
-    text-transform: uppercase;
+    left: 25px;
 }
 
 #experienceNumber {
-    font-size: 0.85rem;
-
-    letter-spacing: 0.15em;
+    right: 25px;
 }
 
 
 /* =========================================================
-   FULL-SCREEN VISUAL CONTAINER
+   VIDEO
    ========================================================= */
 
 #videoContainer {
-    position: fixed;
-
+    position: absolute;
     inset: 0;
 
-    width: 100vw;
-    height: 100vh;
-
-    z-index: 1;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
 
-    background: #000;
+    width: 100%;
+    height: 100%;
 
     overflow: hidden;
 }
 
-#videoContainer.hidden {
-    display: none;
-}
-
-
-/* =========================================================
-   FULL-SCREEN WEBM
-   ========================================================= */
-
 #visualPlayer {
-    position: absolute;
-
-    top: 0;
-    left: 0;
+    display: block;
 
     width: 100vw;
     height: 100vh;
-
-    /*
-       Fills the entire viewport.
-       The video is stretched to the full screen dimensions.
-    */
 
     object-fit: fill;
 
-    display: block;
-
     opacity: 0;
-
-    background: #000;
 }
 
 
 /* =========================================================
-   AUDIO CONTAINER
+   AUDIO
    ========================================================= */
 
 #audioContainer {
-    position: fixed;
-
+    position: absolute;
     inset: 0;
 
-    width: 100vw;
-    height: 100vh;
-
-    z-index: 1;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #171717 0%,
-            #050505 60%,
-            #000 100%
-        );
+    width: 100%;
+    height: 100%;
 }
-
-#audioContainer.hidden {
-    display: none;
-}
-
-
-/*
-   The audio element itself does not need to be visible.
-   The audio experience occupies the full experience screen.
-*/
 
 #audioPlayer {
     display: none;
@@ -298,179 +200,89 @@ body {
 
 
 /* =========================================================
-   QUESTION AREA
+   QUESTION
    ========================================================= */
 
 #questionContainer {
     position: absolute;
+    z-index: 30;
 
     left: 50%;
-
-    bottom: 6vh;
+    bottom: 8%;
 
     transform: translateX(-50%);
 
-    z-index: 30;
+    width: min(1000px, 90vw);
 
-    width: min(700px, 90vw);
-
-    padding: 1.5rem;
+    padding: 25px 35px;
 
     text-align: center;
 
-    color: #fff;
+    background: rgba(0, 0, 0, 0.75);
 
-    background:
-        rgba(0, 0, 0, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 8px;
 
-    border:
-        1px solid rgba(255, 255, 255, 0.25);
-
-    backdrop-filter: blur(8px);
-
-    -webkit-backdrop-filter: blur(8px);
-
-    transition:
-        opacity 0.5s ease,
-        transform 0.5s ease;
-}
-
-#questionContainer.hidden {
-    display: none;
+    backdrop-filter: blur(5px);
 }
 
 .question-label {
-    margin: 0 0 1.25rem;
+    display: inline;
+    margin: 0;
 
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
-
-    line-height: 1.5;
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    line-height: 1.6;
 }
 
 
 /* =========================================================
-   CHOICES
+   EMBEDDED RESPONSE BUTTONS
    ========================================================= */
 
 #choiceContainer {
-    display: flex;
-
-    justify-content: center;
-
-    gap: 1rem;
-
-    flex-wrap: wrap;
+    display: inline;
 }
 
 .choice-button {
-    min-width: 180px;
+    display: inline-block;
 
-    padding: 0.9rem 1.5rem;
+    margin: 0 5px;
+    padding: 8px 16px;
 
-    border:
-        1px solid rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 5px;
 
-    background:
-        rgba(255, 255, 255, 0.06);
-
+    background: rgba(0, 0, 0, 0.45);
     color: #fff;
 
     font-family: inherit;
-
-    font-size: 1rem;
+    font-size: inherit;
 
     cursor: pointer;
 
     transition:
         background 0.25s ease,
-        border-color 0.25s ease,
-        transform 0.25s ease;
+        color 0.25s ease,
+        border-color 0.25s ease;
 }
 
 .choice-button:hover {
-    background:
-        rgba(255, 255, 255, 0.18);
-
+    background: #fff;
+    color: #000;
     border-color: #fff;
-
-    transform: translateY(-2px);
 }
 
-.choice-button:active {
-    transform: translateY(0);
+.choice-or {
+    display: inline;
 }
 
-
-/* =========================================================
-   RESULT SCREEN
-   ========================================================= */
-
-#resultScreen {
-    align-items: center;
-    justify-content: center;
-
-    overflow-y: auto;
-
-    padding: 8vh 8vw;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #202020 0%,
-            #090909 60%,
-            #000 100%
-        );
-
-    color: #eee;
-}
-
-.result-content {
-    width: min(900px, 90vw);
-
-    max-height: 88vh;
-
-    overflow-y: auto;
-
-    text-align: center;
-}
-
-.result-content h1 {
-    margin: 0 0 1rem;
-
-    font-size: clamp(1.2rem, 3vw, 2rem);
-
-    font-weight: normal;
-
-    letter-spacing: 0.1em;
-
-    text-transform: uppercase;
-}
-
-#courtName {
-    margin: 0 0 2rem;
-
-    font-size: clamp(2.5rem, 7vw, 5rem);
-
-    letter-spacing: 0.08em;
-
-    text-transform: uppercase;
-}
-
-#courtDescription {
-    text-align: left;
-
-    font-size: clamp(1rem, 1.5vw, 1.2rem);
-
-    line-height: 1.8;
-}
-
-#courtDescription p {
-    margin: 0 0 1.5rem;
+.choice-question-mark {
+    display: inline;
 }
 
 
 /* =========================================================
-   HIDDEN UTILITY
+   HIDDEN
    ========================================================= */
 
 .hidden {
@@ -479,22 +291,42 @@ body {
 
 
 /* =========================================================
-   SCROLLBARS
+   RESULT SCREEN
    ========================================================= */
 
-.intro-content::-webkit-scrollbar,
-.result-content::-webkit-scrollbar {
-    width: 8px;
+#resultScreen {
+    padding: 40px;
+
+    overflow-y: auto;
+
+    text-align: center;
 }
 
-.intro-content::-webkit-scrollbar-track,
-.result-content::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
+#resultScreen h1 {
+    margin: 0 0 25px;
+
+    font-size: clamp(2rem, 5vw, 4rem);
 }
 
-.intro-content::-webkit-scrollbar-thumb,
-.result-content::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
+#courtName {
+    margin-bottom: 30px;
+
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    letter-spacing: 0.08em;
+}
+
+#courtDescription {
+    width: min(900px, 90vw);
+    margin: 0 auto;
+
+    text-align: left;
+
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    line-height: 1.8;
+}
+
+#courtDescription p {
+    margin: 0 0 20px;
 }
 
 
@@ -504,30 +336,31 @@ body {
 
 @media (max-width: 700px) {
 
-    .experience-header {
-        padding: 0.75rem 1rem;
+    #introScreen {
+        padding: 25px;
+    }
+
+    #introScreen p {
+        width: 95vw;
+        line-height: 1.6;
     }
 
     #questionContainer {
-        bottom: 3vh;
+        bottom: 5%;
 
         width: 94vw;
 
-        padding: 1rem;
-    }
-
-    #choiceContainer {
-        flex-direction: column;
-
-        align-items: stretch;
+        padding: 20px 15px;
     }
 
     .choice-button {
-        width: 100%;
+        margin: 4px 2px;
+        padding: 7px 11px;
     }
 
-    .intro-content {
+    #courtDescription {
         width: 94vw;
+        text-align: left;
     }
 
 }
