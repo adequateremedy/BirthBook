@@ -1,47 +1,5 @@
 "use strict";
 
-/* =========================================================
-   COURT ALIGNMENT — BIRTH BOOK
-   ========================================================= */
-
-
-/* =========================================================
-   INTRO TEXT
-   EXACT TEXT PROVIDED BY MADAME
-   ========================================================= */
-
-const introText = `
-Before birth, there is no history.
-
-No name. No memory. No understanding of the world beyond the confines of the womb.
-
-There is only experience.
-
-Every sensation that reaches the unborn mind becomes part of its earliest formation—warmth and pressure, rhythm and disturbance, stillness and movement, comfort and uncertainty. None of it is understood in the way an adult understands the world. Yet it is experienced, and experience leaves its impression.
-
-The impressions that follow are presented through abstract imagery. They are not literal scenes, objects, memories, or events. They are visual representations of experiences occurring before birth.
-
-Some impressions may be accompanied by sound or music. These sounds are part of the presentation and atmosphere; they are not necessarily sounds the character is experiencing within the womb. Other impressions may have no sound at all.
-
-Experience each impression as the character, from within that existence.
-
-Do not ask what the image is.
-
-Ask instead:
-
-What would I feel if this were my experience?
-
-After each impression, you will be presented with two opposing feelings. Choose the one that best reflects the experience being formed within you.
-
-Your choice is not about identifying what the image depicts.
-
-It is about what the experience makes you feel—and why.
-
-There is no answer you are expected to find.
-
-There is only the experience, the feeling it creates, and the choice you make from it.
-`;
-
 
 /* =========================================================
    COURT DESCRIPTIONS
@@ -51,119 +9,141 @@ const courtDescriptions = {
 
     Seelie: `
         <p>
-            While the Seelie Court is traditionally considered the
-            "lighter" or more benevolent - often prone to acts of
-            unexpected kindness, granting blessings, or repaying
-            debts—this benevolence is highly conditional.
+            While the Seelie Court is traditionally considered the "lighter" or more benevolent - often prone to acts of unexpected kindness, granting blessings, or repaying debts—this benevolence is highly conditional.
         </p>
 
         <p>
-            Seelie aligned actions are driven by a rigid sense of
-            pride and an absolute commitment to their word; they are
-            bound to rigorously fulfill any oath or bargain they make
-            and place immense value on the repayment of favors/debts.
+            Seelie aligned actions are driven by a rigid sense of pride and an absolute commitment to their word; they are bound to rigorously fulfill any oath or bargain they make and place immense value on the repayment of favors/debts.
         </p>
 
         <p>
-            However, this lighter nature does not make them universally
-            kind. Because their morality is based on archaic social
-            codes rather than empathy, they are highly capricious and
-            easily offended. A perceived slight, a breach of manners,
-            or a failure to show proper deference can instantly turn
-            a benevolent demeanor into cruel, disproportionate
-            vengeance. They might reward someone for a polite greeting,
-            but ruthlessly punish another simply for interrupting or
-            failing to appreciate their gifts.
+            However, this lighter nature does not make them universally kind. Because their morality is based on archaic social codes rather than empathy, they are highly capricious and easily offended. A perceived slight, a breach of manners, or a failure to show proper deference can instantly turn a benevolent demeanor into cruel, disproportionate vengeance. They might reward someone for a polite greeting, but ruthlessly punish another simply for interrupting or failing to appreciate their gifts.
         </p>
 
         <p>
-            Ultimately, being Seelie means their moral compass points
-            strictly toward the preservation of law and honor. They
-            are capable of profound generosity and terrifying wrath,
-            but both are dictated entirely by how the world around them
-            interacts with their specific, unyielding rules of
-            engagement.
+            Ultimately, being Seelie means their moral compass points strictly toward the preservation of law and honor. They are capable of profound generosity and terrifying wrath, but both are dictated entirely by how the world around them interacts with their specific, unyielding rules of engagement.
         </p>
     `,
 
     UnSeelie: `
         <p>
-            While the Unseelie Court is traditionally considered the
-            "darker" or malevolent Court—often prone to acts of mockery,
-            curses, or sowing chaos—this malice is rarely mindless.
+            While the Unseelie Court is traditionally considered the "darker" or malevolent Court—often prone to acts of mockery, curses, or sowing chaos—this malice is rarely mindless.
         </p>
 
         <p>
-            Unseelie aligned actions are driven by ruthless pragmatism,
-            raw passion, and a belief in survival of the fittest; they
-            are unbound by rigid etiquette and place immense value on
-            absolute freedom, instinct, and the exploitation of
-            weakness.
+            Unseelie aligned actions are driven by ruthless pragmatism, raw passion, and a belief in survival of the fittest; they are unbound by rigid etiquette and place immense value on absolute freedom, instinct, and the exploitation of weakness.
         </p>
 
         <p>
-            However, this darker nature does not make them villains.
-            Because their morality is based purely on natural
-            hierarchies and primal desires, they are wildly
-            unpredictable. A display of strength or a clever trick can
-            earn their fleeting respect, while an assumption of safety
-            can instantly turn a playful encounter into a lethal lesson.
-            They might spare someone for being entertaining, but
-            ruthlessly torment another simply for being vulnerable or
-            boring.
+            However, this darker nature does not make them villains. Because their morality is based purely on natural hierarchies and primal desires, they are wildly unpredictable. A display of strength or a clever trick can earn their fleeting respect, while an assumption of safety can instantly turn a playful encounter into a lethal lesson. They might spare someone for being entertaining, but ruthlessly torment another simply for being vulnerable or boring.
         </p>
 
         <p>
-            Ultimately, being Unseelie means their moral compass points
-            strictly toward personal liberty and the exercise of power.
-            They are capable of sudden, brutal honesty and terrifying
-            cruelty, but both are dictated entirely by their
-            ever-shifting whims and the raw, unvarnished truths of the
-            world around them.
+            Ultimately, being Unseelie means their moral compass points strictly toward personal liberty and the exercise of power. They are capable of sudden, brutal honesty and terrifying cruelty, but both are dictated entirely by their ever-shifting whims and the raw, unvarnished truths of the world around them.
         </p>
     `,
 
     Shadow: `
         <p>
-            While the Shadow Court is traditionally considered the
-            elusive or liminal Court—often prone to orchestrating events
-            from the margins, whispered secrets, and collecting
-            forgotten debts—this obscurity is intentionally hidden.
+            While the Shadow Court is traditionally considered the elusive or liminal Court—often prone to orchestrating events from the margins, whispered secrets, and collecting forgotten debts—this obscurity is intentionally hidden.
         </p>
 
         <p>
-            Shadow aligned actions are driven by a chilling patience,
-            the hoarding of leverage, and a commitment to the unseen
-            consequence; they reject the radiant pageantry of the Seelie
-            and the reckless chaos of the Unseelie, placing immense
-            value on manipulation, subtlety, and the absolute power of
-            knowing what others do not.
+            Shadow aligned actions are driven by a chilling patience, the hoarding of leverage, and a commitment to the unseen consequence; they reject the radiant pageantry of the Seelie and the reckless chaos of the Unseelie, placing immense value on manipulation, subtlety, and the absolute power of knowing what others do not.
         </p>
 
         <p>
-            However, this quiet nature does not make them neutral.
-            Because their morality is based entirely on maintaining
-            hidden designs and exploiting vulnerabilities, they are
-            deeply calculating and can be utterly devoid of mercy.
-            A well-placed piece of information or an oath sworn can
-            earn their unseen protection, but exposing their
-            machinations or threatening their sanctuaries can instantly
-            turn them into inescapable executioners. They might quietly
-            dismantle an enemy to honor a silent bargain, but ruthlessly
-            erase a person from existence simply because they asked
-            the wrong question.
+            However, this quiet nature does not make them neutral. Because their morality is based entirely on maintaining hidden designs and exploiting vulnerabilities, they are deeply calculating and can be utterly devoid of mercy. A well-placed piece of information or an oath sworn can earn their unseen protection, but exposing their machinations or threatening their sanctuaries can instantly turn them into inescapable executioners. They might quietly dismantle an enemy to honor a silent bargain, but ruthlessly erase a person from existence simply because they asked the wrong question.
         </p>
 
         <p>
-            Ultimately, being Shadow means their moral compass points
-            strictly toward the preservation of their own enigmatic
-            influence and a balance of the unseen. They are capable of
-            profound, life-saving interventions and terrifyingly silent
-            erasure, but both are dictated entirely by how the others
-            around them interact with their intricate, unspoken agendas.
+            Ultimately, being Shadow means their moral compass points strictly toward the preservation of their own enigmatic influence and a balance of the unseen. They are capable of profound, life-saving interventions and terrifyingly silent erasure, but both are dictated entirely by how the others around them interact with their intricate, unspoken agendas.
         </p>
     `
 };
+
+
+/* =========================================================
+   EXACT INTRO TEXT
+   TARGETS THE EXISTING .intro-text ELEMENT
+   ========================================================= */
+
+const introText = `
+<p>
+    Before birth, there is no history.
+</p>
+
+<p>
+    No name. No memory. No understanding of the world beyond the confines of the womb.
+</p>
+
+<p>
+    There is only experience.
+</p>
+
+<p>
+    Every sensation that reaches the unborn mind becomes part of its earliest formation—warmth and pressure, rhythm and disturbance, stillness and movement, comfort and uncertainty. None of it is understood in the way an adult understands the world. Yet it is experienced, and experience leaves its impression.
+</p>
+
+<p>
+    The impressions that follow are presented through abstract imagery. They are not literal scenes, objects, memories, or events. They are visual representations of experiences occurring before birth.
+</p>
+
+<p>
+    Some impressions may be accompanied by sound or music. <strong>These sounds are part of the presentation and atmosphere; they are not necessarily sounds the character is experiencing within the womb.</strong> Other impressions may have no sound at all.
+</p>
+
+<p>
+    Experience each impression <strong>as the character</strong>, from within that existence.
+</p>
+
+<p>
+    Do not ask what the image is.
+</p>
+
+<p>
+    Ask instead:
+</p>
+
+<p>
+    <strong>What would I feel if this were my experience?</strong>
+</p>
+
+<p>
+    After each impression, you will be presented with two opposing feelings. Choose the one that best reflects the experience being formed within you.
+</p>
+
+<p>
+    Your choice is not about identifying what the image depicts.
+</p>
+
+<p>
+    It is about <strong>what the experience makes you feel—and why.</strong>
+</p>
+
+<p>
+    There is no answer you are expected to find.
+</p>
+
+<p>
+    There is only the experience, the feeling it creates, and the choice you make from it.
+</p>
+`;
+
+
+/* =========================================================
+   PUT INTRO INTO THE EXISTING .intro-text ELEMENT
+   ========================================================= */
+
+const introElement =
+    document.querySelector(".intro-text");
+
+if (introElement) {
+
+    introElement.innerHTML =
+        introText;
+
+}
 
 
 /* =========================================================
@@ -442,55 +422,14 @@ const courtDescription =
 
 
 /* =========================================================
-   INSERT INTRO
-   ========================================================= */
-
-const introContent =
-    document.getElementById("introContent");
-
-if (introContent) {
-
-    introContent.innerHTML =
-        introText
-            .trim()
-            .split(/\n\s*\n/)
-            .map(paragraph => {
-
-                const formatted =
-                    paragraph
-                        .replace(
-                            /\*\*(.*?)\*\*/g,
-                            "<strong>$1</strong>"
-                        )
-                        .replace(
-                            /\n/g,
-                            "<br>"
-                        );
-
-                return `<p>${formatted}</p>`;
-
-            })
-            .join("");
-
-    introContent.style.textAlign =
-        "center";
-
-}
-
-
-/* =========================================================
    SCREEN MANAGEMENT
    ========================================================= */
 
 function showScreen(screen) {
 
-    if (!screen) {
-        return;
-    }
-
-    introScreen?.classList.remove("active");
-    experienceScreen?.classList.remove("active");
-    resultScreen?.classList.remove("active");
+    introScreen.classList.remove("active");
+    experienceScreen.classList.remove("active");
+    resultScreen.classList.remove("active");
 
     screen.classList.add("active");
 
@@ -503,33 +442,24 @@ function showScreen(screen) {
 
 function stopCurrentMedia() {
 
-    if (visualPlayer) {
+    visualPlayer.pause();
+    audioPlayer.pause();
 
-        visualPlayer.pause();
+    visualPlayer.onended = null;
+    visualPlayer.onloadedmetadata = null;
 
-        visualPlayer.onended = null;
-        visualPlayer.onloadedmetadata = null;
+    audioPlayer.onended = null;
+    audioPlayer.oncanplay = null;
 
-        visualPlayer.removeAttribute("src");
-        visualPlayer.load();
+    visualPlayer.removeAttribute("src");
+    audioPlayer.removeAttribute("src");
 
-        visualPlayer.style.opacity = "0";
+    visualPlayer.load();
+    audioPlayer.load();
 
-    }
+    visualPlayer.style.opacity = "0";
 
-    if (audioPlayer) {
-
-        audioPlayer.pause();
-
-        audioPlayer.onended = null;
-        audioPlayer.oncanplay = null;
-
-        audioPlayer.removeAttribute("src");
-        audioPlayer.load();
-
-        audioPlayer.volume = 1;
-
-    }
+    audioPlayer.volume = 1;
 
 }
 
@@ -630,26 +560,22 @@ function fadeVideoOut(video) {
    BEGIN
    ========================================================= */
 
-if (beginButton) {
+beginButton.addEventListener(
+    "click",
+    () => {
 
-    beginButton.addEventListener(
-        "click",
-        () => {
+        currentExperience = 0;
+        seelieScore = 0;
+        unseelieScore = 0;
 
-            currentExperience = 0;
-            seelieScore = 0;
-            unseelieScore = 0;
+        showScreen(
+            experienceScreen
+        );
 
-            showScreen(
-                experienceScreen
-            );
+        loadExperience();
 
-            loadExperience();
-
-        }
-    );
-
-}
+    }
+);
 
 
 /* =========================================================
@@ -671,42 +597,32 @@ function loadExperience() {
 
     stopCurrentMedia();
 
-    if (experienceType) {
+    experienceType.textContent =
+        experience.type.toUpperCase();
 
-        experienceType.textContent =
-            experience.type.toUpperCase();
+    experienceNumber.textContent =
+        `${currentExperience + 1} / 20`;
 
-    }
-
-    if (experienceNumber) {
-
-        experienceNumber.textContent =
-            `${currentExperience + 1} / 20`;
-
-    }
-
-    questionContainer?.classList.add(
+    questionContainer.classList.add(
         "hidden"
     );
 
-    if (choiceContainer) {
-
-        choiceContainer.innerHTML = "";
-
-    }
+    choiceContainer.innerHTML = "";
 
 
     /* =====================================================
        VISUAL
        ===================================================== */
 
-    if (experience.type === "Visual") {
+    if (
+        experience.type === "Visual"
+    ) {
 
-        videoContainer?.classList.remove(
+        videoContainer.classList.remove(
             "hidden"
         );
 
-        audioContainer?.classList.add(
+        audioContainer.classList.add(
             "hidden"
         );
 
@@ -714,6 +630,7 @@ function loadExperience() {
             `assets/visuals/${experience.file}`;
 
         visualPlayer.load();
+
 
         visualPlayer.onloadedmetadata =
             () => {
@@ -724,11 +641,11 @@ function loadExperience() {
 
             };
 
+
         visualPlayer.onended =
             async () => {
 
-                visualPlayer.onended =
-                    null;
+                visualPlayer.onended = null;
 
                 await fadeVideoOut(
                     visualPlayer
@@ -739,6 +656,7 @@ function loadExperience() {
                 );
 
             };
+
 
         const playPromise =
             visualPlayer.play();
@@ -769,11 +687,11 @@ function loadExperience() {
        AUDIO
        ===================================================== */
 
-    videoContainer?.classList.add(
+    videoContainer.classList.add(
         "hidden"
     );
 
-    audioContainer?.classList.remove(
+    audioContainer.classList.remove(
         "hidden"
     );
 
@@ -789,9 +707,7 @@ function loadExperience() {
 
    NO AUDIO FADE.
 
-   The actual MP3 controls when playback ends.
-   The question appears only after the audio's
-   native "ended" event fires.
+   The actual MP3 "ended" event controls the transition.
    ========================================================= */
 
 function playAudioExperience(
@@ -849,8 +765,6 @@ function playAudioExperience(
 
         started = true;
 
-        audio.volume = 1;
-
         const playPromise =
             audio.play();
 
@@ -902,29 +816,21 @@ function playAudioExperience(
 /* =========================================================
    SHOW QUESTION
 
-   The choices are part of the question itself.
-
-   Does this make you feel... [CHOICE] or [CHOICE]?
+   "Does this make you feel..." [BUTTON]
+   "or" [BUTTON] "?"
    ========================================================= */
 
 function showQuestion(
     experience
 ) {
 
-    questionContainer?.classList.remove(
+    questionContainer.classList.remove(
         "hidden"
     );
 
-    if (questionLabel) {
+    questionLabel.textContent =
+        "Does this make you feel...";
 
-        questionLabel.innerHTML =
-            "Does this make you feel...";
-
-    }
-
-    if (!choiceContainer) {
-        return;
-    }
 
     choiceContainer.innerHTML = "";
 
@@ -945,7 +851,7 @@ function showQuestion(
         "button";
 
     firstButton.className =
-        "choice-button inline-choice";
+        "choice-button";
 
     firstButton.textContent =
         firstChoice.text;
@@ -972,7 +878,7 @@ function showQuestion(
         "button";
 
     secondButton.className =
-        "choice-button inline-choice";
+        "choice-button";
 
     secondButton.textContent =
         secondChoice.text;
@@ -1082,8 +988,6 @@ function recordChoice(
 /* =========================================================
    DETERMINE COURT
 
-   MORE SEELIE = SEELIE
-   MORE UNSEELIE = UNSEELIE
    EXACT TIE = SHADOW
    ========================================================= */
 
@@ -1136,18 +1040,10 @@ function displayResult(
         resultScreen
     );
 
-    if (courtName) {
+    courtName.textContent =
+        court;
 
-        courtName.textContent =
-            court;
-
-    }
-
-    if (courtDescription) {
-
-        courtDescription.innerHTML =
-            courtDescriptions[court];
-
-    }
+    courtDescription.innerHTML =
+        courtDescriptions[court];
 
 }
