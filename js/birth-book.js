@@ -1,6 +1,49 @@
 "use strict";
 
 /* =========================================================
+   COURT ALIGNMENT — BIRTH BOOK
+   ========================================================= */
+
+
+/* =========================================================
+   INTRO TEXT
+   EXACT TEXT PROVIDED BY MADAME
+   ========================================================= */
+
+const introText = `
+Before birth, there is no history.
+
+No name. No memory. No understanding of the world beyond the confines of the womb.
+
+There is only experience.
+
+Every sensation that reaches the unborn mind becomes part of its earliest formation—warmth and pressure, rhythm and disturbance, stillness and movement, comfort and uncertainty. None of it is understood in the way an adult understands the world. Yet it is experienced, and experience leaves its impression.
+
+The impressions that follow are presented through abstract imagery. They are not literal scenes, objects, memories, or events. They are visual representations of experiences occurring before birth.
+
+Some impressions may be accompanied by sound or music. These sounds are part of the presentation and atmosphere; they are not necessarily sounds the character is experiencing within the womb. Other impressions may have no sound at all.
+
+Experience each impression as the character, from within that existence.
+
+Do not ask what the image is.
+
+Ask instead:
+
+What would I feel if this were my experience?
+
+After each impression, you will be presented with two opposing feelings. Choose the one that best reflects the experience being formed within you.
+
+Your choice is not about identifying what the image depicts.
+
+It is about what the experience makes you feel—and why.
+
+There is no answer you are expected to find.
+
+There is only the experience, the feeling it creates, and the choice you make from it.
+`;
+
+
+/* =========================================================
    COURT DESCRIPTIONS
    ========================================================= */
 
@@ -220,7 +263,7 @@ const audioExperiences = [
 
     {
         file: "audio-01.mp3",
-        duration: "0:05",
+        duration: 5,
         choices: [
             { text: "Committed", alignment: "S" },
             { text: "Uncommitted", alignment: "U" }
@@ -229,7 +272,7 @@ const audioExperiences = [
 
     {
         file: "audio-02.mp3",
-        duration: "0:27",
+        duration: 27,
         choices: [
             { text: "Impulsive", alignment: "U" },
             { text: "Disciplined", alignment: "S" }
@@ -238,7 +281,7 @@ const audioExperiences = [
 
     {
         file: "audio-03.mp3",
-        duration: "0:20",
+        duration: 20,
         choices: [
             { text: "Devoted", alignment: "S" },
             { text: "Detached", alignment: "U" }
@@ -247,7 +290,7 @@ const audioExperiences = [
 
     {
         file: "audio-04.mp3",
-        duration: "0:08",
+        duration: 8,
         choices: [
             { text: "Rebellious", alignment: "U" },
             { text: "Dutiful", alignment: "S" }
@@ -256,7 +299,7 @@ const audioExperiences = [
 
     {
         file: "audio-05.mp3",
-        duration: "0:07",
+        duration: 7,
         choices: [
             { text: "Honorable", alignment: "S" },
             { text: "Dishonorable", alignment: "U" }
@@ -265,7 +308,7 @@ const audioExperiences = [
 
     {
         file: "audio-06.mp3",
-        duration: "0:13",
+        duration: 13,
         choices: [
             { text: "Self-Serving", alignment: "U" },
             { text: "Selfless", alignment: "S" }
@@ -274,7 +317,7 @@ const audioExperiences = [
 
     {
         file: "audio-07.mp3",
-        duration: "0:31",
+        duration: 31,
         choices: [
             { text: "Restrained", alignment: "S" },
             { text: "Uninhibited", alignment: "U" }
@@ -283,7 +326,7 @@ const audioExperiences = [
 
     {
         file: "audio-08.mp3",
-        duration: "0:04",
+        duration: 4,
         choices: [
             { text: "Wary", alignment: "U" },
             { text: "Trusting", alignment: "S" }
@@ -292,7 +335,7 @@ const audioExperiences = [
 
     {
         file: "audio-09.mp3",
-        duration: "0:11",
+        duration: 11,
         choices: [
             { text: "Bound by Promise", alignment: "S" },
             { text: "Free of Obligation", alignment: "U" }
@@ -301,7 +344,7 @@ const audioExperiences = [
 
     {
         file: "audio-10.mp3",
-        duration: "0:13",
+        duration: 13,
         choices: [
             { text: "Restless", alignment: "U" },
             { text: "Content", alignment: "S" }
@@ -333,7 +376,7 @@ for (let i = 0; i < 10; i++) {
 
 
 /* =========================================================
-   VISUAL FADE SETTINGS
+   SETTINGS
    ========================================================= */
 
 const VISUAL_FADE_DURATION = 1500;
@@ -399,14 +442,55 @@ const courtDescription =
 
 
 /* =========================================================
+   INSERT INTRO
+   ========================================================= */
+
+const introContent =
+    document.getElementById("introContent");
+
+if (introContent) {
+
+    introContent.innerHTML =
+        introText
+            .trim()
+            .split(/\n\s*\n/)
+            .map(paragraph => {
+
+                const formatted =
+                    paragraph
+                        .replace(
+                            /\*\*(.*?)\*\*/g,
+                            "<strong>$1</strong>"
+                        )
+                        .replace(
+                            /\n/g,
+                            "<br>"
+                        );
+
+                return `<p>${formatted}</p>`;
+
+            })
+            .join("");
+
+    introContent.style.textAlign =
+        "center";
+
+}
+
+
+/* =========================================================
    SCREEN MANAGEMENT
    ========================================================= */
 
 function showScreen(screen) {
 
-    introScreen.classList.remove("active");
-    experienceScreen.classList.remove("active");
-    resultScreen.classList.remove("active");
+    if (!screen) {
+        return;
+    }
+
+    introScreen?.classList.remove("active");
+    experienceScreen?.classList.remove("active");
+    resultScreen?.classList.remove("active");
 
     screen.classList.add("active");
 
@@ -419,24 +503,33 @@ function showScreen(screen) {
 
 function stopCurrentMedia() {
 
-    visualPlayer.pause();
-    audioPlayer.pause();
+    if (visualPlayer) {
 
-    visualPlayer.onended = null;
-    visualPlayer.onloadedmetadata = null;
+        visualPlayer.pause();
 
-    audioPlayer.onended = null;
-    audioPlayer.oncanplay = null;
+        visualPlayer.onended = null;
+        visualPlayer.onloadedmetadata = null;
 
-    visualPlayer.removeAttribute("src");
-    audioPlayer.removeAttribute("src");
+        visualPlayer.removeAttribute("src");
+        visualPlayer.load();
 
-    visualPlayer.load();
-    audioPlayer.load();
+        visualPlayer.style.opacity = "0";
 
-    visualPlayer.style.opacity = "0";
+    }
 
-    audioPlayer.volume = 1;
+    if (audioPlayer) {
+
+        audioPlayer.pause();
+
+        audioPlayer.onended = null;
+        audioPlayer.oncanplay = null;
+
+        audioPlayer.removeAttribute("src");
+        audioPlayer.load();
+
+        audioPlayer.volume = 1;
+
+    }
 
 }
 
@@ -503,7 +596,7 @@ function fadeVideoOut(video) {
                 Math.min(
                     elapsed / VISUAL_FADE_DURATION,
                     1
-            );
+                );
 
             video.style.opacity =
                 1 - progress;
@@ -537,22 +630,26 @@ function fadeVideoOut(video) {
    BEGIN
    ========================================================= */
 
-beginButton.addEventListener(
-    "click",
-    () => {
+if (beginButton) {
 
-        currentExperience = 0;
-        seelieScore = 0;
-        unseelieScore = 0;
+    beginButton.addEventListener(
+        "click",
+        () => {
 
-        showScreen(
-            experienceScreen
-        );
+            currentExperience = 0;
+            seelieScore = 0;
+            unseelieScore = 0;
 
-        loadExperience();
+            showScreen(
+                experienceScreen
+            );
 
-    }
-);
+            loadExperience();
+
+        }
+    );
+
+}
 
 
 /* =========================================================
@@ -574,32 +671,42 @@ function loadExperience() {
 
     stopCurrentMedia();
 
-    experienceType.textContent =
-        experience.type.toUpperCase();
+    if (experienceType) {
 
-    experienceNumber.textContent =
-        `${currentExperience + 1} / 20`;
+        experienceType.textContent =
+            experience.type.toUpperCase();
 
-    questionContainer.classList.add(
+    }
+
+    if (experienceNumber) {
+
+        experienceNumber.textContent =
+            `${currentExperience + 1} / 20`;
+
+    }
+
+    questionContainer?.classList.add(
         "hidden"
     );
 
-    choiceContainer.innerHTML = "";
+    if (choiceContainer) {
+
+        choiceContainer.innerHTML = "";
+
+    }
 
 
     /* =====================================================
        VISUAL
        ===================================================== */
 
-    if (
-        experience.type === "Visual"
-    ) {
+    if (experience.type === "Visual") {
 
-        videoContainer.classList.remove(
+        videoContainer?.classList.remove(
             "hidden"
         );
 
-        audioContainer.classList.add(
+        audioContainer?.classList.add(
             "hidden"
         );
 
@@ -607,7 +714,6 @@ function loadExperience() {
             `assets/visuals/${experience.file}`;
 
         visualPlayer.load();
-
 
         visualPlayer.onloadedmetadata =
             () => {
@@ -618,11 +724,11 @@ function loadExperience() {
 
             };
 
-
         visualPlayer.onended =
             async () => {
 
-                visualPlayer.onended = null;
+                visualPlayer.onended =
+                    null;
 
                 await fadeVideoOut(
                     visualPlayer
@@ -633,7 +739,6 @@ function loadExperience() {
                 );
 
             };
-
 
         const playPromise =
             visualPlayer.play();
@@ -664,11 +769,11 @@ function loadExperience() {
        AUDIO
        ===================================================== */
 
-    videoContainer.classList.add(
+    videoContainer?.classList.add(
         "hidden"
     );
 
-    audioContainer.classList.remove(
+    audioContainer?.classList.remove(
         "hidden"
     );
 
@@ -682,11 +787,11 @@ function loadExperience() {
 /* =========================================================
    AUDIO PLAYBACK
 
-   Audio plays naturally until the MP3's own
-   "ended" event occurs.
+   NO AUDIO FADE.
 
-   There is NO audio fade.
-   There is NO artificial timer.
+   The actual MP3 controls when playback ends.
+   The question appears only after the audio's
+   native "ended" event fires.
    ========================================================= */
 
 function playAudioExperience(
@@ -797,23 +902,29 @@ function playAudioExperience(
 /* =========================================================
    SHOW QUESTION
 
-   The two choices are the clickable portions
-   of the question itself.
+   The choices are part of the question itself.
 
-   Does this make you feel...
-   [Choice 1] or [Choice 2]?
+   Does this make you feel... [CHOICE] or [CHOICE]?
    ========================================================= */
 
 function showQuestion(
     experience
 ) {
 
-    questionContainer.classList.remove(
+    questionContainer?.classList.remove(
         "hidden"
     );
 
-    questionLabel.innerHTML =
-        "Does this make you feel...";
+    if (questionLabel) {
+
+        questionLabel.innerHTML =
+            "Does this make you feel...";
+
+    }
+
+    if (!choiceContainer) {
+        return;
+    }
 
     choiceContainer.innerHTML = "";
 
@@ -970,6 +1081,10 @@ function recordChoice(
 
 /* =========================================================
    DETERMINE COURT
+
+   MORE SEELIE = SEELIE
+   MORE UNSEELIE = UNSEELIE
+   EXACT TIE = SHADOW
    ========================================================= */
 
 function determineCourt() {
@@ -1021,10 +1136,18 @@ function displayResult(
         resultScreen
     );
 
-    courtName.textContent =
-        court;
+    if (courtName) {
 
-    courtDescription.innerHTML =
-        courtDescriptions[court];
+        courtName.textContent =
+            court;
+
+    }
+
+    if (courtDescription) {
+
+        courtDescription.innerHTML =
+            courtDescriptions[court];
+
+    }
 
 }
