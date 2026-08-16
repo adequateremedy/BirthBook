@@ -141,7 +141,7 @@ const visualExperiences = [
         file: "visual-02.webm",
         choices: [
             { text: "Untamed", alignment: "U" },
-            { text: "Ordered", alignment: "S" }
+            { text: "Tamed", alignment: "S" }
         ]
     },
 
@@ -149,7 +149,7 @@ const visualExperiences = [
         file: "visual-03.webm",
         choices: [
             { text: "Protected", alignment: "S" },
-            { text: "Defiant", alignment: "U" }
+            { text: "Exposed", alignment: "U" }
         ]
     },
 
@@ -157,7 +157,7 @@ const visualExperiences = [
         file: "visual-04.webm",
         choices: [
             { text: "Independent", alignment: "U" },
-            { text: "Obligated", alignment: "S" }
+            { text: "Dependent", alignment: "S" }
         ]
     },
 
@@ -165,7 +165,7 @@ const visualExperiences = [
         file: "visual-05.webm",
         choices: [
             { text: "Empowered", alignment: "U" },
-            { text: "Honored", alignment: "S" }
+            { text: "Powerless", alignment: "S" }
         ]
     },
 
@@ -173,7 +173,7 @@ const visualExperiences = [
         file: "visual-06.webm",
         choices: [
             { text: "Respected", alignment: "S" },
-            { text: "Unrestrained", alignment: "U" }
+            { text: "Disrespected", alignment: "U" }
         ]
     },
 
@@ -181,7 +181,7 @@ const visualExperiences = [
         file: "visual-07.webm",
         choices: [
             { text: "Driven", alignment: "U" },
-            { text: "Fulfilled", alignment: "S" }
+            { text: "Unmotivated", alignment: "S" }
         ]
     },
 
@@ -189,7 +189,7 @@ const visualExperiences = [
         file: "visual-08.webm",
         choices: [
             { text: "Loyal", alignment: "S" },
-            { text: "Instinctive", alignment: "U" }
+            { text: "Disloyal", alignment: "U" }
         ]
     },
 
@@ -197,7 +197,7 @@ const visualExperiences = [
         file: "visual-09.webm",
         choices: [
             { text: "Unaccountable", alignment: "U" },
-            { text: "Responsible", alignment: "S" }
+            { text: "Accountable", alignment: "S" }
         ]
     },
 
@@ -205,7 +205,7 @@ const visualExperiences = [
         file: "visual-10.webm",
         choices: [
             { text: "Liberated", alignment: "U" },
-            { text: "Secure", alignment: "S" }
+            { text: "Constrained", alignment: "S" }
         ]
     }
 
@@ -223,7 +223,7 @@ const audioExperiences = [
         duration: "0:05",
         choices: [
             { text: "Committed", alignment: "S" },
-            { text: "Passionate", alignment: "U" }
+            { text: "Uncommitted", alignment: "U" }
         ]
     },
 
@@ -241,7 +241,7 @@ const audioExperiences = [
         duration: "0:20",
         choices: [
             { text: "Devoted", alignment: "S" },
-            { text: "Self-Possessed", alignment: "U" }
+            { text: "Detached", alignment: "U" }
         ]
     },
 
@@ -249,7 +249,7 @@ const audioExperiences = [
         file: "audio-04.mp3",
         duration: "0:08",
         choices: [
-            { text: "Defiant", alignment: "U" },
+            { text: "Rebellious", alignment: "U" },
             { text: "Dutiful", alignment: "S" }
         ]
     },
@@ -259,7 +259,7 @@ const audioExperiences = [
         duration: "0:07",
         choices: [
             { text: "Honorable", alignment: "S" },
-            { text: "Ruthless", alignment: "U" }
+            { text: "Dishonorable", alignment: "U" }
         ]
     },
 
@@ -268,7 +268,7 @@ const audioExperiences = [
         duration: "0:13",
         choices: [
             { text: "Self-Serving", alignment: "U" },
-            { text: "Reciprocal", alignment: "S" }
+            { text: "Selfless", alignment: "S" }
         ]
     },
 
@@ -333,7 +333,7 @@ for (let i = 0; i < 10; i++) {
 
 
 /* =========================================================
-   SETTINGS
+   VISUAL FADE SETTINGS
    ========================================================= */
 
 const VISUAL_FADE_DURATION = 1500;
@@ -681,6 +681,12 @@ function loadExperience() {
 
 /* =========================================================
    AUDIO PLAYBACK
+
+   Audio plays naturally until the MP3's own
+   "ended" event occurs.
+
+   There is NO audio fade.
+   There is NO artificial timer.
    ========================================================= */
 
 function playAudioExperience(
@@ -706,10 +712,6 @@ function playAudioExperience(
     audio.load();
 
 
-    /* =====================================================
-       AUDIO ENDED
-       ===================================================== */
-
     audio.onended =
         () => {
 
@@ -728,10 +730,6 @@ function playAudioExperience(
 
         };
 
-
-    /* =====================================================
-       START AUDIO
-       ===================================================== */
 
     function startAudio() {
 
@@ -780,9 +778,7 @@ function playAudioExperience(
 
         startAudio();
 
-    }
-
-    else {
+    } else {
 
         audio.oncanplay =
             () => {
@@ -800,6 +796,12 @@ function playAudioExperience(
 
 /* =========================================================
    SHOW QUESTION
+
+   The two choices are the clickable portions
+   of the question itself.
+
+   Does this make you feel...
+   [Choice 1] or [Choice 2]?
    ========================================================= */
 
 function showQuestion(
@@ -810,6 +812,9 @@ function showQuestion(
         "hidden"
     );
 
+    questionLabel.innerHTML =
+        "Does this make you feel...";
+
     choiceContainer.innerHTML = "";
 
 
@@ -818,18 +823,6 @@ function showQuestion(
 
     const secondChoice =
         experience.choices[1];
-
-
-    /*
-     * The question itself is built around the
-     * two clickable choices.
-     *
-     * Does this make you feel...
-     * [Choice 1] or [Choice 2]?
-     */
-
-    questionLabel.innerHTML =
-        `Does this make you feel... `;
 
 
     const firstButton =
