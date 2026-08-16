@@ -49,16 +49,16 @@ const visualExperiences = [
    ========================================================= */
 
 const audioExperiences = [
-    { file: "audio-01.mp3", duration: "0:05", choices: [{ text: "Committed", alignment: "S" }, { text: "Uncommitted", alignment: "U" }] },
-    { file: "audio-02.mp3", duration: "0:27", choices: [{ text: "Impulsive", alignment: "U" }, { text: "Disciplined", alignment: "S" }] },
-    { file: "audio-03.mp3", duration: "0:20", choices: [{ text: "Devoted", alignment: "S" }, { text: "Detached", alignment: "U" }] },
-    { file: "audio-04.mp3", duration: "0:08", choices: [{ text: "Rebellious", alignment: "U" }, { text: "Dutiful", alignment: "S" }] },
-    { file: "audio-05.mp3", duration: "0:07", choices: [{ text: "Honorable", alignment: "S" }, { text: "Dishonorable", alignment: "U" }] },
-    { file: "audio-06.mp3", duration: "0:13", choices: [{ text: "Self-Serving", alignment: "U" }, { text: "Selfless", alignment: "S" }] },
-    { file: "audio-07.mp3", duration: "0:31", choices: [{ text: "Restrained", alignment: "S" }, { text: "Uninhibited", alignment: "U" }] },
-    { file: "audio-08.mp3", duration: "0:04", choices: [{ text: "Wary", alignment: "U" }, { text: "Trusting", alignment: "S" }] },
-    { file: "audio-09.mp3", duration: "0:11", choices: [{ text: "Bound by Promise", alignment: "S" }, { text: "Free of Obligation", alignment: "U" }] },
-    { file: "audio-10.mp3", duration: "0:13", choices: [{ text: "Restless", alignment: "U" }, { text: "Content", alignment: "S" }] }
+    { file: "audio-01.mp3", choices: [{ text: "Committed", alignment: "S" }, { text: "Uncommitted", alignment: "U" }] },
+    { file: "audio-02.mp3", choices: [{ text: "Impulsive", alignment: "U" }, { text: "Disciplined", alignment: "S" }] },
+    { file: "audio-03.mp3", choices: [{ text: "Devoted", alignment: "S" }, { text: "Detached", alignment: "U" }] },
+    { file: "audio-04.mp3", choices: [{ text: "Rebellious", alignment: "U" }, { text: "Dutiful", alignment: "S" }] },
+    { file: "audio-05.mp3", choices: [{ text: "Honorable", alignment: "S" }, { text: "Dishonorable", alignment: "U" }] },
+    { file: "audio-06.mp3", choices: [{ text: "Self-Serving", alignment: "U" }, { text: "Selfless", alignment: "S" }] },
+    { file: "audio-07.mp3", choices: [{ text: "Restrained", alignment: "S" }, { text: "Uninhibited", alignment: "U" }] },
+    { file: "audio-08.mp3", choices: [{ text: "Wary", alignment: "U" }, { text: "Trusting", alignment: "S" }] },
+    { file: "audio-09.mp3", choices: [{ text: "Bound by Promise", alignment: "S" }, { text: "Free of Obligation", alignment: "U" }] },
+    { file: "audio-10.mp3", choices: [{ text: "Restless", alignment: "U" }, { text: "Content", alignment: "S" }] }
 ];
 
 /* =========================================================
@@ -101,7 +101,6 @@ const visualPlayer = document.getElementById("visualPlayer");
 const audioContainer = document.getElementById("audioContainer");
 const audioPlayer = document.getElementById("audioPlayer");
 const questionContainer = document.getElementById("questionContainer");
-const questionLabel = document.querySelector(".question-label");
 const choiceContainer = document.getElementById("choiceContainer");
 const courtName = document.getElementById("courtName");
 const courtDescription = document.getElementById("courtDescription");
@@ -346,11 +345,9 @@ function showQuestion(experience) {
     const firstChoice = experience.choices[0];
     const secondChoice = experience.choices[1];
 
-    questionLabel.innerHTML = `Does this make you feel... `;
-
     const firstButton = document.createElement("button");
     firstButton.type = "button";
-    firstButton.className = "choice-button inline-choice";
+    firstButton.className = "choice-button";
     firstButton.textContent = firstChoice.text;
 
     const orText = document.createElement("span");
@@ -359,7 +356,7 @@ function showQuestion(experience) {
 
     const secondButton = document.createElement("button");
     secondButton.type = "button";
-    secondButton.className = "choice-button inline-choice";
+    secondButton.className = "choice-button";
     secondButton.textContent = secondChoice.text;
 
     const questionMark = document.createElement("span");
