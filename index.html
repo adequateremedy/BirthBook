@@ -3,181 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Birth Book</title>
-
     <link rel="stylesheet" href="css/birth-book.css">
 </head>
-
 <body>
 
     <main id="birthBook">
 
         <!-- INTRODUCTION -->
         <section id="introScreen" class="screen active">
-
             <div class="content-panel">
-
                 <h1>Birth Book</h1>
-
                 <div class="intro-text">
-
-                    <p>
-                        Before birth, there is no history.
-                    </p>
-
-                    <p>
-                        No name. No memory. No understanding of the world beyond the confines of the womb.
-                    </p>
-
-                    <p>
-                        There is only experience.
-                    </p>
-
-                    <p>
-                        Every sensation that reaches the unborn mind becomes part of its earliest formation—warmth and pressure, rhythm and disturbance, stillness and movement, comfort and uncertainty. None of it is understood in the way an adult understands the world. Yet it is experienced, and experience leaves its impression.
-                    </p>
-
-                    <p>
-                        The impressions that follow are presented through abstract imagery. They are not literal scenes, objects, memories, or events. They are visual representations of experiences occurring before birth.
-                    </p>
-
-                    <p>
-                        Some impressions may be accompanied by sound or music. <strong>These sounds are part of the presentation and atmosphere; they are not necessarily sounds the character is experiencing within the womb.</strong> Other impressions may have no sound at all.
-                    </p>
-
-                    <p>
-                        Experience each impression <strong>as the character</strong>, from within that existence.
-                    </p>
-
-                    <p>
-                        Do not ask what the image is.
-                    </p>
-
-                    <p>
-                        Ask instead:
-                    </p>
-
-                    <p>
-                        <strong>What would I feel if this were my experience?</strong>
-                    </p>
-
-                    <p>
-                        After each impression, you will be presented with two opposing feelings. Choose the one that best reflects the experience being formed within you.
-                    </p>
-
-                    <p>
-                        Your choice is not about identifying what the image depicts.
-                    </p>
-
-                    <p>
-                        It is about <strong>what the experience makes you feel—and why.</strong>
-                    </p>
-
-                    <p>
-                        There is no answer you are expected to find.
-                    </p>
-
-                    <p>
-                        There is only the experience, the feeling it creates, and the choice you make from it.
-                    </p>
-
+                    <p>Before birth, there is no history.</p>
+                    <p>No name. No memory. No understanding of the world beyond the confines of the womb.</p>
+                    <p>There is only experience.</p>
+                    <p>Every sensation that reaches the unborn mind becomes part of its earliest formation—warmth and pressure, rhythm and disturbance, stillness and movement, comfort and uncertainty. None of it is understood in the way an adult understands the world. Yet it is experienced, and experience leaves its impression.</p>
+                    <p>The impressions that follow are presented through abstract imagery. They are not literal scenes, objects, memories, or events. They are visual representations of experiences occurring before birth.</p>
+                    <p>Some impressions may be accompanied by sound or music. <strong>These sounds are part of the presentation and atmosphere; they are not necessarily sounds the character is experiencing within the womb.</strong> Other impressions may have no sound at all.</p>
+                    <p>Experience each impression <strong>as the character</strong>, from within that existence.</p>
+                    <p>Do not ask what the image is.</p>
+                    <p>Ask instead:</p>
+                    <p><strong>What would I feel if this were my experience?</strong></p>
+                    <p>After each impression, you will be presented with two opposing feelings. Choose the one that best reflects the experience being formed within you.</p>
+                    <p>Your choice is not about identifying what the image depicts.</p>
+                    <p>It is about <strong>what the experience makes you feel—and why.</strong></p>
+                    <p>There is no answer you are expected to find.</p>
+                    <p>There is only the experience, the feeling it creates, and the choice you make from it.</p>
                 </div>
-
-                <button id="beginButton" class="primary-button">
-                    Begin
-                </button>
-
+                <button id="beginButton" class="primary-button">Begin</button>
             </div>
-
         </section>
-
 
         <!-- EXPERIENCE SCREEN -->
         <section id="experienceScreen" class="screen">
-
             <div class="experience-container">
-
                 <div class="progress-area">
-
-                    <div id="experienceType">
-                        VISUAL
-                    </div>
-
-                    <div id="experienceNumber">
-                        1 / 20
-                    </div>
-
+                    <div id="experienceType">VISUAL</div>
+                    <div id="experienceNumber">1 / 20</div>
                 </div>
-
 
                 <!-- VISUAL PLAYER -->
                 <div id="videoContainer" class="media-container">
-
-                    <video
-                        id="visualPlayer"
-                        playsinline
-                        preload="auto">
-                    </video>
-
+                    <video id="visualPlayer" playsinline preload="auto"></video>
                 </div>
-
 
                 <!-- AUDIO PLAYER -->
                 <div id="audioContainer" class="media-container hidden">
-
                     <div class="audio-display">
-
-                        <div class="audio-symbol">
-                            ◇
-                        </div>
-
-                        <div class="audio-label">
-                            Listen
-                        </div>
-
+                        <div class="audio-symbol">◇</div>
+                        <div class="audio-label">Listen</div>
                     </div>
-
-                    <audio
-                        id="audioPlayer"
-                        preload="auto">
-                    </audio>
-
+                    <audio id="audioPlayer" preload="auto"></audio>
                 </div>
-
 
                 <!-- QUESTION -->
                 <div id="questionContainer" class="question-container hidden">
-
-                    <p class="question-label">
-                        Does this make you feel...
-                    </p>
-
-                    <div id="choiceContainer" class="choice-container">
-                    </div>
-
+                    <p class="question-label">Does this make you feel...</p>
+                    <div id="choiceContainer" class="choice-container"></div>
                 </div>
-
             </div>
-
         </section>
-
 
         <!-- RESULT SCREEN -->
         <section id="resultScreen" class="screen">
-
             <div class="result-panel">
-
-                <div class="result-heading">
-                    You have aligned with
-                </div>
-
+                <div class="result-heading">You have aligned with</div>
                 <h1 id="courtName"></h1>
-
                 <div id="courtDescription" class="court-description"></div>
-
             </div>
-
         </section>
 
     </main>
