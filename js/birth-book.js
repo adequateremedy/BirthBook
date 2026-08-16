@@ -32,16 +32,16 @@ const courtDescriptions = {
    ========================================================= */
 
 const visualExperiences = [
-    { file: "visual-01.webm", choices: [{ text: "Bound", alignment: "S" }, { text: "Unbound", alignment: "U" }] },
-    { file: "visual-02.webm", choices: [{ text: "Untamed", alignment: "U" }, { text: "Tamed", alignment: "S" }] },
-    { file: "visual-03.webm", choices: [{ text: "Protected", alignment: "S" }, { text: "Exposed", alignment: "U" }] },
-    { file: "visual-04.webm", choices: [{ text: "Independent", alignment: "U" }, { text: "Dependent", alignment: "S" }] },
-    { file: "visual-05.webm", choices: [{ text: "Empowered", alignment: "U" }, { text: "Powerless", alignment: "S" }] },
-    { file: "visual-06.webm", choices: [{ text: "Respected", alignment: "S" }, { text: "Disrespected", alignment: "U" }] },
-    { file: "visual-07.webm", choices: [{ text: "Driven", alignment: "U" }, { text: "Unmotivated", alignment: "S" }] },
-    { file: "visual-08.webm", choices: [{ text: "Loyal", alignment: "S" }, { text: "Disloyal", alignment: "U" }] },
-    { file: "visual-09.webm", choices: [{ text: "Unaccountable", alignment: "U" }, { text: "Accountable", alignment: "S" }] },
-    { file: "visual-10.webm", choices: [{ text: "Liberated", alignment: "U" }, { text: "Constrained", alignment: "S" }] }
+    { file: "visual-01.webm", choices: [{ text: "Anchored", alignment: "S" }, { text: "Untethered", alignment: "U" }] },
+    { file: "visual-02.webm", choices: [{ text: "Formless", alignment: "U" }, { text: "Structured", alignment: "S" }] },
+    { file: "visual-03.webm", choices: [{ text: "Centered", alignment: "S" }, { text: "Consuming", alignment: "U" }] },
+    { file: "visual-04.webm", choices: [{ text: "Distorted", alignment: "U" }, { text: "Clear", alignment: "S" }] },
+    { file: "visual-05.webm", choices: [{ text: "Drifting", alignment: "U" }, { text: "Guided", alignment: "S" }] },
+    { file: "visual-06.webm", choices: [{ text: "Serene", alignment: "S" }, { text: "Turbulent", alignment: "U" }] },
+    { file: "visual-07.webm", choices: [{ text: "Erratic", alignment: "U" }, { text: "Rhythmic", alignment: "S" }] },
+    { file: "visual-08.webm", choices: [{ text: "Focused", alignment: "S" }, { text: "Disoriented", alignment: "U" }] },
+    { file: "visual-09.webm", choices: [{ text: "Fractured", alignment: "U" }, { text: "Flowing", alignment: "S" }] },
+    { file: "visual-10.webm", choices: [{ text: "Splintered", alignment: "U" }, { text: "Unified", alignment: "S" }] }
 ];
 
 /* =========================================================
