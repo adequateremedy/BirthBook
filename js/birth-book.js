@@ -32,16 +32,16 @@ const courtDescriptions = {
    ========================================================= */
 
 const visualExperiences = [
-    { file: "visual-01.webm", choices: [{ text: "Anchored", alignment: "S" }, { text: "Untethered", alignment: "U" }] },
-    { file: "visual-02.webm", choices: [{ text: "Formless", alignment: "U" }, { text: "Structured", alignment: "S" }] },
-    { file: "visual-03.webm", choices: [{ text: "Centered", alignment: "S" }, { text: "Consuming", alignment: "U" }] },
+    { file: "visual-01.webm", choices: [{ text: "Anchored", alignment: "S" }, { text: "Adrift", alignment: "U" }] },
+    { file: "visual-02.webm", choices: [{ text: "Contained", alignment: "U" }, { text: "Boundless", alignment: "S" }] },
+    { file: "visual-03.webm", choices: [{ text: "Centered", alignment: "S" }, { text: "Scattered", alignment: "U" }] },
     { file: "visual-04.webm", choices: [{ text: "Distorted", alignment: "U" }, { text: "Clear", alignment: "S" }] },
     { file: "visual-05.webm", choices: [{ text: "Drifting", alignment: "U" }, { text: "Guided", alignment: "S" }] },
     { file: "visual-06.webm", choices: [{ text: "Serene", alignment: "S" }, { text: "Turbulent", alignment: "U" }] },
-    { file: "visual-07.webm", choices: [{ text: "Erratic", alignment: "U" }, { text: "Rhythmic", alignment: "S" }] },
+    { file: "visual-07.webm", choices: [{ text: "Erratic", alignment: "U" }, { text: "Steady", alignment: "S" }] },
     { file: "visual-08.webm", choices: [{ text: "Focused", alignment: "S" }, { text: "Disoriented", alignment: "U" }] },
-    { file: "visual-09.webm", choices: [{ text: "Fractured", alignment: "U" }, { text: "Flowing", alignment: "S" }] },
-    { file: "visual-10.webm", choices: [{ text: "Splintered", alignment: "U" }, { text: "Unified", alignment: "S" }] }
+    { file: "visual-09.webm", choices: [{ text: "Fractured", alignment: "U" }, { text: "Intact", alignment: "S" }] },
+    { file: "visual-10.webm", choices: [{ text: "Shifting", alignment: "U" }, { text: "Constant", alignment: "S" }] }
 ];
 
 /* =========================================================
@@ -49,16 +49,16 @@ const visualExperiences = [
    ========================================================= */
 
 const audioExperiences = [
-    { file: "audio-01.mp3", choices: [{ text: "Committed", alignment: "S" }, { text: "Uncommitted", alignment: "U" }] },
-    { file: "audio-02.mp3", choices: [{ text: "Impulsive", alignment: "U" }, { text: "Disciplined", alignment: "S" }] },
-    { file: "audio-03.mp3", choices: [{ text: "Devoted", alignment: "S" }, { text: "Detached", alignment: "U" }] },
-    { file: "audio-04.mp3", choices: [{ text: "Rebellious", alignment: "U" }, { text: "Dutiful", alignment: "S" }] },
-    { file: "audio-05.mp3", choices: [{ text: "Honorable", alignment: "S" }, { text: "Dishonorable", alignment: "U" }] },
-    { file: "audio-06.mp3", choices: [{ text: "Self-Serving", alignment: "U" }, { text: "Selfless", alignment: "S" }] },
-    { file: "audio-07.mp3", choices: [{ text: "Restrained", alignment: "S" }, { text: "Uninhibited", alignment: "U" }] },
-    { file: "audio-08.mp3", choices: [{ text: "Wary", alignment: "U" }, { text: "Trusting", alignment: "S" }] },
-    { file: "audio-09.mp3", choices: [{ text: "Bound by Promise", alignment: "S" }, { text: "Free of Obligation", alignment: "U" }] },
-    { file: "audio-10.mp3", choices: [{ text: "Restless", alignment: "U" }, { text: "Content", alignment: "S" }] }
+    { file: "audio-01.mp3", choices: [{ text: "Foreign", alignment: "S" }, { text: "Familiar", alignment: "U" }] },
+    { file: "audio-02.mp3", choices: [{ text: "Distant", alignment: "U" }, { text: "Close", alignment: "S" }] },
+    { file: "audio-03.mp3", choices: [{ text: "Warm", alignment: "S" }, { text: "Cold", alignment: "U" }] },
+    { file: "audio-04.mp3", choices: [{ text: "Rushed", alignment: "U" }, { text: "Patient", alignment: "S" }] },
+    { file: "audio-05.mp3", choices: [{ text: "Heavy", alignment: "S" }, { text: "Hollow", alignment: "U" }] },
+    { file: "audio-06.mp3", choices: [{ text: "Muffled", alignment: "U" }, { text: "Clear", alignment: "S" }] },
+    { file: "audio-07.mp3", choices: [{ text: "Smooth", alignment: "S" }, { text: "Jagged", alignment: "U" }] },
+    { file: "audio-08.mp3", choices: [{ text: "Threatening", alignment: "U" }, { text: "Safe", alignment: "S" }] },
+    { file: "audio-09.mp3", choices: [{ text: "Calm", alignment: "S" }, { text: "Restless", alignment: "U" }] },
+    { file: "audio-10.mp3", choices: [{ text: "Wandering", alignment: "U" }, { text: "Leading", alignment: "S" }] }
 ];
 
 /* =========================================================
