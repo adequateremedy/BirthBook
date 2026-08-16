@@ -17,7 +17,6 @@ body {
     overflow: hidden;
 }
 
-
 /* =========================================================
    MAIN CONTAINER
    ========================================================= */
@@ -28,7 +27,6 @@ body {
     height: 100vh;
     overflow: hidden;
 }
-
 
 /* =========================================================
    SCREENS
@@ -41,13 +39,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Changed from center to allow tall content to start at top */
 
     width: 100%;
     height: 100%;
 
     opacity: 0;
     visibility: hidden;
+    overflow-y: auto; /* Added to allow vertical scrolling */
 
     transition:
         opacity 0.8s ease,
@@ -59,6 +58,9 @@ body {
     visibility: visible;
 }
 
+.content-panel, .result-panel {
+    margin: auto; /* Gracefully centers content if it is smaller than the screen */
+}
 
 /* =========================================================
    INTRO SCREEN
@@ -78,9 +80,7 @@ body {
 #introScreen p {
     width: min(900px, 90vw);
     margin: 0 auto 20px;
-
     text-align: center;
-
     font-size: clamp(1rem, 1.7vw, 1.35rem);
     line-height: 1.8;
 }
@@ -88,18 +88,13 @@ body {
 #beginButton {
     margin-top: 30px;
     padding: 14px 34px;
-
     border: 1px solid #fff;
     border-radius: 4px;
-
     background: transparent;
     color: #fff;
-
     font-family: inherit;
     font-size: 1.1rem;
-
     cursor: pointer;
-
     transition:
         background 0.3s ease,
         color 0.3s ease;
@@ -110,7 +105,6 @@ body {
     color: #000;
 }
 
-
 /* =========================================================
    EXPERIENCE SCREEN
    ========================================================= */
@@ -118,8 +112,16 @@ body {
 #experienceScreen {
     position: relative;
     background: #000;
+    justify-content: center; /* Keep experience screen perfectly centered */
 }
 
+.experience-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 /* =========================================================
    EXPERIENCE HEADER
@@ -129,13 +131,10 @@ body {
 #experienceNumber {
     position: absolute;
     z-index: 20;
-
     top: 20px;
-
     font-size: 0.9rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-
     pointer-events: none;
 }
 
@@ -147,7 +146,6 @@ body {
     right: 25px;
 }
 
-
 /* =========================================================
    VIDEO
    ========================================================= */
@@ -155,28 +153,21 @@ body {
 #videoContainer {
     position: absolute;
     inset: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 100%;
     height: 100%;
-
     overflow: hidden;
 }
 
 #visualPlayer {
     display: block;
-
     width: 100vw;
     height: 100vh;
-
     object-fit: fill;
-
     opacity: 0;
 }
-
 
 /* =========================================================
    AUDIO
@@ -185,11 +176,9 @@ body {
 #audioContainer {
     position: absolute;
     inset: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 100%;
     height: 100%;
 }
@@ -198,7 +187,6 @@ body {
     display: none;
 }
 
-
 /* =========================================================
    QUESTION
    ========================================================= */
@@ -206,34 +194,24 @@ body {
 #questionContainer {
     position: absolute;
     z-index: 30;
-
     left: 50%;
     bottom: 8%;
-
     transform: translateX(-50%);
-
     width: min(1000px, 90vw);
-
     padding: 25px 35px;
-
     text-align: center;
-
     background: rgba(0, 0, 0, 0.75);
-
     border: 1px solid rgba(255, 255, 255, 0.35);
     border-radius: 8px;
-
     backdrop-filter: blur(5px);
 }
 
 .question-label {
     display: inline;
     margin: 0;
-
     font-size: clamp(1.2rem, 2.5vw, 1.8rem);
     line-height: 1.6;
 }
-
 
 /* =========================================================
    EMBEDDED RESPONSE BUTTONS
@@ -245,21 +223,15 @@ body {
 
 .choice-button {
     display: inline-block;
-
     margin: 0 5px;
     padding: 8px 16px;
-
     border: 1px solid rgba(255, 255, 255, 0.75);
     border-radius: 5px;
-
     background: rgba(0, 0, 0, 0.45);
     color: #fff;
-
     font-family: inherit;
     font-size: inherit;
-
     cursor: pointer;
-
     transition:
         background 0.25s ease,
         color 0.25s ease,
@@ -280,7 +252,6 @@ body {
     display: inline;
 }
 
-
 /* =========================================================
    HIDDEN
    ========================================================= */
@@ -289,28 +260,22 @@ body {
     display: none !important;
 }
 
-
 /* =========================================================
    RESULT SCREEN
    ========================================================= */
 
 #resultScreen {
     padding: 40px;
-
-    overflow-y: auto;
-
     text-align: center;
 }
 
 #resultScreen h1 {
     margin: 0 0 25px;
-
     font-size: clamp(2rem, 5vw, 4rem);
 }
 
 #courtName {
     margin-bottom: 30px;
-
     font-size: clamp(2rem, 4vw, 3.2rem);
     letter-spacing: 0.08em;
 }
@@ -318,9 +283,7 @@ body {
 #courtDescription {
     width: min(900px, 90vw);
     margin: 0 auto;
-
     text-align: left;
-
     font-size: clamp(1rem, 1.5vw, 1.2rem);
     line-height: 1.8;
 }
@@ -329,13 +292,11 @@ body {
     margin: 0 0 20px;
 }
 
-
 /* =========================================================
    MOBILE
    ========================================================= */
 
 @media (max-width: 700px) {
-
     #introScreen {
         padding: 25px;
     }
@@ -347,9 +308,7 @@ body {
 
     #questionContainer {
         bottom: 5%;
-
         width: 94vw;
-
         padding: 20px 15px;
     }
 
@@ -362,5 +321,4 @@ body {
         width: 94vw;
         text-align: left;
     }
-
 }
