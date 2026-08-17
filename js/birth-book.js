@@ -82,10 +82,16 @@ let hasRepeated = false;
    DOM ELEMENTS
    ========================================================= */
 
+const loginScreen = document.getElementById("loginScreen");
+const passwordInput = document.getElementById("passwordInput");
+const loginButton = document.getElementById("loginButton");
+const loginError = document.getElementById("loginError");
+
 const introScreen = document.getElementById("introScreen");
 const experienceScreen = document.getElementById("experienceScreen");
 const resultScreen = document.getElementById("resultScreen");
 const beginButton = document.getElementById("beginButton");
+
 const experienceType = document.getElementById("experienceType");
 const experienceNumber = document.getElementById("experienceNumber");
 const videoContainer = document.getElementById("videoContainer");
@@ -96,6 +102,7 @@ const questionContainer = document.getElementById("questionContainer");
 const choiceContainer = document.getElementById("choiceContainer");
 const repeatContainer = document.getElementById("repeatContainer");
 const repeatButton = document.getElementById("repeatButton");
+
 const courtName = document.getElementById("courtName");
 const courtDescription = document.getElementById("courtDescription");
 
@@ -104,11 +111,33 @@ const courtDescription = document.getElementById("courtDescription");
    ========================================================= */
 
 function showScreen(screen) {
+    loginScreen.classList.remove("active");
     introScreen.classList.remove("active");
     experienceScreen.classList.remove("active");
     resultScreen.classList.remove("active");
     screen.classList.add("active");
 }
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+function handleLogin() {
+    if (passwordInput.value === "Indigo Child") {
+        showScreen(introScreen);
+        loginError.classList.add("hidden");
+    } else {
+        loginError.classList.remove("hidden");
+    }
+}
+
+loginButton.addEventListener("click", handleLogin);
+
+passwordInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+        handleLogin();
+    }
+});
 
 /* =========================================================
    STOP CURRENT MEDIA
