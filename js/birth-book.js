@@ -58,7 +58,7 @@ const visualExperiences = [
    ========================================================= */
 
 const audioExperiences = [
-    { file: "audio-01.mp3", choices: [{ text: "Foreign", alignment: "S" }, { text: "Familiar", alignment: "U" }] },
+    { file: "audio-01.mp3", choices: [{ text: "Foreign", alignment: "U" }, { text: "Familiar", alignment: "S" }] },
     { file: "audio-02.mp3", choices: [{ text: "Distant", alignment: "U" }, { text: "Close", alignment: "S" }] },
     { file: "audio-03.mp3", choices: [{ text: "Warm", alignment: "S" }, { text: "Cold", alignment: "U" }] },
     { file: "audio-04.mp3", choices: [{ text: "Rushed", alignment: "U" }, { text: "Patient", alignment: "S" }] },
