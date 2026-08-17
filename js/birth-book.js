@@ -6,34 +6,15 @@
 
 const courtDescriptions = {
     Seelie: `
-        <p>The Seelie Court operates on a deeply ingrained psychology of immense vanity and an absolute obsession with aesthetic perfection. In their daily lives, this manifests as a profound dedication to beauty, art, and the meticulous maintenance of their relationships and physical appearances, making them impeccable hosts and deeply devoted partners. However, their social interactions are often heavily guided by complex etiquette and weaponized politeness. They speak with soft, measured words and shower their targets with disarming compliments. This help them navigate life with a fluid, musical grace, cloaking their inherent nature in a veneer of vibrant grandeur and blinding beauty. However, they are utterly obsessed with the grand spectacles of high society, lavish feasts, dancing beneath moonlight, and engaging poetic battles of wit. Every interaction with a Seelie is governed by an incredibly strict, unyielding code of etiquette and hospitality. They demand flawless manners from everyone they encounter.</p> 
-
-<p>Beneath this dazzling surface lies a dangerous, conditional mercy that can turn lethal without a moment's warning. This is because the Seelie do not operate on human morality; they have always viewed mortals as amusing pets or temporary playthings to be discarded at their whim. If someone were to accidentally violate their hyper-specific rules of etiquette, the Seelie would almost always choose to inflict severe, disproportionate curses with a bright, cheerful smile and polite demeanor. They are the type who will trap a traveler in a dance without shoes, over hot coals, punishing a minor annoyance by turning it into a beautiful, tragedy.</p>
-
-<p>To easily spot a Seelie, one must observe the unnerving uncanny valley effect they project. Their physical symmetry is absolute and unblemished, and they move with a frictionless grace that seems to never disturb the ground beneath them. They exude an overpowering natural scent of heavy honey or cloying summer blooms, and behaviorally, they share the Unseelie's profound biological inability to tell a direct lie. To navigate this, the Seelie rely entirely on masterful omission, double-speak, and carefully worded half-truths to maintain their flawless image. They also share the identical ancient biological vulnerability to cold iron.</p>
+        <img src="BirthBook/assets/Seelie-Result.png" alt="Seelie Result">
     `,
 
     UnSeelie: `
-        <p>The Unseelie Court are driven by raw primal instinct, deep passions, and brutal honesty that completely strips away any pretense of manners. In their daily lives, they are profoundly authentic; they do not engage in fake pleasantries or intricate social games, making them fiercely loyal friends and straightforward neighbors where one always knows where they stand.</p> 
-
-<p>What makes them unique is their absolute rejection of high-society civility and their complete embrace of the wild, untamed aspects of nature. They prefer the immediate impact of blunt truths and direct action over polite excuses or manipulation. Because of this, they entirely reject elegant illusions, shiny gems, and sophisticated social gatherings, but rather prefer dark art, projected pains, and sincere truth.</p> 
-
-<p>UnSeelie often project a cold, primal hostility toward most others, almost naturally. They move with either an obvious stillness or with a jagged, unnatural speed simply for the reaction of their spectators. Their gatherings are often chaotic, dark, and loud affairs intended to mock traditional beauty by celebrating grunge, the bitter cold, and physical decay.</p> 
-
-<p>For the Unseelie, humans are pawns used to entertain and/or gain advantages. Their interactions with mortals almost always remain focused on their own desires and gains. Driven by a deep-seated hatred, fear, and a brutal survival instinct, they do not require an excuse or a broken rule to justify their temperament, and they often take a sadistic delight in justified torment.</p>
-
-<p>Spotting an Unseelie involves looking for sharp, asymmetrical features and subtle micro-expressions—which are kept completely suppressed unless they are actively provoked or threatened. Their physical presence often carries a visceral weight; they radiate an unnatural, bone-deep coldness, and they almost always carry the heavy, atmospheric scent of raw, wet dirt. They share a paralyzing biological vulnerability to cold iron, and are bound by the same ancient inability - like their Seelie counterparts - to speak an outright lie, though they bypass this limitation through sheer, unfiltered bluntness.</p> 
-
-<p>There are no polite riddles or hidden agendas here; the Unseelie display themselves proudly, making their intentions well known.</p>
+        <img src="BirthBook/assets/UnSeelie-Result.png" alt="UnSeelie Result">
     `,
 
     Shadow: `
-        <p>The Shadow Fae are characterized by hyper-vigilant, deeply secretive, and elusive behaviors born from a sudden and inherent isolation. They are not an official Court, but rather outcasts born to either Seelie or Unseelie parents. They operate entirely in the liminal space between the two extreme Courts. They move like the smoke, fog, and shadows; smooth and almost invisibly, and congregate within forgotten spaces, such as alleys, rooftops, and deep caves. They rarely raise their voices above a muted whisper, and would rather choose subtle espionage and mastery of manipulation over a grand battle or wild fight.</p> 
-
-<p>Their physical presence is defined by a stony, unreadable stoicism, often hiding thoughts and emotions behind a cold, blank stare. This shapes them into quiet observers who use absolute silence as an impenetrable shield. While this makes them heavily guarded, it also makes them deeply attentive listeners and fiercely loyal keepers of confidence for those who manage to earn their trust. To easily spot a Shadow Fae, one must look for the distinct optical blurring they cause; their physical edges seem perpetually out of focus when viewed directly, creating a subtle sensory disorientation, or they will seem to carry shadows around their skin.</p> 
-
-<p>To the Shadow Fae, information is the ultimate currency, and they like dabble in gossip as a means to gather forbidden knowledge, trade stolen memories, and archiving secrets. Instead of fighting openly for dominance, the Shadow Fae often use blackmail and political schemes to make quiet shifts in balances of power. They view mortals as useful tools, friends, enemies, lovers, and sometimes all at the same time, per their mood. The Shadow Fae thrive almost exclusively in loopholes and gray areas. They are patient, and will never chase someone down or curse them openly; instead, they would rather ruin their sanity from afar or slide a lethal poison into their glass while they look the other way. Behaviorally, they share the Seelie's emotional restraint and the Unseelie's sharp survival instincts, relying entirely on evasion and stealth. Like the other Fae, they share the fundamental biological weakness to cold iron.</p> 
-<p>Unlike the Seelie and UnSeelie, they are actually capable of lying, should they ever be required to.</p> 
+        <img src="BirthBook/assets/Shadow-Result.png" alt="Shadow Result">
     `
 };
 
