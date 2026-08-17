@@ -6,15 +6,15 @@
 
 const courtDescriptions = {
     Seelie: `
-        <img src="BirthBook/assets/Seelie-Result.png" alt="Seelie Result">
+        <img src="assets/Seelie-Result.png" alt="Seelie Result">
     `,
 
     UnSeelie: `
-        <img src="BirthBook/assets/UnSeelie-Result.png" alt="UnSeelie Result">
+        <img src="assets/UnSeelie-Result.png" alt="UnSeelie Result">
     `,
 
     Shadow: `
-        <img src="BirthBook/assets/Shadow-Result.png" alt="Shadow Result">
+        <img src="assets/Shadow-Result.png" alt="Shadow Result">
     `
 };
 
