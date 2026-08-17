@@ -76,6 +76,7 @@ const VISUAL_FADE_DURATION = 1500;
 let currentExperience = 0;
 let seelieScore = 0;
 let unseelieScore = 0;
+let hasRepeated = false;
 
 /* =========================================================
    DOM ELEMENTS
@@ -93,6 +94,8 @@ const audioContainer = document.getElementById("audioContainer");
 const audioPlayer = document.getElementById("audioPlayer");
 const questionContainer = document.getElementById("questionContainer");
 const choiceContainer = document.getElementById("choiceContainer");
+const repeatContainer = document.getElementById("repeatContainer");
+const repeatButton = document.getElementById("repeatButton");
 const courtName = document.getElementById("courtName");
 const courtDescription = document.getElementById("courtDescription");
 
@@ -200,6 +203,7 @@ beginButton.addEventListener("click", () => {
     currentExperience = 0;
     seelieScore = 0;
     unseelieScore = 0;
+    hasRepeated = false;
 
     showScreen(experienceScreen);
     loadExperience();
@@ -218,11 +222,13 @@ function loadExperience() {
     }
 
     stopCurrentMedia();
+    hasRepeated = false;
 
     experienceType.textContent = experience.type.toUpperCase();
     experienceNumber.textContent = `${currentExperience + 1} / 20`;
     questionContainer.classList.add("hidden");
     choiceContainer.innerHTML = "";
+    repeatContainer.classList.add("hidden");
 
     /* =====================================================
        VISUAL
@@ -231,33 +237,7 @@ function loadExperience() {
     if (experience.type === "Visual") {
         videoContainer.classList.remove("hidden");
         audioContainer.classList.add("hidden");
-
-        visualPlayer.src = `assets/visuals/${experience.file}`;
-        visualPlayer.load();
-
-        const handleVisualStart = () => {
-            fadeVideoIn(visualPlayer);
-        };
-
-        // Fire immediately if video is already cached and ready
-        if (visualPlayer.readyState >= 1) {
-            handleVisualStart();
-        } else {
-            visualPlayer.onloadedmetadata = handleVisualStart;
-        }
-
-        visualPlayer.onended = async () => {
-            visualPlayer.onended = null;
-            await fadeVideoOut(visualPlayer);
-            showQuestion(experience);
-        };
-
-        const playPromise = visualPlayer.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.error("Visual playback failed:", error);
-            });
-        }
+        playVisualExperience(experience);
         return;
     }
 
@@ -268,6 +248,39 @@ function loadExperience() {
     videoContainer.classList.add("hidden");
     audioContainer.classList.remove("hidden");
     playAudioExperience(experience);
+}
+
+/* =========================================================
+   VISUAL PLAYBACK
+   ========================================================= */
+
+function playVisualExperience(experience) {
+    visualPlayer.src = `assets/visuals/${experience.file}`;
+    visualPlayer.load();
+
+    const handleVisualStart = () => {
+        fadeVideoIn(visualPlayer);
+    };
+
+    // Fire immediately if video is already cached and ready
+    if (visualPlayer.readyState >= 1) {
+        handleVisualStart();
+    } else {
+        visualPlayer.onloadedmetadata = handleVisualStart;
+    }
+
+    visualPlayer.onended = async () => {
+        visualPlayer.onended = null;
+        await fadeVideoOut(visualPlayer);
+        showQuestion(experience);
+    };
+
+    const playPromise = visualPlayer.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            console.error("Visual playback failed:", error);
+        });
+    }
 }
 
 /* =========================================================
@@ -366,7 +379,29 @@ function showQuestion(experience) {
     secondButton.addEventListener("click", () => {
         recordChoice(secondChoice);
     });
+
+    if (!hasRepeated) {
+        repeatContainer.classList.remove("hidden");
+    } else {
+        repeatContainer.classList.add("hidden");
+    }
 }
+
+/* =========================================================
+   REPEAT BUTTON LOGIC
+   ========================================================= */
+
+repeatButton.addEventListener("click", () => {
+    const experience = experiences[currentExperience];
+    hasRepeated = true;
+    questionContainer.classList.add("hidden");
+
+    if (experience.type === "Visual") {
+        playVisualExperience(experience);
+    } else {
+        playAudioExperience(experience);
+    }
+});
 
 /* =========================================================
    RECORD CHOICE
