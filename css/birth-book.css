@@ -97,7 +97,8 @@ body {
     border-color: #aaa;
 }
 
-#loginButton {
+/* GLOBAL BUTTON STYLES */
+.primary-button {
     padding: 12px 34px;
     border: 1px solid #fff;
     border-radius: 4px;
@@ -111,7 +112,7 @@ body {
         color 0.3s ease;
 }
 
-#loginButton:hover {
+.primary-button:hover {
     background: #fff;
     color: #000;
 }
@@ -142,22 +143,6 @@ body {
 
 #beginButton {
     margin-top: 30px;
-    padding: 14px 34px;
-    border: 1px solid #fff;
-    border-radius: 4px;
-    background: transparent;
-    color: #fff;
-    font-family: inherit;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition:
-        background 0.3s ease,
-        color 0.3s ease;
-}
-
-#beginButton:hover {
-    background: #fff;
-    color: #000;
 }
 
 /* =========================================================
@@ -363,6 +348,13 @@ body {
 
 #courtDescription p {
     margin: 0 0 20px;
+}
+
+.result-actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }
 
 /* =========================================================
