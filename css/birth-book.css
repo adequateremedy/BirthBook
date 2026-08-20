@@ -346,12 +346,20 @@ body {
     line-height: 1.8;
 }
 
+#courtDescription img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 30px;
+}
+
 #courtDescription p {
     margin: 0 0 20px;
 }
 
 .result-actions {
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 40px;
     display: flex;
     justify-content: center;
     gap: 15px;
