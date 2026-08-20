@@ -119,6 +119,9 @@ function showScreen(screen) {
     experienceScreen.classList.remove("active");
     resultScreen.classList.remove("active");
     screen.classList.add("active");
+    
+    // Scroll to top when changing screens, helpful for long results
+    screen.scrollTop = 0;
 }
 
 /* =========================================================
