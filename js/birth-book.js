@@ -77,6 +77,7 @@ let currentExperience = 0;
 let seelieScore = 0;
 let unseelieScore = 0;
 let hasRepeated = false;
+let finalBirthCourt = ""; // Store the result
 
 /* =========================================================
    DOM ELEMENTS
@@ -105,6 +106,8 @@ const repeatButton = document.getElementById("repeatButton");
 
 const courtName = document.getElementById("courtName");
 const courtDescription = document.getElementById("courtDescription");
+const saveResultButton = document.getElementById("saveResultButton");
+const replayButton = document.getElementById("replayButton");
 
 /* =========================================================
    SCREEN MANAGEMENT
@@ -233,6 +236,7 @@ beginButton.addEventListener("click", () => {
     seelieScore = 0;
     unseelieScore = 0;
     hasRepeated = false;
+    finalBirthCourt = "";
 
     showScreen(experienceScreen);
     loadExperience();
@@ -475,7 +479,34 @@ function determineCourt() {
    ========================================================= */
 
 function displayResult(court) {
+    finalBirthCourt = court;
     showScreen(resultScreen);
     courtName.textContent = court;
     courtDescription.innerHTML = courtDescriptions[court];
 }
+
+/* =========================================================
+   RESULT ACTIONS (SAVE / REPLAY)
+   ========================================================= */
+
+replayButton.addEventListener("click", () => {
+    // Send player back to the Intro Screen (after password)
+    showScreen(introScreen);
+});
+
+saveResultButton.addEventListener("click", () => {
+    let bloodlineCourt = finalBirthCourt;
+
+    // Apply specific Shadow Court logic
+    if (finalBirthCourt === "Shadow") {
+        const options = ["Seelie", "UnSeelie", "Shadow"];
+        bloodlineCourt = options[Math.floor(Math.random() * options.length)];
+    }
+
+    // Redirect to the RPG-Hub and pass the results in the URL
+    // Ensure this URL matches exactly where your RPG-Hub index.html is hosted
+    const hubUrl = "https://adequateremedy.github.io/RPG-Hub/";
+    const redirectUrl = `${hubUrl}?birthCourt=${finalBirthCourt}&bloodlineCourt=${bloodlineCourt}`;
+    
+    window.location.href = redirectUrl;
+});
